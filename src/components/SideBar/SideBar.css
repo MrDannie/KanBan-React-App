@@ -1,0 +1,38 @@
+/* .SideBar {
+  width: 300px;
+  left: 0px;
+  top: 0px;
+  background: #fff;
+} */
+@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@700&display=swap");
+
+.navigation {
+  text-align: left;
+  /* margin-left: 45px; */
+}
+
+.title {
+  font-family: "Plus Jakarta Sans";
+}
+
+.launch {
+  border-radius: 0px 50px 50px 0px;
+  width: 275px;
+}
+
+.text-content > span {
+  color: white;
+}
+
+.launch > span {
+  display: flex;
+  align-items: center;
+  text-align: left;
+  margin-left: 45px;
+  font-family: "Plus Jakarta Sans";
+  color: #828fa3;
+}
+
+.launch span > img {
+  padding-right: 10px;
+}
