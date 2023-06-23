@@ -1,0 +1,56 @@
+@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@700&display=swap");
+@import url("../../index.css");
+
+@layer base {
+  .PlatformLaunch {
+    @apply p-7;
+  }
+
+  .add-column-btn {
+    @apply bg-[#635fcf] py-[13px] px-[14.5px] rounded-[50px] text-[15px] text-[#fff];
+  }
+
+  .empty-message {
+    @apply mb-[20px] text-[18px];
+  }
+
+  .default-content {
+    @apply flex flex-col justify-center items-center text-[#828FA3] h-screen w-full text-center;
+  }
+
+  .tasks-container {
+    @apply flex justify-start items-center gap-8 text-left;
+  }
+
+  .task {
+    @apply w-[280px] bg-[#fff] py-4 pl-4 rounded-lg drop-shadow-md;
+  }
+
+  div.title {
+    @apply flex items-center place-items-center mb-4 tracking-[2.4px] text-[12px] text-[#828FA3] leading-[15.12px];
+  }
+
+  h3 {
+    @apply text-[15px] text-[#000112] leading-[19px];
+  }
+
+  span.sub-task {
+    @apply text-[#828FA3] text-[12px];
+  }
+
+  .dot {
+    @apply block rounded-full bg-[#49C4E5] p-[6px] mr-2;
+  }
+
+  .color-dot-2 {
+    @apply bg-[#8471F2];
+  }
+
+  .color-dot-2 {
+    @apply bg-[#8471F2];
+  }
+
+  .color-dot-3 {
+    @apply bg-[#67E2AE];
+  }
+}

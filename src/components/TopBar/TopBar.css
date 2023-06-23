@@ -1,1 +1,34 @@
-.TopBar {}
+.TopBar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #fff;
+  width: 100%;
+  padding: 0px 24px 0px 45px;
+  height: 97px;
+}
+
+.logo {
+  margin-right: 70px;
+}
+
+.page-title {
+  color: #000112;
+  font-family: "Plus Jakarta Sans";
+  font-size: 24px;
+}
+
+.logo-title-region {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.add-task {
+  background-color: #635fc7;
+  padding: 13px 14.5px;
+  border-radius: 50px;
+  font-size: 15px;
+  color: #fff;
+  margin-right: 30px;
+}

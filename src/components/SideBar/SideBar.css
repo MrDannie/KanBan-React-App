@@ -1,38 +1,150 @@
-/* .SideBar {
-  width: 300px;
-  left: 0px;
-  top: 0px;
-  background: #fff;
-} */
 @import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@700&display=swap");
+@import url("../../index.css");
+
+@layer base {
+  .sidebar {
+    @apply relative h-screen w-[300px] min-w-[261px] text-[#828FA3] bg-white border-r border-solid border-[#F2F2F2]	transition-all;
+  }
+
+  .main-container {
+    @apply flex;
+  }
+
+  .logo-section {
+    @apply mt-[34px] ml-[45px] mb-[55px];
+  }
+
+  .navigation {
+    @apply flex text-left	flex-col justify-between text-[15px];
+  }
+
+  h1.title {
+    @apply mb-[20px] ml-[45px] tracking-[2.4px];
+  }
+
+  .nav-tabs {
+    @apply rounded-r-full mr-[24px] cursor-pointer py-[20px];
+  }
+
+  .add-board-btn {
+    @apply text-[#635FC7];
+  }
+
+  .switch {
+    @apply flex justify-center items-center mb-[25px] bg-[#F4F7FD] py-[15px] px-[50px] rounded-md;
+  }
+
+  .toggler {
+    @apply flex align-middle bg-[#635fc7] w-[50px] h-[22px] rounded-[20px] pl-[3px] mx-[30px] px-[25px];
+  }
+
+  .toggler-btn {
+    @apply h-[20px] w-[20px] p-[10px] rounded-full bg-[#fff];
+  }
+
+  .hide-btn {
+    @apply ml-[30px] cursor-pointer;
+  }
+
+  .hide-sidebar-icon {
+    @apply mr-[20px] cursor-pointer inline;
+  }
+
+  main {
+    @apply w-full;
+  }
+
+  .nav-tab__content {
+    @apply flex items-center text-left ml-[45px];
+  }
+
+  .nav-icon {
+    @apply mr-[10px];
+  }
+
+  .active {
+    @apply bg-[#635fc7] text-[#fff];
+  }
+
+  .show-sidebar-btn {
+    @apply flex items-center cursor-pointer justify-center bg-[#635fc7] w-[80px] h-[48px] rounded-r-full;
+  }
+
+  .show-sidebar-icon {
+    @apply cursor-pointer ml-[30px];
+  }
+}
 
 .navigation {
-  text-align: left;
-  /* margin-left: 45px; */
+  height: calc(100vh - 97px);
 }
 
-.title {
-  font-family: "Plus Jakarta Sans";
+.theme_and_switch {
+  position: absolute;
+  bottom: 5%;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
-.launch {
-  border-radius: 0px 50px 50px 0px;
-  width: 275px;
-}
+/* CRUCIAL THINGS I LEARNT I WANT TO INTERNALISE:
+1. Min Width of the Side
+2. How I Spaced The contents vertically
+3. How I made the Hide section Move up when resizing the page from bottom
+4. How I used Min-Width and Max Width on the side nav
+5. LEAR FLEX WELL AND TRANSLATE
+*/
 
-.text-content > span {
-  color: white;
-}
+/* main {
+  width: 100%;
+} */
 
-.launch > span {
+/* .title {
+  letter-spacing: 2.4px;
+} */
+
+/* .nav-tabs > span {
   display: flex;
   align-items: center;
   text-align: left;
   margin-left: 45px;
-  font-family: "Plus Jakarta Sans";
-  color: #828fa3;
-}
+} */
 
-.launch span > img {
+/* .nav-tabs span > img {
   padding-right: 10px;
-}
+} */
+
+/* .toggle-btn {
+  height: 20px;
+  width: 20px;
+  padding: 10px;
+  border-radius: 50%;
+  background-color: #fff;
+} */
+
+/* .show-sidebar-btn {
+  position: absolute;
+  top: 944px;
+  left: 0px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #635fc7;
+  width: 56px;
+  height: 48px;
+  border-radius: 0px 50px 50px 0px;
+} */
+
+/* .nav-tabs:hover {
+  color: #635fc7;
+  transition: all 0.5;
+} */
+
+/* .active {
+  background: #635fc7;
+  color: #fff;
+} */
+
+/* .nav-tabs:not(:active):hover {
+  color: #635fc7;
+  transition: all 0.5;
+} */
