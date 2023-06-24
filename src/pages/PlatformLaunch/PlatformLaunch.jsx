@@ -5,11 +5,13 @@ import "./PlatformLaunch.css";
 import appData from "../../store/data.json";
 
 const PlatformLaunch = (props) => {
-  const { platformLaunchData } = props;
-  console.log("Launch Data", props);
+  // const { platformLaunchData } = props;
+  // console.log("Launch Data", props);
 
   // const PlatformLaunchData = appData.boards[0];
-  // const platformLaunchTasks = appData.boards[0]["columns"][0]["tasks"];
+  const platformLaunchData = appData.boards[0]["columns"];
+  console.log("HERE", platformLaunchData);
+
   return (
     <div className="PlatformLaunch">
       <div
@@ -23,44 +25,24 @@ const PlatformLaunch = (props) => {
       </div>
       {/* TASKS CONTAINER */}
       <div className="tasks-container">
-        <section className="todo-col">
-          <div className="title">
-            <span className="dot color-dot-1"></span>
-            <h2>TODO (4)</h2>
-          </div>
-          <div className="task">
-            <h3>Build UI for onboarding flow</h3>
-            <span className="sub-task">0 of 3 substasks</span>
-          </div>
-        </section>
-
-        <section className="doing-col">
-          <div className="title">
-            <span className="dot color-dot-2"></span>
-            <h2>DOING (6)</h2>
-          </div>
-          <div className="task">
-            <h3>Build UI for onboarding flow</h3>
-            <span className="sub-task">0 of 3 substasks</span>
-          </div>
-        </section>
-
-        <section className="done-col">
-          <div className="title">
-            <span className="dot color-dot-3"></span>
-            <h2>DONE (7)</h2>
-          </div>
-          <div className="task">
-            <h3>Build UI for onboarding flow</h3>
-            <span className="sub-task">0 of 3 substasks</span>
-          </div>
-        </section>
-
-        <section className="todo-col">
-          <div className="title"></div>
-          <div className="task">
-            <h3>+New Column</h3>
-          </div>
+        {platformLaunchData.map((item, index) => (
+          <section className="todo-col">
+            <div className="title">
+              <span className="dot color-dot-1"></span>
+              <h2>{item.name + " " + "(" + item["tasks"].length + ")"}</h2>
+            </div>
+            {item["tasks"].map((item) => (
+              <div className="task">
+                <h3 className="task-title">{item.title}</h3>
+                <span className="sub-task">
+                  0 of {item["subtasks"].length} substasks
+                </span>
+              </div>
+            ))}
+          </section>
+        ))}
+        <section className="task add-new-col">
+          <h3 className="add-col-btn">+New Column</h3>
         </section>
       </div>
     </div>

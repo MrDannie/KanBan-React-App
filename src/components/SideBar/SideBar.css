@@ -11,7 +11,7 @@
   }
 
   .logo-section {
-    @apply mt-[34px] ml-[45px] mb-[55px];
+    @apply mt-[34px] ml-[45px] mb-[55px] cursor-pointer;
   }
 
   .navigation {
@@ -35,7 +35,7 @@
   }
 
   .toggler {
-    @apply flex align-middle bg-[#635fc7] w-[50px] h-[22px] rounded-[20px] pl-[3px] mx-[30px] px-[25px];
+    @apply flex align-middle bg-[#635fc7] w-[50px] h-[22px] rounded-[20px] pl-[3px] mx-[30px] px-[25px] cursor-pointer;
   }
 
   .toggler-btn {
@@ -92,59 +92,6 @@
 3. How I made the Hide section Move up when resizing the page from bottom
 4. How I used Min-Width and Max Width on the side nav
 5. LEAR FLEX WELL AND TRANSLATE
+6. LEARN HOW TO REALLY ITERATE AND DISPLAY DATA
+7. HOW I CENTERED THE TEXT VERICALLY IN THAT STRECHED COL
 */
-
-/* main {
-  width: 100%;
-} */
-
-/* .title {
-  letter-spacing: 2.4px;
-} */
-
-/* .nav-tabs > span {
-  display: flex;
-  align-items: center;
-  text-align: left;
-  margin-left: 45px;
-} */
-
-/* .nav-tabs span > img {
-  padding-right: 10px;
-} */
-
-/* .toggle-btn {
-  height: 20px;
-  width: 20px;
-  padding: 10px;
-  border-radius: 50%;
-  background-color: #fff;
-} */
-
-/* .show-sidebar-btn {
-  position: absolute;
-  top: 944px;
-  left: 0px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: #635fc7;
-  width: 56px;
-  height: 48px;
-  border-radius: 0px 50px 50px 0px;
-} */
-
-/* .nav-tabs:hover {
-  color: #635fc7;
-  transition: all 0.5;
-} */
-
-/* .active {
-  background: #635fc7;
-  color: #fff;
-} */
-
-/* .nav-tabs:not(:active):hover {
-  color: #635fc7;
-  transition: all 0.5;
-} */

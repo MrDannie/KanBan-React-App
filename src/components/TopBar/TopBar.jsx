@@ -21,7 +21,11 @@ const TopBar = () => {
       </div>
       <div className="add-newtask">
         <button className="add-task">+ Add New Task</button>
-        <img className="inline" src={iconVerticalEllipsis} alt="" />
+        <img
+          className="inline cursor-pointer"
+          src={iconVerticalEllipsis}
+          alt=""
+        />
       </div>
     </div>
   );

@@ -19,18 +19,26 @@
   }
 
   .tasks-container {
-    @apply flex justify-start items-center gap-8 text-left;
+    @apply flex justify-start gap-8 text-left;
   }
 
   .task {
-    @apply w-[280px] bg-[#fff] py-4 pl-4 rounded-lg drop-shadow-md;
+    @apply w-[280px] bg-[#fff] py-4 px-4 rounded-lg drop-shadow-md mb-4;
+  }
+
+  .add-new-col {
+    @apply flex mt-8 items-center justify-center cursor-pointer bg-[#E9EFFA] drop-shadow-none;
+  }
+
+  .add-col-btn {
+    @apply flex justify-center text-[#828FA3] text-[24px];
   }
 
   div.title {
-    @apply flex items-center place-items-center mb-4 tracking-[2.4px] text-[12px] text-[#828FA3] leading-[15.12px];
+    @apply flex items-center place-items-center mb-4 tracking-[2.4px] text-[12px] text-[#828FA3] uppercase leading-[15.12px];
   }
 
-  h3 {
+  h3.task-title {
     @apply text-[15px] text-[#000112] leading-[19px];
   }
 

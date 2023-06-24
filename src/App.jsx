@@ -15,7 +15,7 @@ function App() {
   const [platformLaunchData, setPlatformLaunchData] = useState();
 
   useEffect(() => {
-    setPlatformLaunchData(appData.boards[0]);
+    setPlatformLaunchData(appData.boards[0]["columns"]);
   });
 
   return (
