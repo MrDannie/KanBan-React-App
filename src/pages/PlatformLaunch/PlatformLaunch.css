@@ -39,7 +39,11 @@
   }
 
   h3.task-title {
-    @apply text-[15px] text-[#000112] leading-[19px];
+    @apply text-[15px] text-[#000112] leading-[19px] cursor-pointer;
+  }
+
+  .task-title:hover {
+    @apply text-[#635fcf];
   }
 
   span.sub-task {

@@ -3,7 +3,7 @@
 
 @layer base {
   .sidebar {
-    @apply relative h-screen w-[300px] min-w-[261px] text-[#828FA3] bg-white border-r border-solid border-[#F2F2F2]	transition-all;
+    @apply relative h-screen w-[300px] text-[#828FA3] bg-white border-r border-solid border-[#F2F2F2];
   }
 
   .main-container {
@@ -31,28 +31,28 @@
   }
 
   .switch {
-    @apply flex justify-center items-center mb-[25px] bg-[#F4F7FD] py-[15px] px-[50px] rounded-md;
+    @apply flex w-[251px] h-[48px] justify-center items-center mb-[25px] bg-[#F4F7FD] py-[15px] px-[50px] rounded-md;
   }
 
   .toggler {
-    @apply flex align-middle bg-[#635fc7] w-[50px] h-[22px] rounded-[20px] pl-[3px] mx-[30px] px-[25px] cursor-pointer;
+    @apply flex items-center justify-start bg-[#635fc7] w-[40px] h-[20px] rounded-[20px] mx-[30px] p-1 cursor-pointer;
   }
 
   .toggler-btn {
-    @apply h-[20px] w-[20px] p-[10px] rounded-full bg-[#fff];
+    @apply h-[14px] w-[14px] p-[7px] rounded-full bg-[#fff];
   }
 
   .hide-btn {
-    @apply ml-[30px] cursor-pointer;
+    @apply cursor-pointer;
   }
 
   .hide-sidebar-icon {
     @apply mr-[20px] cursor-pointer inline;
   }
 
-  main {
+  /* main {
     @apply w-full;
-  }
+  } */
 
   .nav-tab__content {
     @apply flex items-center text-left ml-[45px];
@@ -66,12 +66,16 @@
     @apply bg-[#635fc7] text-[#fff];
   }
 
+  .nav-tabs:hover {
+    @apply bg-[#635fc71a] text-[#635FC7];
+  }
+
   .show-sidebar-btn {
     @apply flex items-center cursor-pointer justify-center bg-[#635fc7] w-[80px] h-[48px] rounded-r-full;
   }
 
   .show-sidebar-icon {
-    @apply cursor-pointer ml-[30px];
+    @apply cursor-pointer;
   }
 }
 
@@ -81,9 +85,36 @@
 
 .theme_and_switch {
   position: absolute;
-  bottom: 5%;
+  bottom: 3%;
   left: 50%;
   transform: translateX(-50%);
+  width: 100%;
+}
+
+.switch {
+  transform: translateX(20px);
+}
+
+.hide-btn {
+  transform: translateX(20px);
+}
+
+.hideSidebar {
+  display: flex;
+  align-items: center;
+  height: 48px;
+  width: 276px;
+  border-radius: 0px 100px 100px 0px;
+}
+
+.hideSidebar:hover {
+  background-color: #635fc71a;
+  color: #635fc7;
+  cursor: pointer;
+}
+
+main {
+  width: calc(100% - 300px);
 }
 
 /* CRUCIAL THINGS I LEARNT I WANT TO INTERNALISE:
@@ -94,4 +125,6 @@
 5. LEAR FLEX WELL AND TRANSLATE
 6. LEARN HOW TO REALLY ITERATE AND DISPLAY DATA
 7. HOW I CENTERED THE TEXT VERICALLY IN THAT STRECHED COL
+8. Understand How properties are being passed in React
+9. 
 */

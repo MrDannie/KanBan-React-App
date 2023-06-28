@@ -7,6 +7,7 @@
 body {
   background-color: #f4f7fd;
   font-family: "Plus Jakarta Sans";
+  font-weight: 700;
   overflow-y: hidden;
   overflow-x: scroll;
 }

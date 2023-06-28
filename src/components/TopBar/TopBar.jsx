@@ -7,9 +7,12 @@ import { useGlobalState } from "../../store/store";
 
 const TopBar = () => {
   const isSideBarOpen = useGlobalState("isSideBarOpen");
-  console.log("SideBar", isSideBarOpen[0].show);
   return (
     <div className="TopBar">
+      <div
+        style={{ display: isSideBarOpen[0].show ? "none" : "block" }}
+        className="rectangle-line"
+      ></div>
       <div className="logo-title-region">
         <img
           style={{ display: isSideBarOpen[0].show ? "none" : "block" }}

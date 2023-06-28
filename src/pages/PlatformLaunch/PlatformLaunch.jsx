@@ -1,16 +1,26 @@
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import "./PlatformLaunch.css";
 
 import appData from "../../store/data.json";
+import ModalContainer from "../../components/ModalContainer/ModalContainer";
 
 const PlatformLaunch = (props) => {
-  // const { platformLaunchData } = props;
-  // console.log("Launch Data", props);
+  const [showViewTaskModal, setViewTaskModal] = useState("");
+  const [taskModalDetails, setModalData] = useState({});
 
-  // const PlatformLaunchData = appData.boards[0];
+  const handleOnClose = () => {
+    setViewTaskModal("");
+  };
+
+  const showTaskDetails = (id, item) => {
+    setModalData(item);
+    setViewTaskModal("ViewTask");
+  };
   const platformLaunchData = appData.boards[0]["columns"];
-  console.log("HERE", platformLaunchData);
+  // const count = platformLaunchData["subtasks"].filter((subtask, index) => {
+  //   return subtask["isCompleted"] === true;
+  // }).length;
 
   return (
     <div className="PlatformLaunch">
@@ -26,25 +36,39 @@ const PlatformLaunch = (props) => {
       {/* TASKS CONTAINER */}
       <div className="tasks-container">
         {platformLaunchData.map((item, index) => (
-          <section className="todo-col">
+          <section key={index} className="todo-col">
             <div className="title">
               <span className="dot color-dot-1"></span>
               <h2>{item.name + " " + "(" + item["tasks"].length + ")"}</h2>
             </div>
-            {item["tasks"].map((item) => (
-              <div className="task">
-                <h3 className="task-title">{item.title}</h3>
+            {item["tasks"].map((item, index) => (
+              <div key={index} className="task">
+                <h3
+                  className="task-title"
+                  onClick={() => showTaskDetails(index, item)}
+                >
+                  {item.title}
+                </h3>
                 <span className="sub-task">
-                  0 of {item["subtasks"].length} substasks
+                  {"0" + " of " + item["subtasks"].length + " subtasks"}
                 </span>
               </div>
             ))}
           </section>
         ))}
-        <section className="task add-new-col">
+        <section
+          onClick={() => setViewTaskModal("AddNewColumn")}
+          className="task add-new-col"
+        >
           <h3 className="add-col-btn">+New Column</h3>
         </section>
       </div>
+      <ModalContainer
+        component={showViewTaskModal}
+        onClose={handleOnClose}
+        visible={showViewTaskModal}
+        taskDetails={taskModalDetails}
+      />
     </div>
   );
 };

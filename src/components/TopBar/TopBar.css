@@ -6,6 +6,19 @@
   width: 100%;
   padding: 0px 24px 0px 45px;
   height: 97px;
+  border-bottom: 1px solid #e4ebfa;
+}
+
+.rectangle-line {
+  content: "";
+  position: absolute;
+  top: 0%;
+  bottom: 1.03%;
+  right: 85.42%;
+  left: 235px;
+  width: 1px;
+  height: 96px;
+  background: #e4ebfa;
 }
 
 .logo {

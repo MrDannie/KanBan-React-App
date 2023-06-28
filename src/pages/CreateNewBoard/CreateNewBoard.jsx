@@ -1,9 +1,11 @@
-import React from "react";
-import PropTypes from "prop-types";
-import "./CreateNewBoard.css";
+import React from 'react';
+import PropTypes from 'prop-types';
+import './CreateNewBoard.css';
 
 const CreateNewBoard = () => (
-  <div className="CreateNewBoard">CreateNewBoard Component</div>
+  <div className="CreateNewBoard">
+    CreateNewBoard Component
+  </div>
 );
 
 CreateNewBoard.propTypes = {};

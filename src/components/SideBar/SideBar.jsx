@@ -12,9 +12,15 @@ import iconShowSideBar from "../assets/icon-show-sidebar.svg";
 import appData from "../../store/data.json";
 
 import { setSideBar } from "../../store/store";
+import ModalContainer from "../ModalContainer/ModalContainer";
 
 const SideBar = ({ children }) => {
   const [isOpen, setIsOpen] = useState(true);
+  const [showViewTaskModal, setViewTaskModal] = useState("");
+  const handleOnClose = () => {
+    setViewTaskModal("");
+  };
+
   const toggle = () => {
     setIsOpen(!isOpen);
     setSideBar(!isOpen);
@@ -62,9 +68,9 @@ const SideBar = ({ children }) => {
               </NavLink>
             ))}
             <Link
-              to="/create-new-board"
               style={{ display: isOpen ? "flex" : "none" }}
               className="nav-tabs"
+              onClick={() => setViewTaskModal("CreateNewBoard")}
             >
               {" "}
               <span className="nav-tab__content add-board-btn">
@@ -142,9 +148,15 @@ const SideBar = ({ children }) => {
             </div>
 
             {/* HIDE SIDEBAR */}
-            <div onClick={toggle}>
+            <div
+              style={{ width: isOpen ? "276px" : "48px" }}
+              className="hideSidebar"
+              onClick={toggle}
+            >
               <span
-                style={{ display: isOpen ? "block" : "none" }}
+                style={{
+                  display: isOpen ? "block" : "none",
+                }}
                 className="hide-btn"
               >
                 {" "}
@@ -170,7 +182,18 @@ const SideBar = ({ children }) => {
         </div>
       </div>
 
-      <main>{children}</main>
+      <main
+        style={{
+          width: isOpen ? "calc(100% - 300px)" : "100%",
+        }}
+      >
+        {children}
+      </main>
+      <ModalContainer
+        component={showViewTaskModal}
+        onClose={handleOnClose}
+        visible={showViewTaskModal}
+      />
     </div>
   );
 };

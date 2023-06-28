@@ -1,0 +1,72 @@
+@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;700&display=swap");
+@import url("../../index.css");
+
+@layer base {
+  .ViewTask-Modal {
+    @apply w-[500px] p-6;
+  }
+
+  .ViewTask-Modal > * {
+    @apply mb-4;
+  }
+
+  .view_task-title {
+    @apply flex justify-between items-center text-[19px] font-bold;
+  }
+
+  .task-description {
+    @apply font-medium text-[#828FA3] text-[14px] leading-6;
+  }
+
+  .sub-tasks > * {
+    @apply text-[13px] font-bold mb-3;
+  }
+
+  .sub-tasks {
+    @apply mb-9;
+  }
+
+  /* .sub-tasks:nth-child(4) {
+    @apply mb-8;
+  } */
+
+  span.number-of-tasks {
+    @apply inline-block mb-2 text-[#828FA3] text-[13px];
+  }
+
+  .sub-tasks label {
+    @apply flex text-[#000112] items-center gap-4 cursor-pointer bg-[#F4F7FD] p-3 rounded-md;
+  }
+
+  .inputName {
+    @apply text-black;
+  }
+
+  .current-status span {
+    @apply inline-block text-[#828FA3] text-[13px] font-bold mb-2;
+  }
+
+  .current-status label {
+    @apply flex justify-between font-medium text-[#000112] items-center gap-4 cursor-pointer p-3 rounded-md border border-solid border-[#828FA340] text-right;
+  }
+
+  input {
+    @apply accent-[#635FC7];
+  }
+
+  .current-status select {
+    @apply w-full cursor-pointer;
+  }
+
+  .current-status select:focus-visible {
+    @apply outline-0;
+  }
+
+  /* label > * {
+    @apply block;
+  } */
+
+  /* .number-of-tasks {
+    @apply mb-5;
+  } */
+}
