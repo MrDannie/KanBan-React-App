@@ -16,6 +16,7 @@ const PlatformLaunch = (props) => {
   const showTaskDetails = (id, item) => {
     setModalData(item);
     setViewTaskModal("ViewTask");
+    console.log(id, "here");
   };
   const platformLaunchData = appData.boards[0]["columns"];
   // const count = platformLaunchData["subtasks"].filter((subtask, index) => {
@@ -41,11 +42,11 @@ const PlatformLaunch = (props) => {
               <span className="dot color-dot-1"></span>
               <h2>{item.name + " " + "(" + item["tasks"].length + ")"}</h2>
             </div>
-            {item["tasks"].map((item, index) => (
-              <div key={index} className="task">
+            {item["tasks"].map((item, id) => (
+              <div key={id} className="task">
                 <h3
                   className="task-title"
-                  onClick={() => showTaskDetails(index, item)}
+                  onClick={() => showTaskDetails(id, item)}
                 >
                   {item.title}
                 </h3>

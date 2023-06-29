@@ -54,7 +54,7 @@ const SideBar = ({ children }) => {
             </h1>
             {appData.boards.map((item, index) => (
               <NavLink
-                to={item.name.replace(/ /, "-")}
+                to={item.name.replace(/ /, "-").toLowerCase()}
                 key={index}
                 style={{ display: isOpen ? "block" : "none" }}
                 className="nav-tabs"

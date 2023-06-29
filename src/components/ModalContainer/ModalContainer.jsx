@@ -4,6 +4,7 @@ import "./ModalContainer.css";
 import ViewTask from "../../pages/ViewTask/ViewTask";
 import AddNewColumn from "../../pages/AddNewColumn/AddNewColumn";
 import CreateNewBoard from "../../pages/CreateNewBoard/CreateNewBoard";
+import AddTask from "../../pages/AddTask/AddTask";
 
 const ModalContainer = ({ visible, onClose, component, taskDetails }) => {
   if (!visible) return null;
@@ -50,6 +51,20 @@ const ModalContainer = ({ visible, onClose, component, taskDetails }) => {
         <section className="modal-container-modal">
           <div className="modal-body">
             <CreateNewBoard />
+          </div>
+        </section>
+      </div>
+    );
+  } else if (component === "AddTask") {
+    return (
+      <div
+        id="modal-container"
+        className="ModalContainer"
+        onClick={handleOnClose}
+      >
+        <section className="modal-container-modal">
+          <div className="modal-body">
+            <AddTask />
           </div>
         </section>
       </div>

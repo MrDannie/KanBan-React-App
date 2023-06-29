@@ -1,11 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import "./TopBar.css";
 import logo from "../assets/logo-dark.svg";
 import iconVerticalEllipsis from "../assets/icon-vertical-ellipsis.svg";
 import { useGlobalState } from "../../store/store";
+import ModalContainer from "../ModalContainer/ModalContainer";
 
 const TopBar = () => {
+  const [showViewTaskModal, setViewTaskModal] = useState("");
+  const handleOnClose = () => {
+    setViewTaskModal("");
+  };
+
   const isSideBarOpen = useGlobalState("isSideBarOpen");
   return (
     <div className="TopBar">
@@ -23,13 +29,23 @@ const TopBar = () => {
         <h1 className="page-title inline">Platform Launch</h1>
       </div>
       <div className="add-newtask">
-        <button className="add-task">+ Add New Task</button>
+        <button
+          onClick={() => setViewTaskModal("AddTask")}
+          className="add-task"
+        >
+          + Add New Task
+        </button>
         <img
           className="inline cursor-pointer"
           src={iconVerticalEllipsis}
           alt=""
         />
       </div>
+      <ModalContainer
+        component={showViewTaskModal}
+        onClose={handleOnClose}
+        visible={showViewTaskModal}
+      />
     </div>
   );
 };

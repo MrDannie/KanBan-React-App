@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import viteLogo from "/vite.svg";
 import "./App.css";
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import TopBar from "./components/TopBar/TopBar";
 import PlatformLaunch from "./pages/PlatformLaunch/PlatformLaunch";
 import MarketingPlan from "./pages/MarketingPlan/MarketingPlan";
@@ -10,11 +10,18 @@ import RoadMap from "./pages/Roadmap/RoadMap";
 import appData from "./store/data.json";
 
 function App() {
+  const getAppDataValues = () => {
+    const boardData = localStorage.getItem("BoardData");
+    if (!boardData) return {};
+    return JSON.parse(boardData);
+  };
   const [platformLaunchData, setPlatformLaunchData] = useState();
+  const [appBoardData, setAppBoardData] = useState(getAppDataValues);
 
   useEffect(() => {
     setPlatformLaunchData(appData.boards[0]["columns"]);
-  });
+    localStorage.setItem("BoardData", JSON.stringify(appBoardData));
+  }, [appBoardData]);
 
   return (
     <div className="">
@@ -23,7 +30,10 @@ function App() {
         <TopBar />
 
         <Routes>
-          <Route path="/" element={<PlatformLaunch />}></Route>
+          <Route
+            path="/"
+            element={<Navigate to="/platform-launch" replace={true} />}
+          ></Route>
           <Route
             path="/platform-launch"
             element={<PlatformLaunch platformLaunchData={platformLaunchData} />}

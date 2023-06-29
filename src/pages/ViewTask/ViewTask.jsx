@@ -1,13 +1,35 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import "./ViewTask.css";
 import iconVerticalEllipsis from "../../components/assets/icon-vertical-ellipsis.svg";
 
 const ViewTask = ({ selectedTask }) => {
-  const [isChecked, setIsChecked] = useState(false);
-  const setIsCheckedProperty = () => {
-    setIsChecked(!isChecked);
-  };
+  const [subtaskStatus, setSubtaskStatus] = useState(false);
+  const [taskStatus, setTaskStatus] = useState();
+  const [task, setTask] = useState({
+    title: "",
+    description: "",
+    status: "",
+    subtasks: [
+      {
+        title: "",
+        isCompleted: true,
+      },
+      {
+        title: "",
+        isCompleted: false,
+      },
+      {
+        title: "",
+        isCompleted: false,
+      },
+    ],
+  });
+
+  useEffect(() => {
+    localStorage.setItem("Task", JSON.stringify(task));
+    console.log("here");
+  }, [task]);
 
   const count = selectedTask["subtasks"].filter((subtask, index) => {
     return subtask["isCompleted"] === true;
@@ -36,9 +58,14 @@ const ViewTask = ({ selectedTask }) => {
             " )"}
         </span>
         {selectedTask["subtasks"].map((subtask, index) => (
-          <label onClick={setIsCheckedProperty} key={index} htmlFor="">
+          <label
+            onClick={(e) => setSubtaskStatus(e.target.value)}
+            key={index}
+            htmlFor=""
+          >
             <input
-              defaultChecked={subtask.isCompleted}
+              value={subtaskStatus}
+              onChange={(e) => setSubtaskStatus(e.target.value)}
               type="checkbox"
               name=""
               id=""
@@ -51,13 +78,20 @@ const ViewTask = ({ selectedTask }) => {
       <div className="current-status">
         <span> Current Status</span>
         <label htmlFor="">
-          <select defaultValue={selectedTask.status} name="status" id="status">
+          <select
+            value={taskStatus}
+            onChange={(e) => setTaskStatus(e.target.value)}
+            name="status"
+            id="status"
+          >
             <option value="Todo">Todo</option>
             <option value="Doing">Doing</option>
             <option value="Done">Done</option>
           </select>
         </label>
       </div>
+      {/* <p>{subtaskStatus}</p>
+      <p>{taskStatus}</p> */}
     </section>
   );
 };
