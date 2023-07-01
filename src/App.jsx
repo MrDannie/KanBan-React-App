@@ -10,25 +10,26 @@ import RoadMap from "./pages/Roadmap/RoadMap";
 import appData from "./store/data.json";
 
 function App() {
-  const getAppDataValues = () => {
-    const boardData = localStorage.getItem("BoardData");
-    if (!boardData) return {};
-    return JSON.parse(boardData);
-  };
-  const [platformLaunchData, setPlatformLaunchData] = useState();
-  const [appBoardData, setAppBoardData] = useState(getAppDataValues);
+  // const getAppDataValues = () => {
+  //   let boardData = localStorage.getItem("BoardData");
+  //   if (boardData) {
+  //     return (boardData = JSON.parse(localStorage.getItem("BoardData")));
+  //   } else {
+  //     return {};
+  //   }
+  // };
+  // const [platformLaunchData, setPlatformLaunchData] = useState();
+  const [boardData, setAppBoardData] = useState(
+    JSON.parse(localStorage.getItem("BoardData"))
+  );
 
-  useEffect(() => {
-    setPlatformLaunchData(appData.boards[0]["columns"]);
-    localStorage.setItem("BoardData", JSON.stringify(appBoardData));
-  }, [appBoardData]);
+  useEffect(() => {}, []);
 
   return (
     <div className="">
       <div className="gradient-bg-hero">
         {/* <SideBar /> */}
         <TopBar />
-
         <Routes>
           <Route
             path="/"
@@ -36,7 +37,11 @@ function App() {
           ></Route>
           <Route
             path="/platform-launch"
-            element={<PlatformLaunch platformLaunchData={platformLaunchData} />}
+            element={
+              <PlatformLaunch
+                platformLaunchData={boardData.boards[0]["columns"]}
+              />
+            }
           />
           <Route path="/marketing-plan" element={<MarketingPlan />} />
           <Route path="/roadmap" element={<RoadMap />} />

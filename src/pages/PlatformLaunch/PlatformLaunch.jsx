@@ -6,6 +6,7 @@ import appData from "../../store/data.json";
 import ModalContainer from "../../components/ModalContainer/ModalContainer";
 
 const PlatformLaunch = (props) => {
+  console.log(props);
   const [showViewTaskModal, setViewTaskModal] = useState("");
   const [taskModalDetails, setModalData] = useState({});
 
@@ -18,7 +19,8 @@ const PlatformLaunch = (props) => {
     setViewTaskModal("ViewTask");
     console.log(id, "here");
   };
-  const platformLaunchData = appData.boards[0]["columns"];
+  const platformLaunchData = props.platformLaunchData;
+  console.log(props.platformLaunchData);
   // const count = platformLaunchData["subtasks"].filter((subtask, index) => {
   //   return subtask["isCompleted"] === true;
   // }).length;
