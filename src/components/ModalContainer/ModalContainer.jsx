@@ -5,15 +5,25 @@ import ViewTask from "../../pages/ViewTask/ViewTask";
 import AddNewColumn from "../../pages/AddNewColumn/AddNewColumn";
 import CreateNewBoard from "../../pages/CreateNewBoard/CreateNewBoard";
 import AddTask from "../../pages/AddTask/AddTask";
+import { showModal } from "../../store/store";
 
-const ModalContainer = ({ visible, onClose, component, taskDetails }) => {
-  if (!visible) return null;
+const ModalContainer = ({
+  isModalContainerOpen,
+  onClose,
+  component,
+  taskDetails,
+}) => {
+  if (!isModalContainerOpen) return null;
+
+  const modalContainerController = () => {
+    onClose();
+  };
 
   const handleOnClose = (e) => {
     if (e.target.id === "modal-container") onClose();
   };
 
-  if (component === "ViewTask") {
+  if (component === "ViewTask" && isModalContainerOpen === true) {
     return (
       <div
         id="modal-container"
@@ -55,16 +65,17 @@ const ModalContainer = ({ visible, onClose, component, taskDetails }) => {
         </section>
       </div>
     );
-  } else if (component === "AddTask") {
+  } else if (component === "AddTask" || isModalContainerOpen === true) {
     return (
       <div
         id="modal-container"
         className="ModalContainer"
         onClick={handleOnClose}
+        style={{ display: isModalContainerOpen ? "flex" : "none" }}
       >
         <section className="modal-container-modal">
           <div className="modal-body">
-            <AddTask />
+            <AddTask closeOnSubmit={modalContainerController} />
           </div>
         </section>
       </div>

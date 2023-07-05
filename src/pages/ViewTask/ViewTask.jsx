@@ -1,49 +1,81 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import PropTypes from "prop-types";
 import "./ViewTask.css";
 import iconVerticalEllipsis from "../../components/assets/icon-vertical-ellipsis.svg";
+import { showModal } from "../../store/store";
 
 const ViewTask = ({ selectedTask }) => {
   const [subtaskStatus, setSubtaskStatus] = useState(false);
   const [taskStatus, setTaskStatus] = useState();
-  const [task, setTask] = useState({
-    title: "",
-    description: "",
-    status: "",
-    subtasks: [
-      {
-        title: "",
-        isCompleted: true,
-      },
-      {
-        title: "",
-        isCompleted: false,
-      },
-      {
-        title: "",
-        isCompleted: false,
-      },
-    ],
-  });
+  const [openMenu, setOpenMenu] = useState(false);
+  let menuRef = useRef();
+  let menuBtnRef = useRef();
 
-  useEffect(() => {
-    localStorage.setItem("Task", JSON.stringify(task));
-    console.log("here");
-  }, [task]);
+  // const [task, setTask] = useState({
+  //   title: "",
+  //   description: "",
+  //   status: "",
+  //   subtasks: [
+  //     {
+  //       title: "",
+  //       isCompleted: true,
+  //     },
+  //     {
+  //       title: "",
+  //       isCompleted: false,
+  //     },
+  //     {
+  //       title: "",
+  //       isCompleted: false,
+  //     },
+  //   ],
+  // });
+
+  const handleClick = () => {
+    showModal(false);
+  };
 
   const count = selectedTask["subtasks"].filter((subtask, index) => {
     return subtask["isCompleted"] === true;
   }).length;
-  console.log(count);
+
+  useEffect(() => {
+    let handler = (e) => {
+      if (menuBtnRef.current.contains(e.target)) return;
+      if (!menuRef.current.contains(e.target)) {
+        setOpenMenu(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handler);
+
+    return () => {
+      document.removeEventListener("mousedown", handler);
+    };
+  });
+
   return (
     <section className="ViewTask-Modal">
       <div className="view_task-title">
         <h4 className="">{selectedTask.title}</h4>
         <img
-          className="inline cursor-pointer"
+          className="menu-ellipsis inline cursor-pointer"
           src={iconVerticalEllipsis}
           alt=""
+          ref={menuBtnRef}
+          onClick={() => {
+            setOpenMenu(!openMenu);
+          }}
         />
+        <div
+          ref={menuRef}
+          className={`dropdown-menu ${openMenu ? "active" : "inactive"}`}
+        >
+          <ul>
+            <li className="mb-2 cursor-pointer">Edit Task</li>
+            <li className="text-[red] cursor-pointer">Delete Task</li>
+          </ul>
+        </div>
       </div>
 
       <p className="task-description">{selectedTask.description}</p>
@@ -90,6 +122,7 @@ const ViewTask = ({ selectedTask }) => {
           </select>
         </label>
       </div>
+      <button onClick={handleClick}>Close</button>
       {/* <p>{subtaskStatus}</p>
       <p>{taskStatus}</p> */}
     </section>

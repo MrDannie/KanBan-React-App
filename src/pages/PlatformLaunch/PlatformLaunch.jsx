@@ -1,29 +1,28 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import "./PlatformLaunch.css";
 
-import appData from "../../store/data.json";
 import ModalContainer from "../../components/ModalContainer/ModalContainer";
+import { showModal } from "../../store/store";
 
 const PlatformLaunch = (props) => {
-  console.log(props);
   const [showViewTaskModal, setViewTaskModal] = useState("");
   const [taskModalDetails, setModalData] = useState({});
+  const [showTaskDetailModal, setTaskDetailsModal] = useState(false);
+  const platformLaunchData = props.platformLaunchData;
 
   const handleOnClose = () => {
     setViewTaskModal("");
+    setTaskDetailsModal(false);
+    showModal(false);
   };
 
   const showTaskDetails = (id, item) => {
     setModalData(item);
+    showModal(!showTaskDetailModal);
+    setTaskDetailsModal(!showTaskDetailModal);
     setViewTaskModal("ViewTask");
-    console.log(id, "here");
   };
-  const platformLaunchData = props.platformLaunchData;
-  console.log(props.platformLaunchData);
-  // const count = platformLaunchData["subtasks"].filter((subtask, index) => {
-  //   return subtask["isCompleted"] === true;
-  // }).length;
 
   return (
     <div className="PlatformLaunch">
@@ -69,7 +68,7 @@ const PlatformLaunch = (props) => {
       <ModalContainer
         component={showViewTaskModal}
         onClose={handleOnClose}
-        visible={showViewTaskModal}
+        isModalContainerOpen={showTaskDetailModal}
         taskDetails={taskModalDetails}
       />
     </div>

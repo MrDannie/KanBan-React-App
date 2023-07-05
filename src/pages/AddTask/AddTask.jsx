@@ -3,19 +3,24 @@ import PropTypes from "prop-types";
 import "./AddTask.css";
 
 import removeSubtask from "../../components/assets/icon-cross.svg";
+import { showModal } from "../../store/store";
 
-const AddTask = () => {
+const AddTask = ({ closeOnSubmit }) => {
   // const [taskTitle, setTaskTitle] = useState("");
   // const [taskDescription, setTaskDescription] = useState("");
   // const [status, setStatus] = useState("");
   const [subtasks, setSubtasks] = useState([{ title: "", isCompleted: false }]);
   const [formErrors, setFormErrors] = useState({});
   const [isSubmit, setIsSubmit] = useState(false);
+  const [isModalContainerOpen, setisModalContainerOpen] = useState();
+  const handleOnClose = (e) => {
+    showModal(false);
+  };
 
   const [formValues, setFormValues] = useState({
     title: "",
     description: "",
-    status: "",
+    status: "Todo",
     subtasks: [
       {
         title: "",
@@ -25,7 +30,6 @@ const AddTask = () => {
   });
 
   useEffect(() => {
-    console.log(formErrors);
     if (Object.keys(formErrors).length === 0 && isSubmit) {
       console.log(formValues);
     }
@@ -52,9 +56,8 @@ const AddTask = () => {
     formValues.subtasks = subtasks;
     let formData = JSON.parse(localStorage.getItem("BoardData"));
     formData["boards"][0]["columns"][0]["tasks"].push(formValues);
-    console.log(formData, "HERER");
     localStorage.setItem("BoardData", JSON.stringify(formData));
-    setIsSubmit(true);
+    closeOnSubmit();
   };
 
   const handleSubtaskUpdate = (e, i) => {
@@ -70,7 +73,7 @@ const AddTask = () => {
       errors.title = "Title is required!";
     }
     if (!values.description) {
-      errors.description = "description is required!";
+      errors.description = "Description is required!";
     }
     if (!subtasks.title) {
       errors.subtask = "Subtask can't be empty!";
@@ -88,11 +91,12 @@ const AddTask = () => {
               className=""
               placeholder="e.g. Take coffee break"
               type="text"
+              required
               name="title"
               value={formValues.title}
               onChange={handleChange}
             />
-            <p className="formErrors">{formErrors.title}</p>
+            <span className="formErrors">{formErrors.title}</span>
           </label>
 
           <label htmlFor="">
@@ -102,11 +106,12 @@ const AddTask = () => {
               name="description"
               id=""
               cols="30"
+              required
               rows="3"
               value={formValues.description}
               onChange={handleChange}
             ></textarea>
-            <p className="formErrors">{formErrors.description}</p>
+            <span className="formErrors">{formErrors.description}</span>
           </label>
 
           <div className="add-subtask-section">
@@ -118,6 +123,7 @@ const AddTask = () => {
                   placeholder="e.g. Make coffee"
                   type="text"
                   name="title"
+                  required
                   value={subtask.title}
                   onChange={(e) => handleSubtaskUpdate(e, index)}
                 />
@@ -129,7 +135,7 @@ const AddTask = () => {
                 </button>
               </label>
             ))}
-            <p className="formErrors">{formErrors.subtask}</p>
+            <span className="formErrors">{formErrors.subtask}</span>
           </div>
 
           <div onClick={addSubtask} className="add-new-task-btn">
@@ -152,7 +158,19 @@ const AddTask = () => {
             </label>
           </div>
 
-          <button className="create-task">Create Task</button>
+          <button
+            onClick={(e) => handleOnClose(e)}
+            id="create-task-btn"
+            className="create-task"
+            disabled={
+              formValues.title.length === 0 ||
+              formValues.description.length === 0 ||
+              formValues.status.length === 0 ||
+              formValues.status.length === 0
+            }
+          >
+            Create Task
+          </button>
         </fieldset>
       </form>
     </section>

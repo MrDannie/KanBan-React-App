@@ -39,6 +39,14 @@
     @apply outline-0;
   }
 
+  /* .formErrors {
+    @apply text-[12px] text-[red] p-1;
+  }
+
+  .AddTask input:invalid .formErrors {
+    @apply block;
+  } */
+
   .AddTask .inputName {
     @apply block text-[#828FA3] text-[13px] font-bold mb-2;
   }

@@ -2,6 +2,7 @@ import { createGlobalState } from "react-hooks-global-state";
 
 const { setGlobalState, useGlobalState, getGlobalState } = createGlobalState({
   isSideBarOpen: { show: true },
+  isModalContainerOpen: { show: false },
 });
 
 const setSideBar = (show) => {
@@ -9,4 +10,16 @@ const setSideBar = (show) => {
   setGlobalState("isSideBarOpen", { ...isSideBarOpen, show });
 };
 
-export { setSideBar, useGlobalState, getGlobalState, setGlobalState };
+const showModal = (show) => {
+  console.log(show);
+  const isModalContainerOpen = getGlobalState("isModalContainerOpen");
+  setGlobalState("isModalContainerOpen", { ...isModalContainerOpen, show });
+};
+
+export {
+  setSideBar,
+  useGlobalState,
+  getGlobalState,
+  setGlobalState,
+  showModal,
+};

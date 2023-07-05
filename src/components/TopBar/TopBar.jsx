@@ -3,16 +3,31 @@ import PropTypes from "prop-types";
 import "./TopBar.css";
 import logo from "../assets/logo-dark.svg";
 import iconVerticalEllipsis from "../assets/icon-vertical-ellipsis.svg";
-import { useGlobalState } from "../../store/store";
+import { showModal, getGlobalState, useGlobalState } from "../../store/store";
 import ModalContainer from "../ModalContainer/ModalContainer";
 
 const TopBar = () => {
   const [showViewTaskModal, setViewTaskModal] = useState("");
+  const isSideBarOpen = useGlobalState("isSideBarOpen");
+  const [showAddTask, setAddTask] = useState(false);
+  console.log(showAddTask);
+  console.log(getGlobalState("isModalContainerOpen"));
+
+  // const isModalContainerOpen = getGlobalState("isModalContainerOpen");
+  // console.log(isModalContainerOpen, "fhhsds");
+
   const handleOnClose = () => {
+    showModal(false);
     setViewTaskModal("");
+    setAddTask(false);
   };
 
-  const isSideBarOpen = useGlobalState("isSideBarOpen");
+  const showAddTaskModal = () => {
+    showModal(!showAddTask);
+    setViewTaskModal("AddTask");
+    setAddTask(!showAddTask);
+  };
+
   return (
     <div className="TopBar">
       <div
@@ -29,10 +44,7 @@ const TopBar = () => {
         <h1 className="page-title inline">Platform Launch</h1>
       </div>
       <div className="add-newtask">
-        <button
-          onClick={() => setViewTaskModal("AddTask")}
-          className="add-task"
-        >
+        <button onClick={() => showAddTaskModal()} className="add-task">
           + Add New Task
         </button>
         <img
@@ -44,7 +56,7 @@ const TopBar = () => {
       <ModalContainer
         component={showViewTaskModal}
         onClose={handleOnClose}
-        visible={showViewTaskModal}
+        isModalContainerOpen={showAddTask}
       />
     </div>
   );

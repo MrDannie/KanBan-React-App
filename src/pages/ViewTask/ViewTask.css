@@ -11,7 +11,7 @@
   }
 
   .view_task-title {
-    @apply flex justify-between items-center text-[19px] font-bold;
+    @apply relative flex justify-between items-center text-[19px] font-bold;
   }
 
   .task-description {
@@ -60,6 +60,26 @@
 
   .current-status select:focus-visible {
     @apply outline-0;
+  }
+
+  .ViewTask-Modal .dropdown-menu {
+    @apply h-24 px-4 w-48 flex items-start justify-center flex-col gap-2 rounded-lg absolute -right-1/4 top-14 bg-white text-[#828FA3] drop-shadow-md text-[15px];
+  }
+
+  /* .ViewTask-Modal .dropdown-menu::before {
+    @apply content-['_↗'] relative top-[-5px] right-[20px] h-[20px] w-[20px] bg-[red] rotate-45;
+  } */
+
+  .ViewTask-Modal .dropdown-menu.active {
+    @apply opacity-100 visible translate-y-0 ease-in-out;
+  }
+
+  .ViewTask-Modal .dropdown-menu.inactive {
+    @apply opacity-0 hidden translate-y-[-20px] ease-in-out;
+  }
+
+  .ViewTask-Modal .menu-ellipsis {
+    @apply p-3;
   }
 
   /* label > * {
