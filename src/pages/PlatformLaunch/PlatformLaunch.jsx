@@ -2,26 +2,22 @@ import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import "./PlatformLaunch.css";
 
-import ModalContainer from "../../components/ModalContainer/ModalContainer";
 import { showModal } from "../../store/store";
+import ViewTask from "../ViewTask/ViewTask";
 
 const PlatformLaunch = (props) => {
-  const [showViewTaskModal, setViewTaskModal] = useState("");
   const [taskModalDetails, setModalData] = useState({});
   const [showTaskDetailModal, setTaskDetailsModal] = useState(false);
   const platformLaunchData = props.platformLaunchData;
 
-  const handleOnClose = () => {
-    setViewTaskModal("");
+  const closeModal = () => {
     setTaskDetailsModal(false);
-    showModal(false);
   };
 
   const showTaskDetails = (id, item) => {
     setModalData(item);
     showModal(!showTaskDetailModal);
     setTaskDetailsModal(!showTaskDetailModal);
-    setViewTaskModal("ViewTask");
   };
 
   return (
@@ -65,12 +61,17 @@ const PlatformLaunch = (props) => {
           <h3 className="add-col-btn">+New Column</h3>
         </section>
       </div>
-      <ModalContainer
+      <ViewTask
+        visible={showTaskDetailModal}
+        selectedTask={taskModalDetails}
+        closeModal={closeModal}
+      />
+      {/* <ViewTask
         component={showViewTaskModal}
         onClose={handleOnClose}
         isModalContainerOpen={showTaskDetailModal}
         taskDetails={taskModalDetails}
-      />
+      /> */}
     </div>
   );
 };

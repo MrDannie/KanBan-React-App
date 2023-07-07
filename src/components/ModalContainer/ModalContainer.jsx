@@ -6,6 +6,7 @@ import AddNewColumn from "../../pages/AddNewColumn/AddNewColumn";
 import CreateNewBoard from "../../pages/CreateNewBoard/CreateNewBoard";
 import AddTask from "../../pages/AddTask/AddTask";
 import { showModal } from "../../store/store";
+import EditTask from "../../pages/EditTask/EditTask";
 
 const ModalContainer = ({
   isModalContainerOpen,
@@ -32,7 +33,10 @@ const ModalContainer = ({
       >
         <section className="modal-container-modal">
           <div className="modal-body">
-            <ViewTask selectedTask={taskDetails} />
+            {/* <ViewTask
+              closeOnSubmit={modalContainerController}
+              selectedTask={taskDetails}
+            /> */}
           </div>
         </section>
       </div>
@@ -65,7 +69,7 @@ const ModalContainer = ({
         </section>
       </div>
     );
-  } else if (component === "AddTask" || isModalContainerOpen === true) {
+  } else if (component === "AddTask" && isModalContainerOpen === true) {
     return (
       <div
         id="modal-container"
@@ -76,6 +80,20 @@ const ModalContainer = ({
         <section className="modal-container-modal">
           <div className="modal-body">
             <AddTask closeOnSubmit={modalContainerController} />
+          </div>
+        </section>
+      </div>
+    );
+  } else if (component === "EditTask") {
+    return (
+      <div
+        id="modal-container"
+        className="ModalContainer"
+        onClick={handleOnClose}
+      >
+        <section className="modal-container-modal">
+          <div className="modal-body">
+            <EditTask closeOnSubmit={modalContainerController} />
           </div>
         </section>
       </div>

@@ -1,10 +1,14 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import './CreateNewBoard.css';
+import React from "react";
+import PropTypes from "prop-types";
+import "./CreateNewBoard.css";
 
 const CreateNewBoard = () => (
-  <div className="CreateNewBoard">
-    CreateNewBoard Component
+  <div id="modal-container" className="ModalContainer">
+    <section className="modal-container-modal">
+      <div className="modal-body">
+        <div className="CreateNewBoard">CreateNewBoard Component</div>
+      </div>
+    </section>
   </div>
 );
 
