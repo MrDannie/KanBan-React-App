@@ -10,8 +10,6 @@ const TopBar = () => {
   const [showViewTaskModal, setViewTaskModal] = useState("");
   const isSideBarOpen = useGlobalState("isSideBarOpen");
   const [showAddTask, setAddTask] = useState(false);
-  console.log(showAddTask);
-  console.log(getGlobalState("isModalContainerOpen"));
 
   // const isModalContainerOpen = getGlobalState("isModalContainerOpen");
   // console.log(isModalContainerOpen, "fhhsds");

@@ -1,9 +1,16 @@
-import React, { useState, useEffect, useRef, useLayoutEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import PropTypes from "prop-types";
 import "./ViewTask.css";
 import iconVerticalEllipsis from "../../components/assets/icon-vertical-ellipsis.svg";
+import EditTask from "../EditTask/EditTask";
 
-const ViewTask = ({ selectedTask, visible, closeModal }) => {
+const ViewTask = ({
+  selectedTask,
+  visible,
+  closeViewTaskModal,
+  showEditTask,
+  showDeleteTask,
+}) => {
   const menuRef = useRef();
   const menuBtnRef = useRef();
   const [subtaskStatus, setSubtaskStatus] = useState(false);
@@ -21,19 +28,23 @@ const ViewTask = ({ selectedTask, visible, closeModal }) => {
       document.body.removeEventListener("mousedown", handler, true);
     };
   }, []);
+
+  const openEditModal = () => {
+    showEditTask();
+  };
+
+  const openDeleteTask = () => {
+    showDeleteTask();
+  };
+
   if (!visible) return null;
 
-  // const showEditTask = (task) => {
-  //   setEditModalData(task);
-  // };
-
+  const handleOnClose = (e) => {
+    if (e.target.id === "modal-container") closeViewTaskModal();
+  };
   const count = selectedTask["subtasks"].filter((subtask, index) => {
     return subtask["isCompleted"] === true;
   }).length;
-
-  const handleOnClose = (e) => {
-    if (e.target.id === "modal-container") closeModal();
-  };
 
   return (
     <div
@@ -60,13 +71,15 @@ const ViewTask = ({ selectedTask, visible, closeModal }) => {
                 className={`dropdown-menu ${openMenu ? "active" : "inactive"}`}
               >
                 <ul>
-                  <li
-                    onClick={() => showEditTask(selectedTask)}
-                    className="mb-2 cursor-pointer"
-                  >
+                  <li onClick={openEditModal} className="mb-2 cursor-pointer">
                     Edit Task
                   </li>
-                  <li className="text-[red] cursor-pointer">Delete Task</li>
+                  <li
+                    onClick={openDeleteTask}
+                    className="text-[red] cursor-pointer"
+                  >
+                    Delete Task
+                  </li>
                 </ul>
               </div>
             </div>
@@ -118,6 +131,11 @@ const ViewTask = ({ selectedTask, visible, closeModal }) => {
           </section>
         </div>
       </section>
+      {/* <EditTask
+        visible={editTask}
+        selectedTask={selectedTask}
+        closeModal={closeModal}
+      /> */}
     </div>
   );
 };

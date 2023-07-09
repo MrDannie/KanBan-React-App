@@ -9,4 +9,76 @@
   .modal-container-modal {
     @apply bg-white p-2 rounded;
   }
+
+  .EditTask {
+    @apply w-[480px] p-6;
+  }
+
+  .EditTask > * {
+    @apply mb-4;
+  }
+
+  .EditTask label {
+    @apply inline-block w-full mb-3;
+  }
+
+  .EditTask .form-title {
+    @apply text-[19px] font-bold;
+  }
+
+  .EditTask input {
+    @apply accent-[#635FC7] w-full h-[40px] border border-solid border-[#828FA340] rounded p-4 text-[13px] font-medium text-[black];
+  }
+
+  .EditTask .inputName {
+    @apply block text-[#828FA3] text-[13px] font-bold mb-2;
+  }
+
+  .EditTask input::placeholder {
+    @apply text-[13px] font-medium;
+  }
+
+  /* Descriptions Field  */
+  .EditTask textarea {
+    @apply accent-[#635FC7] w-full border border-solid border-[#828FA340] rounded p-4  text-[black] text-[13px] font-medium;
+  }
+
+  .EditTask textarea::placeholder {
+    @apply text-[13px] font-medium;
+  }
+
+  /* Substasks Section  */
+  .EditTask .add-subtask-section label {
+    @apply flex justify-center items-center;
+  }
+
+  /* ADD NEW SUBSTACK BTN  */
+  .EditTask .add-new-task-btn {
+    @apply w-full text-center rounded-[20px] bg-[#635fc71a] p-2 text-[#635FC7] text-[13px] mb-4 cursor-pointer;
+  }
+
+  .current-status select {
+    @apply w-full cursor-pointer;
+  }
+
+  .current-status select:focus-visible {
+    @apply outline-0;
+  }
+
+  .current-status span {
+    @apply inline-block text-[#828FA3] text-[13px] font-bold mb-2;
+  }
+
+  .current-status label {
+    @apply flex justify-between font-medium text-[#000112] items-center gap-4 cursor-pointer p-3 rounded-md border border-solid border-[#828FA340] text-right;
+  }
+
+  /* CREATE NEW TASK BTN  */
+  .EditTask .create-task {
+    @apply w-full text-[white] bg-[#635FC7] rounded-[20px] p-2 text-[13px];
+  }
+
+  .EditTask .create-task:hover {
+    @apply bg-[#A8A4FF];
+  }
 }

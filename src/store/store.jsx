@@ -11,7 +11,6 @@ const setSideBar = (show) => {
 };
 
 const showModal = (show) => {
-  console.log(show);
   const isModalContainerOpen = getGlobalState("isModalContainerOpen");
   setGlobalState("isModalContainerOpen", { ...isModalContainerOpen, show });
 };

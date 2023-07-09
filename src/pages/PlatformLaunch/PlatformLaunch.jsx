@@ -4,20 +4,45 @@ import "./PlatformLaunch.css";
 
 import { showModal } from "../../store/store";
 import ViewTask from "../ViewTask/ViewTask";
+import EditTask from "../EditTask/EditTask";
+import DeleteTask from "../DeleteTask/DeleteTask";
 
 const PlatformLaunch = (props) => {
   const [taskModalDetails, setModalData] = useState({});
   const [showTaskDetailModal, setTaskDetailsModal] = useState(false);
+  const [editTask, setEditTask] = useState(false);
+  const [deleteTask, setDeleteTask] = useState(false);
+  const [subtasks, setSubTasks] = useState([]);
   const platformLaunchData = props.platformLaunchData;
 
-  const closeModal = () => {
+  const closeViewTaskModal = () => {
     setTaskDetailsModal(false);
+  };
+
+  const closeEditModal = () => {
+    setEditTask(false);
+  };
+
+  const closeDeleteModal = () => {
+    setDeleteTask(false);
   };
 
   const showTaskDetails = (id, item) => {
     setModalData(item);
+    setSubTasks(item.subtasks);
+    console.log(subtasks, taskModalDetails);
     showModal(!showTaskDetailModal);
     setTaskDetailsModal(!showTaskDetailModal);
+  };
+
+  const showEditTask = () => {
+    closeViewTaskModal();
+    setEditTask(true);
+  };
+
+  const showDeleteTask = () => {
+    closeViewTaskModal();
+    setDeleteTask(true);
   };
 
   return (
@@ -64,14 +89,17 @@ const PlatformLaunch = (props) => {
       <ViewTask
         visible={showTaskDetailModal}
         selectedTask={taskModalDetails}
-        closeModal={closeModal}
+        closeViewTaskModal={closeViewTaskModal}
+        showEditTask={showEditTask}
+        showDeleteTask={showDeleteTask}
       />
-      {/* <ViewTask
-        component={showViewTaskModal}
-        onClose={handleOnClose}
-        isModalContainerOpen={showTaskDetailModal}
-        taskDetails={taskModalDetails}
-      /> */}
+      <EditTask
+        visible={editTask}
+        selectedTask={taskModalDetails}
+        closeEditModal={closeEditModal}
+        subtasks={subtasks}
+      />
+      <DeleteTask visible={deleteTask} closeDeleteModal={closeDeleteModal} />
     </div>
   );
 };

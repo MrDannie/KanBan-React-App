@@ -12,7 +12,6 @@ const AddTask = ({ closeOnSubmit }) => {
   const [subtasks, setSubtasks] = useState([{ title: "", isCompleted: false }]);
   const [formErrors, setFormErrors] = useState({});
   const [isSubmit, setIsSubmit] = useState(false);
-  const [isModalContainerOpen, setisModalContainerOpen] = useState();
   const handleOnClose = (e) => {
     showModal(false);
   };
@@ -45,6 +44,7 @@ const AddTask = ({ closeOnSubmit }) => {
   };
 
   const deleteSubtask = (i) => {
+    console.log(i);
     const deleteVal = [...subtasks];
     deleteVal.splice(i, 1);
     setSubtasks(deleteVal);
