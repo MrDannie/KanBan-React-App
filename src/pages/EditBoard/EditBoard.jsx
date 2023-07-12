@@ -1,15 +1,14 @@
 import React from "react";
 import PropTypes from "prop-types";
-import "./CreateNewBoard.css";
+import "./EditBoard.css";
 import removeSubtask from "../../components/assets/icon-cross.svg";
 
-const CreateNewBoard = ({ visible, closeNewBoardModal }) => {
+const EditBoard = ({ visible, closeEditBoardModal }) => {
   const handleOnClose = (e) => {
-    if (e.target.id === "modal-container") closeNewBoardModal();
+    if (e.target.id === "modal-container") closeEditBoardModal();
   };
 
   if (!visible) return null;
-
   return (
     <div
       onClick={handleOnClose}
@@ -18,8 +17,8 @@ const CreateNewBoard = ({ visible, closeNewBoardModal }) => {
     >
       <section className="modal-container-modal">
         <div className="modal-body">
-          <section className="CreateNewBoard">
-            <h4 className="form-title">Add New Board</h4>
+          <section className="EditBoard">
+            <h4 className="form-title">Edit Board</h4>
             <form action="">
               <fieldset>
                 <label className="first-label" htmlFor="">
@@ -53,10 +52,11 @@ const CreateNewBoard = ({ visible, closeNewBoardModal }) => {
                       <img src={removeSubtask} alt="" />
                     </button>
                   </label>
-                  <div className="btn add-column-btn mb-6">+Add New Column</div>
                   {/* <span className="formErrors">{formErrors.subtask}</span> */}
                 </div>
-                <div className="btn save-btn">Create New Board</div>
+                <div className="btn add-column-btn mb-6">+Add New Column</div>
+
+                <div className="btn save-btn">Save Changes</div>
               </fieldset>
             </form>
           </section>
@@ -66,8 +66,8 @@ const CreateNewBoard = ({ visible, closeNewBoardModal }) => {
   );
 };
 
-CreateNewBoard.propTypes = {};
+EditBoard.propTypes = {};
 
-CreateNewBoard.defaultProps = {};
+EditBoard.defaultProps = {};
 
-export default CreateNewBoard;
+export default EditBoard;

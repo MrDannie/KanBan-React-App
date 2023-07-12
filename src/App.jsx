@@ -9,6 +9,8 @@ import RoadMap from "./pages/Roadmap/RoadMap";
 
 import appData from "./store/data.json";
 
+localStorage.setItem("BoardData", JSON.stringify(appData));
+
 function App() {
   // const getAppDataValues = () => {
   //   let boardData = localStorage.getItem("BoardData");
@@ -19,11 +21,15 @@ function App() {
   //   }
   // };
   // const [platformLaunchData, setPlatformLaunchData] = useState();
+  // useEffect(() => {
+  //   localStorage.setItem("BoardData", JSON.stringify(appData));
+  // }, [appData]);
+
   const [boardData, setAppBoardData] = useState(
     JSON.parse(localStorage.getItem("BoardData"))
   );
 
-  useEffect(() => {}, []);
+  // useEffect(() => {}, []);
 
   return (
     <div className="">

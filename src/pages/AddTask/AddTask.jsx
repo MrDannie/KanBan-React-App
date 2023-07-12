@@ -3,18 +3,23 @@ import PropTypes from "prop-types";
 import "./AddTask.css";
 
 import removeSubtask from "../../components/assets/icon-cross.svg";
-import { showModal } from "../../store/store";
 
-const AddTask = ({ closeOnSubmit }) => {
+const getDataFromLocalStorage = () => {
+  const data = localStorage.getItem("BoardData");
+  if (data) {
+    return JSON.parse(data);
+  } else {
+    return [];
+  }
+};
+
+const AddTask = ({ closeOnSubmit, closeAddTaskModal, visible }) => {
   // const [taskTitle, setTaskTitle] = useState("");
   // const [taskDescription, setTaskDescription] = useState("");
   // const [status, setStatus] = useState("");
   const [subtasks, setSubtasks] = useState([{ title: "", isCompleted: false }]);
   const [formErrors, setFormErrors] = useState({});
   const [isSubmit, setIsSubmit] = useState(false);
-  const handleOnClose = (e) => {
-    showModal(false);
-  };
 
   const [formValues, setFormValues] = useState({
     title: "",
@@ -29,10 +34,10 @@ const AddTask = ({ closeOnSubmit }) => {
   });
 
   useEffect(() => {
-    if (Object.keys(formErrors).length === 0 && isSubmit) {
-      console.log(formValues);
-    }
-  }, [formErrors]);
+    // let formData = JSON.parse(localStorage.getItem("BoardData"));
+    // formData["boards"][0]["columns"][0]["tasks"].push(formValues);
+    // localStorage.setItem("BoardData", JSON.stringify(formData));
+  }, [formValues]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -54,10 +59,11 @@ const AddTask = ({ closeOnSubmit }) => {
     e.preventDefault();
     setFormErrors(validate(formValues));
     formValues.subtasks = subtasks;
-    let formData = JSON.parse(localStorage.getItem("BoardData"));
-    formData["boards"][0]["columns"][0]["tasks"].push(formValues);
-    localStorage.setItem("BoardData", JSON.stringify(formData));
-    closeOnSubmit();
+    setFormValues;
+    // let formData = JSON.parse(localStorage.getItem("BoardData"));
+    // formData["boards"][0]["columns"][0]["tasks"].push(formValues);
+    // localStorage.setItem("BoardData", JSON.stringify(formData));
+    // closeOnSubmit();
   };
 
   const handleSubtaskUpdate = (e, i) => {
@@ -80,8 +86,19 @@ const AddTask = ({ closeOnSubmit }) => {
     }
     return errors;
   };
+
+  const handleOnClose = (e) => {
+    if (e.target.id === "modal-container") closeAddTaskModal();
+  };
+
+  if (!visible) return null;
+
   return (
-    <div id="modal-container" className="ModalContainer">
+    <div
+      onClick={handleOnClose}
+      id="modal-container"
+      className="ModalContainer"
+    >
       <section className="modal-container-modal">
         <div className="modal-body">
           <section className="AddTask">

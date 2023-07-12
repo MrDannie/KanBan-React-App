@@ -51,18 +51,14 @@
   }
 
   .dot {
-    @apply block rounded-full bg-[#49C4E5] p-[6px] mr-2;
+    @apply block rounded-full p-[6px] mr-2 bg-[#49C4E5];
   }
 
-  .color-dot-2 {
-    @apply bg-[#8471F2];
+  .Doing {
+    @apply block rounded-full p-[6px] mr-2 bg-[#8471F2];
   }
 
-  .color-dot-2 {
-    @apply bg-[#8471F2];
-  }
-
-  .color-dot-3 {
-    @apply bg-[#67E2AE];
+  .Done {
+    @apply block rounded-full p-[6px] mr-2 bg-[#67E2AE];
   }
 }

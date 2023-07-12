@@ -10,48 +10,52 @@
     @apply bg-white p-2 rounded;
   }
 
-  .CreateNewBoard {
+  .EditBoard {
     @apply w-[480px] px-4 pt-6 pb-1;
   }
 
-  .CreateNewBoard > * {
+  .EditBoard > * {
     @apply mb-4;
   }
 
-  .CreateNewBoard .form-title {
+  .EditBoard .form-title {
     @apply text-[19px] font-bold;
   }
 
-  .CreateNewBoard label {
+  .EditBoard label {
     @apply inline-block w-full mb-3;
   }
 
-  .CreateNewBoard .first-label {
+  .EditBoard .first-label {
     @apply mb-8;
   }
 
-  .CreateNewBoard input {
+  .EditBoard .add-subtask-section label {
+    @apply flex items-center justify-center;
+  }
+
+  .EditBoard input {
     @apply accent-[#635FC7] w-full h-[40px] border border-solid border-[#828FA340] rounded p-4 text-[13px] font-medium text-[black];
   }
 
-  .CreateNewBoard .inputName {
+  .EditBoard .inputName {
     @apply block text-[#828FA3] text-[13px] font-bold mb-2;
   }
 
   /* ADD NEW SUBSTACK BTN  */
-  .CreateNewBoard .btn {
+  .EditBoard .btn {
     @apply w-full text-center rounded-[20px] bg-[#635fc71a] p-2 text-[#635FC7] text-[13px] cursor-pointer;
   }
 
-  .CreateNewBoard .save-btn {
+  .EditBoard .save-btn {
     @apply bg-[#635FC7] text-white;
   }
 
-  .CreateNewBoard .save-btn:hover {
+  .EditBoard .save-btn:hover {
     @apply bg-[#A8A4FF];
   }
 
-  .CreateNewBoard .add-column-btn:hover {
+  .EditBoard .add-column-btn:hover {
     @apply bg-[#635fc740];
   }
 }

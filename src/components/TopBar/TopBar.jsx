@@ -1,18 +1,34 @@
-import React, { useState } from "react";
-import PropTypes from "prop-types";
+import React, { useState, useEffect, useRef } from "react";
 import "./TopBar.css";
 import logo from "../assets/logo-dark.svg";
 import iconVerticalEllipsis from "../assets/icon-vertical-ellipsis.svg";
-import { showModal, getGlobalState, useGlobalState } from "../../store/store";
-import ModalContainer from "../ModalContainer/ModalContainer";
+import { showModal, useGlobalState } from "../../store/store";
+import DeleteBoard from "../../pages/DeleteBoard/DeleteBoard";
+import EditBoard from "../../pages/EditBoard/EditBoard";
+import AddTask from "../../pages/AddTask/AddTask";
 
 const TopBar = () => {
-  const [showViewTaskModal, setViewTaskModal] = useState("");
+  const topBarMenu = useRef();
+  const topmenuBtnRef = useRef();
+  const [showAddTaskModal, setAddTaskModal] = useState(false);
   const isSideBarOpen = useGlobalState("isSideBarOpen");
   const [showAddTask, setAddTask] = useState(false);
+  const [openMenu, setOpenMenu] = useState(false);
+  const [showDeleteBoardModal, setShowDeleteBoardModal] = useState(false);
+  const [showEditBoardModal, setShowEditBoardModal] = useState(false);
 
-  // const isModalContainerOpen = getGlobalState("isModalContainerOpen");
-  // console.log(isModalContainerOpen, "fhhsds");
+  useEffect(() => {
+    const handler = (e) => {
+      if (topmenuBtnRef.current?.contains(e.target)) return;
+      if (!topBarMenu.current?.contains(e.target)) {
+        setOpenMenu(false);
+      }
+    };
+    document.body.addEventListener("mousedown", handler, true);
+    return () => {
+      document.body.removeEventListener("mousedown", handler, true);
+    };
+  }, []);
 
   const handleOnClose = () => {
     showModal(false);
@@ -20,10 +36,30 @@ const TopBar = () => {
     setAddTask(false);
   };
 
-  const showAddTaskModal = () => {
-    showModal(!showAddTask);
-    setViewTaskModal("AddTask");
-    setAddTask(!showAddTask);
+  const closeDeleteBoardModal = () => {
+    setShowDeleteBoardModal(false);
+  };
+
+  const handleModal = () => {
+    setShowDeleteBoardModal(true);
+    setOpenMenu(!openMenu);
+  };
+
+  const closeAddTaskdModal = () => {
+    setAddTaskModal(false);
+  };
+
+  const handleAddTaskModal = () => {
+    setAddTaskModal(true);
+  };
+
+  const closeEditBoardModal = () => {
+    setShowEditBoardModal(false);
+  };
+
+  const handleEditModal = () => {
+    setShowEditBoardModal(true);
+    setOpenMenu(!openMenu);
   };
 
   return (
@@ -42,19 +78,45 @@ const TopBar = () => {
         <h1 className="page-title inline">Platform Launch</h1>
       </div>
       <div className="add-newtask">
-        <button onClick={() => showAddTaskModal()} className="add-task">
+        <button onClick={handleAddTaskModal} className="add-task">
           + Add New Task
         </button>
         <img
-          className="inline cursor-pointer"
+          className="menu-ellipsis inline cursor-pointer"
           src={iconVerticalEllipsis}
           alt=""
+          ref={topmenuBtnRef}
+          onClick={() => {
+            setOpenMenu(!openMenu);
+          }}
         />
+
+        <div
+          ref={topBarMenu}
+          className={`dropdown-menu ${openMenu ? "active" : "inactive"}`}
+        >
+          <ul>
+            <li onClick={handleEditModal} className="mb-2 cursor-pointer">
+              Edit Board
+            </li>
+            <li onClick={handleModal} className="text-[red] cursor-pointer">
+              Delete Board
+            </li>
+          </ul>
+        </div>
       </div>
-      <ModalContainer
-        component={showViewTaskModal}
-        onClose={handleOnClose}
-        isModalContainerOpen={showAddTask}
+      <AddTask
+        visible={showAddTaskModal}
+        closeAddTaskModal={closeAddTaskdModal}
+      />
+      <DeleteBoard
+        visible={showDeleteBoardModal}
+        closeDeleteBoardModal={closeDeleteBoardModal}
+      />
+
+      <EditBoard
+        visible={showEditBoardModal}
+        closeEditBoardModal={closeEditBoardModal}
       />
     </div>
   );

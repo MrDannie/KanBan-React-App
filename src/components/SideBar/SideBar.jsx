@@ -12,18 +12,22 @@ import iconShowSideBar from "../assets/icon-show-sidebar.svg";
 import appData from "../../store/data.json";
 
 import { setSideBar } from "../../store/store";
-import ModalContainer from "../ModalContainer/ModalContainer";
+import CreateNewBoard from "../../pages/CreateNewBoard/CreateNewBoard";
 
 const SideBar = ({ children }) => {
   const [isOpen, setIsOpen] = useState(true);
-  const [showViewTaskModal, setViewTaskModal] = useState("");
-  const handleOnClose = () => {
-    setViewTaskModal("");
+  const [showNewBoardModal, setNewBoardModal] = useState(false);
+  const closeNewBoardModal = () => {
+    setNewBoardModal(false);
   };
 
   const toggle = () => {
     setIsOpen(!isOpen);
     setSideBar(!isOpen);
+  };
+
+  const handleModal = () => {
+    setNewBoardModal(true);
   };
 
   return (
@@ -70,15 +74,13 @@ const SideBar = ({ children }) => {
             <Link
               style={{ display: isOpen ? "flex" : "none" }}
               className="nav-tabs"
-              onClick={() => setViewTaskModal("CreateNewBoard")}
+              onClick={handleModal}
             >
-              {" "}
               <span className="nav-tab__content add-board-btn">
-                {" "}
                 <img className="nav-icon" src={boardIcon} alt="boardIcon" />+
                 Create New Board
               </span>
-            </Link>{" "}
+            </Link>
             {/* <ul className="navigation-tabs">
               <Link
                 to="/platform-launch"
@@ -189,10 +191,9 @@ const SideBar = ({ children }) => {
       >
         {children}
       </main>
-      <ModalContainer
-        component={showViewTaskModal}
-        onClose={handleOnClose}
-        visible={showViewTaskModal}
+      <CreateNewBoard
+        closeNewBoardModal={closeNewBoardModal}
+        visible={showNewBoardModal}
       />
     </div>
   );

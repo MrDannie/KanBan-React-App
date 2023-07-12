@@ -1,10 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
-import "./DeleteTask.css";
+import "./DeleteBoard.css";
 
-const DeleteTask = ({ visible, closeDeleteModal }) => {
+const DeleteBoard = ({ visible, closeDeleteBoardModal }) => {
   const handleOnClose = (e) => {
-    if (e.target.id === "modal-container") closeDeleteModal();
+    if (e.target.id === "modal-container") closeDeleteBoardModal();
   };
 
   if (!visible) return null;
@@ -17,13 +17,13 @@ const DeleteTask = ({ visible, closeDeleteModal }) => {
     >
       <section className="modal-container-modal">
         <div className="modal-body">
-          <section className="DeleteTask">
-            <h4 className="modal-title">Delete this task?</h4>
+          <section className="DeleteBoard">
+            <h4 className="modal-title">Delete this board?</h4>
 
             <p className="short-note">
-              Are you sure you want to delete the ‘Build settings UI' task and{" "}
-              <br /> its subtasks? This action will remove all columns and{" "}
-              <br /> tasks and cannot be reversed.
+              Are you sure you want to delete the ‘Platform Launch’ board? This{" "}
+              <br />
+              action will remove all columns and tasks and cannot be reversed.
             </p>
 
             <div className="action-buttons">
@@ -37,8 +37,8 @@ const DeleteTask = ({ visible, closeDeleteModal }) => {
   );
 };
 
-DeleteTask.propTypes = {};
+DeleteBoard.propTypes = {};
 
-DeleteTask.defaultProps = {};
+DeleteBoard.defaultProps = {};
 
-export default DeleteTask;
+export default DeleteBoard;
