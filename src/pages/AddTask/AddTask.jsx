@@ -1,8 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import PropTypes from "prop-types";
 import "./AddTask.css";
 
 import removeSubtask from "../../components/assets/icon-cross.svg";
+import { CountContext } from "../../App";
+import { useLocation } from "react-router-dom";
 
 const getDataFromLocalStorage = () => {
   const data = localStorage.getItem("BoardData");
@@ -14,6 +16,9 @@ const getDataFromLocalStorage = () => {
 };
 
 const AddTask = ({ closeOnSubmit, closeAddTaskModal, visible }) => {
+  const { boardData, updateAppData } = useContext(CountContext);
+  const location = useLocation();
+
   // const [taskTitle, setTaskTitle] = useState("");
   // const [taskDescription, setTaskDescription] = useState("");
   // const [status, setStatus] = useState("");
@@ -54,16 +59,29 @@ const AddTask = ({ closeOnSubmit, closeAddTaskModal, visible }) => {
     deleteVal.splice(i, 1);
     setSubtasks(deleteVal);
   };
+  const chars = { "/": "", "-": " " };
+
+  console.log(location.pathname.replace(/[/ -]/g, (m) => chars[m]));
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setFormErrors(validate(formValues));
     formValues.subtasks = subtasks;
-    setFormValues;
-    // let formData = JSON.parse(localStorage.getItem("BoardData"));
-    // formData["boards"][0]["columns"][0]["tasks"].push(formValues);
-    // localStorage.setItem("BoardData", JSON.stringify(formData));
-    // closeOnSubmit();
+    let formData = { ...boardData };
+    const boardPosition = formData.boards.findIndex((item) =>
+      item.name
+        .toLowerCase()
+        .includes(location.pathname.replace(/[/ -]/g, (m) => chars[m]))
+    );
+    const taskColumn = formData.boards[boardPosition]["columns"].findIndex(
+      (item) =>
+        item.name.toLowerCase().includes(formValues.status.toLowerCase())
+    );
+
+    formData["boards"][boardPosition]["columns"][taskColumn]["tasks"].push(
+      formValues
+    );
+    updateAppData(formData);
+    closeAddTaskModal();
   };
 
   const handleSubtaskUpdate = (e, i) => {
@@ -99,6 +117,13 @@ const AddTask = ({ closeOnSubmit, closeAddTaskModal, visible }) => {
       id="modal-container"
       className="ModalContainer"
     >
+      {/* <div>
+        <div>
+          <button onClick={onIncrement}>Increase</button>
+          <button onClick={onDecrement}>Decrease</button>
+        </div>
+      </div> */}
+      {/* <div>Inside The AddTask Modal: {count}</div> */}
       <section className="modal-container-modal">
         <div className="modal-body">
           <section className="AddTask">

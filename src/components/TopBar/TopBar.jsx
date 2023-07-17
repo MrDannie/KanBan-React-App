@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useContext } from "react";
 import "./TopBar.css";
 import logo from "../assets/logo-dark.svg";
 import iconVerticalEllipsis from "../assets/icon-vertical-ellipsis.svg";
@@ -6,6 +6,7 @@ import { showModal, useGlobalState } from "../../store/store";
 import DeleteBoard from "../../pages/DeleteBoard/DeleteBoard";
 import EditBoard from "../../pages/EditBoard/EditBoard";
 import AddTask from "../../pages/AddTask/AddTask";
+import { CountContext } from "../../App";
 
 const TopBar = () => {
   const topBarMenu = useRef();
@@ -16,6 +17,7 @@ const TopBar = () => {
   const [openMenu, setOpenMenu] = useState(false);
   const [showDeleteBoardModal, setShowDeleteBoardModal] = useState(false);
   const [showEditBoardModal, setShowEditBoardModal] = useState(false);
+  const { boardData, updateAppData } = useContext(CountContext);
 
   useEffect(() => {
     const handler = (e) => {

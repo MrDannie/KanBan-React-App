@@ -1,8 +1,9 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useContext } from "react";
 import PropTypes from "prop-types";
 import "./ViewTask.css";
 import iconVerticalEllipsis from "../../components/assets/icon-vertical-ellipsis.svg";
 import EditTask from "../EditTask/EditTask";
+import { CountContext } from "../../App";
 
 const ViewTask = ({
   selectedTask,
@@ -10,13 +11,24 @@ const ViewTask = ({
   closeViewTaskModal,
   showEditTask,
   showDeleteTask,
+  subtasks,
 }) => {
   const menuRef = useRef();
   const menuBtnRef = useRef();
-  const [subtaskStatus, setSubtaskStatus] = useState(false);
-  const [taskStatus, setTaskStatus] = useState();
   const [openMenu, setOpenMenu] = useState(false);
+  const { boardData, updateAppData } = useContext(CountContext);
+  const [subtaskStatus, setSubtaskStatus] = useState(subtasks);
+  const [formValues, setFormValues] = useState(selectedTask);
+  const [status, setStatus] = useState(selectedTask.status);
+  const chars = { "/": "", "-": " " };
+
+  console.log(subtaskStatus);
+
   useEffect(() => {
+    setFormValues(selectedTask);
+    setSubtaskStatus(subtasks);
+    setStatus(selectedTask.status);
+
     const handler = (e) => {
       if (menuBtnRef.current?.contains(e.target)) return;
       if (!menuRef.current?.contains(e.target)) {
@@ -27,8 +39,8 @@ const ViewTask = ({
     return () => {
       document.body.removeEventListener("mousedown", handler, true);
     };
-  }, []);
-
+  }, [selectedTask]);
+  1;
   const openEditModal = () => {
     showEditTask();
   };
@@ -37,12 +49,118 @@ const ViewTask = ({
     showDeleteTask();
   };
 
+  const handleCheck = (id) => {
+    const position = id;
+    setSubtaskStatus((prev) => {
+      return prev.map((item, index) => {
+        if (index === id) {
+          return { ...item, isCompleted: !item.isCompleted };
+        } else {
+          return { ...item };
+        }
+      });
+    });
+
+    formValues.subtasks = subtaskStatus;
+    let formData = { ...boardData };
+    const boardPosition = formData.boards.findIndex((item) =>
+      item.name
+        .toLowerCase()
+        .includes(location.pathname.replace(/[/ -]/g, (m) => chars[m]))
+    );
+    const taskColumn = formData.boards[boardPosition]["columns"].findIndex(
+      (item) =>
+        item.name.toLowerCase().includes(formValues.status.toLowerCase())
+    );
+
+    formData["boards"][boardPosition]["columns"][taskColumn]["tasks"].forEach(
+      (el, index) => {
+        if (el.title === formValues.title) {
+          el.subtasks.map((item, index) => {
+            if (index === position) {
+              console.log(item);
+              item.isCompleted = !item.isCompleted;
+            } else {
+              return { ...item };
+            }
+          });
+        }
+      }
+    );
+
+    updateAppData(formData);
+    console.log(formData);
+  };
+
+  const handleSelect = (e) => {
+    let formData = { ...boardData };
+
+    const boardPosition = formData.boards.findIndex((item) =>
+      item.name
+        .toLowerCase()
+        .includes(location.pathname.replace(/[/ -]/g, (m) => chars[m]))
+    );
+
+    const previousTaskColumn = formData.boards[boardPosition][
+      "columns"
+    ].findIndex((item) =>
+      item.name.toLowerCase().includes(status.toLowerCase())
+    );
+
+    const { name, value } = e.target;
+    setStatus(value);
+
+    const newTaskColumn = formData.boards[boardPosition]["columns"].findIndex(
+      (item) => item.name.toLowerCase().includes(value.toLowerCase())
+    );
+
+    const taskPosition = formData.boards[boardPosition]["columns"][
+      previousTaskColumn
+    ]["tasks"].findIndex((item) =>
+      item.title.toLowerCase().includes(formValues.title.toLowerCase())
+    );
+
+    const removedTask = formData.boards[boardPosition]["columns"][
+      previousTaskColumn
+    ]["tasks"].splice(taskPosition, 1);
+
+    removedTask[0].status = value;
+
+    formData["boards"][boardPosition]["columns"][newTaskColumn]["tasks"].push(
+      removedTask[0]
+    );
+
+    // // const newTaskColumn = value;
+
+    // formData["boards"][boardPosition]["columns"][taskColumn]["tasks"].forEach(
+    //   (el, index) => {
+    //     if (el.title === formValues.title) {
+    //       el.subtasks.map((item, index) => {
+    //         if (index === position) {
+    //           console.log(item);
+    //           item.isCompleted = !item.isCompleted;
+    //         } else {
+    //           return { ...item };
+    //         }
+    //       });
+    //     }
+    //   }
+    // );
+
+    updateAppData(formData);
+    console.log(formData);
+  };
+
+  // const el = formData["boards"][boardPosition]["columns"][taskColumn][
+  //   "tasks"
+  // ].filter((item) => item.title === formValues.title);
+
   if (!visible) return null;
 
   const handleOnClose = (e) => {
     if (e.target.id === "modal-container") closeViewTaskModal();
   };
-  const count = selectedTask["subtasks"].filter((subtask, index) => {
+  const count = subtaskStatus.filter((subtask, index) => {
     return subtask["isCompleted"] === true;
   }).length;
 
@@ -55,87 +173,103 @@ const ViewTask = ({
       <section className="modal-container-modal">
         <div className="modal-body">
           <section className="ViewTask-Modal">
-            <div className="view_task-title">
-              <h4 className="">{selectedTask.title}</h4>
-              <img
-                className="menu-ellipsis inline cursor-pointer"
-                src={iconVerticalEllipsis}
-                alt=""
-                ref={menuBtnRef}
-                onClick={() => {
-                  setOpenMenu(!openMenu);
-                }}
-              />
-              <div
-                ref={menuRef}
-                className={`dropdown-menu ${openMenu ? "active" : "inactive"}`}
-              >
-                <ul>
-                  <li onClick={openEditModal} className="mb-2 cursor-pointer">
-                    Edit Task
-                  </li>
-                  <li
-                    onClick={openDeleteTask}
-                    className="text-[red] cursor-pointer"
-                  >
-                    Delete Task
-                  </li>
-                </ul>
-              </div>
-            </div>
+            <form action="">
+              <fieldset>
+                <div className="view_task-title">
+                  <h4 className="">{formValues.title}</h4>
 
-            <p className="task-description">{selectedTask.description}</p>
-
-            <div className="sub-tasks">
-              <span className="number-of-tasks">
-                {"Subtask " +
-                  "( " +
-                  count +
-                  " of " +
-                  selectedTask["subtasks"].length +
-                  " )"}
-              </span>
-              {selectedTask["subtasks"].map((subtask, index) => (
-                <label
-                  onClick={(e) => setSubtaskStatus(e.target.value)}
-                  key={index}
-                  htmlFor=""
-                >
-                  <input
-                    value={subtaskStatus}
-                    onChange={(e) => setSubtaskStatus(e.target.value)}
-                    type="checkbox"
-                    name=""
-                    id=""
+                  <img
+                    className="menu-ellipsis inline cursor-pointer"
+                    src={iconVerticalEllipsis}
+                    alt=""
+                    ref={menuBtnRef}
+                    onClick={() => {
+                      setOpenMenu(!openMenu);
+                    }}
                   />
-                  <span className="inputName">{subtask.title}</span>
-                </label>
-              ))}
-            </div>
+                  <div
+                    ref={menuRef}
+                    className={`dropdown-menu ${
+                      openMenu ? "active" : "inactive"
+                    }`}
+                  >
+                    <ul>
+                      <li
+                        onClick={openEditModal}
+                        className="mb-2 cursor-pointer"
+                      >
+                        Edit Task
+                      </li>
+                      <li
+                        onClick={openDeleteTask}
+                        className="text-[red] cursor-pointer"
+                      >
+                        Delete Task
+                      </li>
+                    </ul>
+                  </div>
+                </div>
 
-            <div className="current-status">
-              <span> Current Status</span>
-              <label htmlFor="">
-                <select
-                  value={taskStatus}
-                  onChange={(e) => setTaskStatus(e.target.value)}
-                  name="status"
-                  id="status"
-                >
-                  <option value="Todo">Todo</option>
-                  <option value="Doing">Doing</option>
-                  <option value="Done">Done</option>
-                </select>
-              </label>
-            </div>
+                <p className="task-description">{formValues.description}</p>
+
+                <div className="sub-tasks">
+                  <span className="number-of-tasks">
+                    {"Subtask " +
+                      "( " +
+                      count +
+                      " of " +
+                      subtaskStatus.length +
+                      " )"}
+                  </span>
+                  {subtaskStatus.map((subtask, index) => {
+                    return (
+                      <label
+                        onClick={() => handleCheck(index)}
+                        key={index}
+                        htmlFor=""
+                      >
+                        <input
+                          checked={subtask.isCompleted}
+                          readOnly
+                          type="checkbox"
+                          name=""
+                          id=""
+                        />
+                        <span
+                          style={{
+                            textDecorationLine: subtask.isCompleted
+                              ? "line-through"
+                              : "none",
+                          }}
+                          className="inputName"
+                        >
+                          {subtask.title}
+                        </span>
+                      </label>
+                    );
+                  })}
+                </div>
+
+                <div className="current-status">
+                  <span> Current Status</span>
+                  <label htmlFor="">
+                    <select
+                      onChange={handleSelect}
+                      value={status}
+                      name="status"
+                      id="status"
+                    >
+                      <option value="Todo">Todo</option>
+                      <option value="Doing">Doing</option>
+                      <option value="Done">Done</option>
+                    </select>
+                  </label>
+                </div>
+              </fieldset>
+            </form>
           </section>
         </div>
       </section>
-      {/* <EditTask
-        visible={editTask}
-        selectedTask={selectedTask}
-        closeModal={closeModal}
-      /> */}
     </div>
   );
 };

@@ -58,7 +58,7 @@
   }
 
   input {
-    @apply accent-[#635FC7];
+    @apply accent-[#635FC7] cursor-pointer;
   }
 
   .current-status select {

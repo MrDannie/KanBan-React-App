@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import PropTypes from "prop-types";
 import "./PlatformLaunch.css";
 
@@ -7,6 +7,7 @@ import ViewTask from "../ViewTask/ViewTask";
 import EditTask from "../EditTask/EditTask";
 import DeleteTask from "../DeleteTask/DeleteTask";
 import AddNewColumn from "../AddNewColumn/AddNewColumn";
+import { CountContext } from "../../App";
 
 const getDataFromLocalStorage = () => {
   const data = localStorage.getItem("BoardData");
@@ -24,11 +25,10 @@ const PlatformLaunch = (props) => {
   const [deleteTask, setDeleteTask] = useState(false);
   const [subtasks, setSubTasks] = useState([]);
   const [showAddColumnModal, setShowAddColumnModal] = useState(false);
-  const [platformLaunchDatas, setPlatformLaunchData] = useState(
-    getDataFromLocalStorage
-  );
-
-  const platformLaunchData = props.platformLaunchData;
+  // const [platformLaunchDatas, setPlatformLaunchData] = useState(
+  //   getDataFromLocalStorage
+  // );
+  const { boardData } = useContext(CountContext);
 
   const closeViewTaskModal = () => {
     setTaskDetailsModal(false);
@@ -45,7 +45,6 @@ const PlatformLaunch = (props) => {
   const showTaskDetails = (id, item) => {
     setModalData(item);
     setSubTasks(item.subtasks);
-    console.log(subtasks, taskModalDetails);
     showModal(!showTaskDetailModal);
     setTaskDetailsModal(!showTaskDetailModal);
   };
@@ -72,7 +71,7 @@ const PlatformLaunch = (props) => {
     <div className="PlatformLaunch">
       <div
         className="default-content"
-        style={{ display: platformLaunchData ? "none" : "flex" }}
+        style={{ display: boardData ? "none" : "flex" }}
       >
         <h3 className="empty-message">
           This board is empty. Create a new column to get started.
@@ -83,7 +82,7 @@ const PlatformLaunch = (props) => {
       </div>
       {/* TASKS CONTAINER */}
       <div className="tasks-container">
-        {platformLaunchData.map((item, index) => (
+        {boardData["boards"][0]["columns"].map((item, index) => (
           <section key={index} className="todo-col">
             <div className="title">
               <span className={`dot ${item.name}`}></span>
@@ -93,7 +92,7 @@ const PlatformLaunch = (props) => {
               <div key={id} className="task">
                 <h3
                   className="task-title"
-                  onClick={() => showTaskDetails(id, item)}
+                  onClick={() => showTaskDetails(item.subtasks, item)}
                 >
                   {item.title}
                 </h3>
@@ -121,6 +120,7 @@ const PlatformLaunch = (props) => {
         closeViewTaskModal={closeViewTaskModal}
         showEditTask={showEditTask}
         showDeleteTask={showDeleteTask}
+        subtasks={subtasks}
       />
       <EditTask
         visible={editTask}

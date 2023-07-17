@@ -4,9 +4,6 @@ import "./EditTask.css";
 import removeSubtask from "../../components/assets/icon-cross.svg";
 
 const EditTask = ({ selectedTask, visible, closeEditModal, subtasks }) => {
-  console.log(selectedTask);
-  console.log(subtasks);
-
   const [formValues, setFormValues] = useState(selectedTask);
   const [formSubtasks, setFormSubtasks] = useState(subtasks);
 
@@ -14,8 +11,6 @@ const EditTask = ({ selectedTask, visible, closeEditModal, subtasks }) => {
     setFormValues(selectedTask);
     setFormSubtasks(subtasks);
   }, [selectedTask]);
-
-  console.log(formValues, formSubtasks);
 
   const handleOnClose = (e) => {
     if (e.target.id === "modal-container") closeEditModal();
