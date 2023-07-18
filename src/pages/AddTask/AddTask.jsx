@@ -61,8 +61,6 @@ const AddTask = ({ closeOnSubmit, closeAddTaskModal, visible }) => {
   };
   const chars = { "/": "", "-": " " };
 
-  console.log(location.pathname.replace(/[/ -]/g, (m) => chars[m]));
-
   const handleSubmit = (e) => {
     e.preventDefault();
     formValues.subtasks = subtasks;

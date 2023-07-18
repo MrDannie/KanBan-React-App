@@ -1,11 +1,16 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import PropTypes from "prop-types";
 import "./EditTask.css";
 import removeSubtask from "../../components/assets/icon-cross.svg";
+import { CountContext } from "../../App";
+import { useLocation } from "react-router-dom";
 
 const EditTask = ({ selectedTask, visible, closeEditModal, subtasks }) => {
   const [formValues, setFormValues] = useState(selectedTask);
   const [formSubtasks, setFormSubtasks] = useState(subtasks);
+  const { boardData, updateAppData } = useContext(CountContext);
+  const location = useLocation();
+  const chars = { "/": "", "-": " " };
 
   useEffect(() => {
     setFormValues(selectedTask);
@@ -29,7 +34,6 @@ const EditTask = ({ selectedTask, visible, closeEditModal, subtasks }) => {
 
   const deleteSubtask = (e, i) => {
     e.preventDefault();
-    console.log(i);
     const deleteVal = [...formSubtasks];
     deleteVal.splice(i, 1);
     setFormSubtasks(deleteVal);
@@ -37,6 +41,52 @@ const EditTask = ({ selectedTask, visible, closeEditModal, subtasks }) => {
 
   const addSubtask = () => {
     setFormSubtasks([...formSubtasks, { title: "", isCompleted: false }]);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    formValues.subtasks = formSubtasks;
+    let formData = { ...boardData };
+
+    const boardPosition = formData.boards.findIndex((item) =>
+      item.name
+        .toLowerCase()
+        .includes(location.pathname.replace(/[/ -]/g, (m) => chars[m]))
+    );
+
+    const previousTaskColumn = formData.boards[boardPosition][
+      "columns"
+    ].findIndex((item) =>
+      item.name.toLowerCase().includes(selectedTask.status.toLowerCase())
+    );
+
+    const taskPosition = formData.boards[boardPosition]["columns"][
+      previousTaskColumn
+    ]["tasks"].findIndex((item) =>
+      item.title.toLowerCase().includes(selectedTask.title.toLowerCase())
+    );
+
+    const newTaskColumn = formData.boards[boardPosition]["columns"].findIndex(
+      (item) =>
+        item.name.toLowerCase().includes(formValues.status.toLowerCase())
+    );
+
+    if (previousTaskColumn === newTaskColumn) {
+      const removedTask = formData.boards[boardPosition]["columns"][
+        previousTaskColumn
+      ]["tasks"].splice(taskPosition, 1, formValues);
+    } else {
+      const removedTask = formData.boards[boardPosition]["columns"][
+        previousTaskColumn
+      ]["tasks"].splice(taskPosition, 1);
+
+      formData["boards"][boardPosition]["columns"][newTaskColumn]["tasks"].push(
+        formValues
+      );
+    }
+
+    updateAppData(formData);
+    closeEditModal();
   };
 
   if (!visible) return null;
@@ -50,7 +100,7 @@ const EditTask = ({ selectedTask, visible, closeEditModal, subtasks }) => {
         <div className="modal-body">
           <section className="EditTask">
             <h4 className="form-title">Edit Task</h4>
-            <form action="">
+            <form onSubmit={handleSubmit} action="">
               <fieldset>
                 <label htmlFor="">
                   <span className="inputName">Title</span>

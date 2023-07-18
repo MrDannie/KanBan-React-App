@@ -22,8 +22,6 @@ const ViewTask = ({
   const [status, setStatus] = useState(selectedTask.status);
   const chars = { "/": "", "-": " " };
 
-  console.log(subtaskStatus);
-
   useEffect(() => {
     setFormValues(selectedTask);
     setSubtaskStatus(subtasks);
@@ -130,25 +128,7 @@ const ViewTask = ({
       removedTask[0]
     );
 
-    // // const newTaskColumn = value;
-
-    // formData["boards"][boardPosition]["columns"][taskColumn]["tasks"].forEach(
-    //   (el, index) => {
-    //     if (el.title === formValues.title) {
-    //       el.subtasks.map((item, index) => {
-    //         if (index === position) {
-    //           console.log(item);
-    //           item.isCompleted = !item.isCompleted;
-    //         } else {
-    //           return { ...item };
-    //         }
-    //       });
-    //     }
-    //   }
-    // );
-
     updateAppData(formData);
-    console.log(formData);
   };
 
   // const el = formData["boards"][boardPosition]["columns"][taskColumn][
