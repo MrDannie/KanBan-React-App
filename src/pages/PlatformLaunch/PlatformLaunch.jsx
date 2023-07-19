@@ -128,7 +128,11 @@ const PlatformLaunch = (props) => {
         closeEditModal={closeEditModal}
         subtasks={subtasks}
       />
-      <DeleteTask visible={deleteTask} closeDeleteModal={closeDeleteModal} />
+      <DeleteTask
+        selectedTask={taskModalDetails}
+        visible={deleteTask}
+        closeDeleteModal={closeDeleteModal}
+      />
 
       <AddNewColumn
         visible={showAddColumnModal}

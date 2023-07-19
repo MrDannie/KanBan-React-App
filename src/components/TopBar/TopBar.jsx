@@ -7,17 +7,28 @@ import DeleteBoard from "../../pages/DeleteBoard/DeleteBoard";
 import EditBoard from "../../pages/EditBoard/EditBoard";
 import AddTask from "../../pages/AddTask/AddTask";
 import { CountContext } from "../../App";
+import { useLocation } from "react-router-dom";
 
 const TopBar = () => {
+  const chars = { "/": "", "-": " " };
   const topBarMenu = useRef();
   const topmenuBtnRef = useRef();
   const [showAddTaskModal, setAddTaskModal] = useState(false);
   const isSideBarOpen = useGlobalState("isSideBarOpen");
-  const [showAddTask, setAddTask] = useState(false);
   const [openMenu, setOpenMenu] = useState(false);
   const [showDeleteBoardModal, setShowDeleteBoardModal] = useState(false);
   const [showEditBoardModal, setShowEditBoardModal] = useState(false);
   const { boardData, updateAppData } = useContext(CountContext);
+  const [currentBoard, setCurrentBoard] = useState("");
+  const location = useLocation();
+  const boardPosition = boardData.boards.findIndex((item) =>
+    item.name
+      .toLowerCase()
+      .includes(location.pathname.replace(/[/ -]/g, (m) => chars[m]))
+  );
+  const [boardColumns, setBoardColumns] = useState(
+    boardData.boards[boardPosition]
+  );
 
   useEffect(() => {
     const handler = (e) => {
@@ -32,11 +43,13 @@ const TopBar = () => {
     };
   }, []);
 
-  const handleOnClose = () => {
-    showModal(false);
-    setViewTaskModal("");
-    setAddTask(false);
-  };
+  useEffect(() => {
+    const chars = { "/": "", "-": " " };
+    setCurrentBoard(location.pathname.replace(/[/ -]/g, (m) => chars[m]));
+
+    setBoardColumns(boardData.boards[boardPosition]["columns"]);
+    console.log(boardColumns);
+  }, [location]);
 
   const closeDeleteBoardModal = () => {
     setShowDeleteBoardModal(false);
@@ -77,7 +90,7 @@ const TopBar = () => {
           alt=""
           className="logo inline"
         />
-        <h1 className="page-title inline">Platform Launch</h1>
+        <h1 className="page-title inline">{currentBoard}</h1>
       </div>
       <div className="add-newtask">
         <button onClick={handleAddTaskModal} className="add-task">
@@ -119,6 +132,7 @@ const TopBar = () => {
       <EditBoard
         visible={showEditBoardModal}
         closeEditBoardModal={closeEditBoardModal}
+        boardColumns={boardColumns}
       />
     </div>
   );

@@ -1,9 +1,33 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import PropTypes from "prop-types";
 import "./EditBoard.css";
 import removeSubtask from "../../components/assets/icon-cross.svg";
+import { useLocation } from "react-router-dom";
+import { CountContext } from "../../App";
+import { useState } from "react";
 
-const EditBoard = ({ visible, closeEditBoardModal }) => {
+const EditBoard = ({ visible, closeEditBoardModal, boardColumns }) => {
+  const { boardData, updateAppData } = useContext(CountContext);
+  const [columns, setColumns] = useState(boardColumns["columns"]);
+  const [name, setName] = useState(boardColumns.name);
+
+  // useEffect(() => {
+  //   setColumns(boardColumns);
+  // }, [columns]);
+
+  const handleBoardName = (e) => {
+    const { value } = e.target;
+    setName(value);
+  };
+
+  const handleColumn = (e, i) => {
+    const { name, value } = e.target;
+    const onChangeVal = [...columns];
+    console.log(onChangeVal);
+    onChangeVal[i][name] = value;
+    setColumns(onChangeVal);
+  };
+
   const handleOnClose = (e) => {
     if (e.target.id === "modal-container") closeEditBoardModal();
   };
@@ -22,36 +46,41 @@ const EditBoard = ({ visible, closeEditBoardModal }) => {
             <form action="">
               <fieldset>
                 <label className="first-label" htmlFor="">
-                  <span className="inputName">Title</span>
+                  <span className="inputName">Board Name</span>
                   <input
                     className=""
                     placeholder="e.g. Web Design"
                     type="text"
                     required
-                    name="title"
+                    name="board"
+                    value={name}
+                    onChange={handleBoardName}
                   />
                   {/* <span className="formErrors">{selectedTask.title}</span> */}
                 </label>
 
                 <div className="add-subtask-section">
-                  <span className="inputName">Columns</span>
-                  <label htmlFor="">
-                    <input
-                      className=""
-                      placeholder="e.g. Todo"
-                      type="text"
-                      name="title"
-                      required
-                      // value={subtask?.title}
-                      // onChange={(e) => handleSubtaskUpdate(e, index)}
-                    />
-                    <button
-                      // onClick={(e) => deleteSubtask(e, index)}
-                      className="remove-subtask-btn"
-                    >
-                      <img src={removeSubtask} alt="" />
-                    </button>
-                  </label>
+                  <span className="inputName">Board Columns</span>
+                  {columns.map((item, index) => (
+                    <label key={index} htmlFor="">
+                      <input
+                        className=""
+                        placeholder="e.g. Todo"
+                        type="text"
+                        name="name"
+                        required
+                        value={item.name}
+                        onChange={(e) => handleColumn(e, index)}
+                      />
+                      <button
+                        // onClick={(e) => deleteSubtask(e, index)}
+                        className="remove-subtask-btn"
+                      >
+                        <img src={removeSubtask} alt="" />
+                      </button>
+                    </label>
+                  ))}
+
                   {/* <span className="formErrors">{formErrors.subtask}</span> */}
                 </div>
                 <div className="btn add-column-btn mb-6">+Add New Column</div>
