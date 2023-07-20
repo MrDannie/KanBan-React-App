@@ -10,10 +10,14 @@ const EditBoard = ({ visible, closeEditBoardModal, boardColumns }) => {
   const { boardData, updateAppData } = useContext(CountContext);
   const [columns, setColumns] = useState(boardColumns["columns"]);
   const [name, setName] = useState(boardColumns.name);
+  console.log(columns);
 
-  // useEffect(() => {
-  //   setColumns(boardColumns);
-  // }, [columns]);
+  useEffect(() => {
+    setColumns(boardColumns["columns"]);
+    setName(boardColumns.name);
+  }, [boardColumns]);
+
+  console.log(boardColumns, name);
 
   const handleBoardName = (e) => {
     const { value } = e.target;
@@ -28,8 +32,41 @@ const EditBoard = ({ visible, closeEditBoardModal, boardColumns }) => {
     setColumns(onChangeVal);
   };
 
+  const deleteColumn = (e, i) => {
+    e.preventDefault();
+    const deleteVal = [...columns];
+    deleteVal.splice(i, 1);
+    setColumns(deleteVal);
+  };
+
+  const addColumn = () => {
+    setColumns([...columns, { name: "", tasks: [] }]);
+  };
+
   const handleOnClose = (e) => {
     if (e.target.id === "modal-container") closeEditBoardModal();
+  };
+
+  const handleSubmit = (e) => {
+    const chars = { "/": "", "-": " " };
+    e.preventDefault();
+    const formValues = { name: "", columns: [] };
+    formValues.name = name;
+    formValues.columns = [...columns];
+    console.log(formValues);
+
+    let formData = { ...boardData };
+
+    const boardPosition = formData.boards.findIndex((item) =>
+      item.name
+        .toLowerCase()
+        .includes(location.pathname.replace(/[/ -]/g, (m) => chars[m]))
+    );
+
+    formData["boards"][boardPosition] = formValues;
+    console.log(formData);
+    updateAppData(formData);
+    closeEditBoardModal();
   };
 
   if (!visible) return null;
@@ -43,7 +80,7 @@ const EditBoard = ({ visible, closeEditBoardModal, boardColumns }) => {
         <div className="modal-body">
           <section className="EditBoard">
             <h4 className="form-title">Edit Board</h4>
-            <form action="">
+            <form onSubmit={handleSubmit} action="">
               <fieldset>
                 <label className="first-label" htmlFor="">
                   <span className="inputName">Board Name</span>
@@ -61,7 +98,7 @@ const EditBoard = ({ visible, closeEditBoardModal, boardColumns }) => {
 
                 <div className="add-subtask-section">
                   <span className="inputName">Board Columns</span>
-                  {columns.map((item, index) => (
+                  {columns?.map((item, index) => (
                     <label key={index} htmlFor="">
                       <input
                         className=""
@@ -73,7 +110,7 @@ const EditBoard = ({ visible, closeEditBoardModal, boardColumns }) => {
                         onChange={(e) => handleColumn(e, index)}
                       />
                       <button
-                        // onClick={(e) => deleteSubtask(e, index)}
+                        onClick={(e) => deleteColumn(e, index)}
                         className="remove-subtask-btn"
                       >
                         <img src={removeSubtask} alt="" />
@@ -83,9 +120,11 @@ const EditBoard = ({ visible, closeEditBoardModal, boardColumns }) => {
 
                   {/* <span className="formErrors">{formErrors.subtask}</span> */}
                 </div>
-                <div className="btn add-column-btn mb-6">+Add New Column</div>
+                <div onClick={addColumn} className="btn add-column-btn mb-6">
+                  +Add New Column
+                </div>
 
-                <div className="btn save-btn">Save Changes</div>
+                <button className="btn save-btn">Save Changes</button>
               </fieldset>
             </form>
           </section>

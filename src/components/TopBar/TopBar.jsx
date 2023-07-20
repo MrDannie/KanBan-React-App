@@ -18,7 +18,7 @@ const TopBar = () => {
   const [openMenu, setOpenMenu] = useState(false);
   const [showDeleteBoardModal, setShowDeleteBoardModal] = useState(false);
   const [showEditBoardModal, setShowEditBoardModal] = useState(false);
-  const { boardData, updateAppData } = useContext(CountContext);
+  const { boardData } = useContext(CountContext);
   const [currentBoard, setCurrentBoard] = useState("");
   const location = useLocation();
   const boardPosition = boardData.boards.findIndex((item) =>
@@ -29,6 +29,17 @@ const TopBar = () => {
   const [boardColumns, setBoardColumns] = useState(
     boardData.boards[boardPosition]
   );
+  console.log(boardColumns);
+
+  // useEffect(() => {
+  //   const boardPosition = boardData.boards.findIndex((item) =>
+  //     item.name
+  //       .toLowerCase()
+  //       .includes(location.pathname.replace(/[/ -]/g, (m) => chars[m]))
+  //   );
+  //   setBoardColumns(boardData.boards[boardPosition]);
+  //   console.log(boardColumns);
+  // }, [location]);
 
   useEffect(() => {
     const handler = (e) => {
@@ -45,17 +56,22 @@ const TopBar = () => {
 
   useEffect(() => {
     const chars = { "/": "", "-": " " };
+
+    const boardPosition = boardData.boards.findIndex((item) =>
+      item.name
+        .toLowerCase()
+        .includes(location.pathname.replace(/[/ -]/g, (m) => chars[m]))
+    );
     setCurrentBoard(location.pathname.replace(/[/ -]/g, (m) => chars[m]));
 
-    setBoardColumns(boardData.boards[boardPosition]["columns"]);
-    console.log(boardColumns);
+    setBoardColumns(boardData.boards[boardPosition]);
   }, [location]);
 
   const closeDeleteBoardModal = () => {
     setShowDeleteBoardModal(false);
   };
 
-  const handleModal = () => {
+  const handleDeleteModal = () => {
     setShowDeleteBoardModal(true);
     setOpenMenu(!openMenu);
   };
@@ -114,7 +130,10 @@ const TopBar = () => {
             <li onClick={handleEditModal} className="mb-2 cursor-pointer">
               Edit Board
             </li>
-            <li onClick={handleModal} className="text-[red] cursor-pointer">
+            <li
+              onClick={handleDeleteModal}
+              className="text-[red] cursor-pointer"
+            >
               Delete Board
             </li>
           </ul>
@@ -127,6 +146,8 @@ const TopBar = () => {
       <DeleteBoard
         visible={showDeleteBoardModal}
         closeDeleteBoardModal={closeDeleteBoardModal}
+        selectedBoard={boardPosition}
+        boardName={boardColumns.name}
       />
 
       <EditBoard

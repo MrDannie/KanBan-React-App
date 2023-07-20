@@ -18,13 +18,15 @@ const getDataFromLocalStorage = () => {
 const AddTask = ({ closeOnSubmit, closeAddTaskModal, visible }) => {
   const { boardData, updateAppData } = useContext(CountContext);
   const location = useLocation();
-
-  // const [taskTitle, setTaskTitle] = useState("");
-  // const [taskDescription, setTaskDescription] = useState("");
-  // const [status, setStatus] = useState("");
   const [subtasks, setSubtasks] = useState([{ title: "", isCompleted: false }]);
   const [formErrors, setFormErrors] = useState({});
-  const [isSubmit, setIsSubmit] = useState(false);
+  const chars = { "/": "", "-": " " };
+  let formData = { ...boardData };
+  const boardPosition = formData.boards.findIndex((item) =>
+    item.name
+      .toLowerCase()
+      .includes(location.pathname.replace(/[/ -]/g, (m) => chars[m]))
+  );
 
   const [formValues, setFormValues] = useState({
     title: "",
@@ -59,17 +61,11 @@ const AddTask = ({ closeOnSubmit, closeAddTaskModal, visible }) => {
     deleteVal.splice(i, 1);
     setSubtasks(deleteVal);
   };
-  const chars = { "/": "", "-": " " };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     formValues.subtasks = subtasks;
-    let formData = { ...boardData };
-    const boardPosition = formData.boards.findIndex((item) =>
-      item.name
-        .toLowerCase()
-        .includes(location.pathname.replace(/[/ -]/g, (m) => chars[m]))
-    );
+
     const taskColumn = formData.boards[boardPosition]["columns"].findIndex(
       (item) =>
         item.name.toLowerCase().includes(formValues.status.toLowerCase())
@@ -194,9 +190,11 @@ const AddTask = ({ closeOnSubmit, closeAddTaskModal, visible }) => {
                       name="status"
                       id="status"
                     >
-                      <option value="Todo">Todo</option>
-                      <option value="Doing">Doing</option>
-                      <option value="Done">Done</option>
+                      {boardData["boards"][boardPosition]["columns"].map(
+                        (option, id) => (
+                          <option key={id}>{option.name}</option>
+                        )
+                      )}
                     </select>
                   </label>
                 </div>

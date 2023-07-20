@@ -1,5 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Link, NavLink } from "react-router-dom";
+import { CountContext } from "../../App";
+
 import PropTypes from "prop-types";
 import "./SideBar.css";
 
@@ -9,12 +11,13 @@ import iconLightTheme from "../assets/icon-light-theme.svg";
 import iconDarkTheme from "../assets/icon-dark-theme.svg";
 import iconHideSideBar from "../assets/icon-hide-sidebar.svg";
 import iconShowSideBar from "../assets/icon-show-sidebar.svg";
-import appData from "../../store/data.json";
 
 import { setSideBar } from "../../store/store";
 import CreateNewBoard from "../../pages/CreateNewBoard/CreateNewBoard";
 
 const SideBar = ({ children }) => {
+  const { boardData, updateAppData } = useContext(CountContext);
+
   const [isOpen, setIsOpen] = useState(true);
   const [showNewBoardModal, setNewBoardModal] = useState(false);
   const closeNewBoardModal = () => {
@@ -56,7 +59,7 @@ const SideBar = ({ children }) => {
             >
               ALL BOARD (3)
             </h1>
-            {appData.boards.map((item, index) => (
+            {boardData.boards.map((item, index) => (
               <NavLink
                 to={item.name.replace(/ /, "-").toLowerCase()}
                 key={index}

@@ -8,6 +8,7 @@ import EditTask from "../EditTask/EditTask";
 import DeleteTask from "../DeleteTask/DeleteTask";
 import AddNewColumn from "../AddNewColumn/AddNewColumn";
 import { CountContext } from "../../App";
+import EditBoard from "../EditBoard/EditBoard";
 
 const getDataFromLocalStorage = () => {
   const data = localStorage.getItem("BoardData");
@@ -19,16 +20,31 @@ const getDataFromLocalStorage = () => {
 };
 
 const PlatformLaunch = (props) => {
+  const { boardData } = useContext(CountContext);
   const [taskModalDetails, setModalData] = useState({});
   const [showTaskDetailModal, setTaskDetailsModal] = useState(false);
   const [editTask, setEditTask] = useState(false);
   const [deleteTask, setDeleteTask] = useState(false);
   const [subtasks, setSubTasks] = useState([]);
-  const [showAddColumnModal, setShowAddColumnModal] = useState(false);
-  // const [platformLaunchDatas, setPlatformLaunchData] = useState(
-  //   getDataFromLocalStorage
-  // );
-  const { boardData } = useContext(CountContext);
+  const chars = { "/": "", "-": " " };
+
+  const boardPosition = boardData.boards.findIndex((item) =>
+    item.name
+      .toLowerCase()
+      .includes(location.pathname.replace(/[/ -]/g, (m) => chars[m]))
+  );
+
+  // EDIT BOARD STATES
+  const [showEditBoardModal, setShowEditBoardModal] = useState(false);
+  const closeEditBoardModal = () => {
+    setShowEditBoardModal(false);
+  };
+  const openEditBoardModal = () => {
+    setShowEditBoardModal(true);
+  };
+  const [boardColumns, setBoardColumns] = useState(
+    boardData.boards[boardPosition]
+  );
 
   const closeViewTaskModal = () => {
     setTaskDetailsModal(false);
@@ -59,14 +75,6 @@ const PlatformLaunch = (props) => {
     setDeleteTask(true);
   };
 
-  const closeAddColumnModal = () => {
-    setShowAddColumnModal(false);
-  };
-
-  const handleModal = () => {
-    setShowAddColumnModal(true);
-  };
-
   return (
     <div className="PlatformLaunch">
       <div
@@ -76,41 +84,48 @@ const PlatformLaunch = (props) => {
         <h3 className="empty-message">
           This board is empty. Create a new column to get started.
         </h3>
-        <button onClick={handleModal} className="add-column-btn">
+        <button onClick={openEditBoardModal} className="add-column-btn">
           +Add New Column
         </button>
       </div>
       {/* TASKS CONTAINER */}
       <div className="tasks-container">
-        {boardData["boards"][0]["columns"].map((item, index) => (
-          <section key={index} className="todo-col">
-            <div className="title">
-              <span className={`dot ${item.name}`}></span>
-              <h2>{item.name + " " + "(" + item["tasks"].length + ")"}</h2>
-            </div>
-            {item["tasks"].map((item, id) => (
-              <div key={id} className="task">
-                <h3
-                  className="task-title"
-                  onClick={() => showTaskDetails(item.subtasks, item)}
-                >
-                  {item.title}
-                </h3>
-                <span className="sub-task">
-                  {item["subtasks"].reduce(
-                    (counter, subtask) =>
-                      subtask.isCompleted ? (counter += 1) : counter,
-                    0
-                  ) +
-                    " of " +
-                    item["subtasks"].length +
-                    " subtasks"}
-                </span>
+        {boardData["boards"][0]["columns"].map((item, index) => {
+          return (
+            <section
+              key={index}
+              className={item["tasks"][0] ? "todo-col" : "empty-task-col"}
+            >
+              <div className={item["tasks"][0] ? "title" : "no-task-title"}>
+                <span className={`dot ${item.name}`}></span>
+                <h2>{item.name + " " + "(" + item["tasks"].length + ")"}</h2>
               </div>
-            ))}
-          </section>
-        ))}
-        <section onClick={handleModal} className="task add-new-col">
+              {item["tasks"].map((item, id) => {
+                return (
+                  <div key={id} className="task">
+                    <h3
+                      className="task-title"
+                      onClick={() => showTaskDetails(item.subtasks, item)}
+                    >
+                      {item.title}
+                    </h3>
+                    <span className="sub-task">
+                      {item["subtasks"].reduce(
+                        (counter, subtask) =>
+                          subtask.isCompleted ? (counter += 1) : counter,
+                        0
+                      ) +
+                        " of " +
+                        item["subtasks"].length +
+                        " subtasks"}
+                    </span>
+                  </div>
+                );
+              })}
+            </section>
+          );
+        })}
+        <section onClick={openEditBoardModal} className="task add-new-col">
           <h3 className="add-col-btn">+New Column</h3>
         </section>
       </div>
@@ -134,9 +149,10 @@ const PlatformLaunch = (props) => {
         closeDeleteModal={closeDeleteModal}
       />
 
-      <AddNewColumn
-        visible={showAddColumnModal}
-        closeAddColumnModal={closeAddColumnModal}
+      <EditBoard
+        visible={showEditBoardModal}
+        closeEditBoardModal={closeEditBoardModal}
+        boardColumns={boardColumns}
       />
     </div>
   );
