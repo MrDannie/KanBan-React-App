@@ -37,6 +37,7 @@
   padding: 0px 24px 0px 45px;
   height: 97px;
   border-bottom: 1px solid #e4ebfa;
+  flex-shrink: 0;
 }
 
 .rectangle-line {

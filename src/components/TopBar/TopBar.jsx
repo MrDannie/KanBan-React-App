@@ -2,14 +2,16 @@ import React, { useState, useEffect, useRef, useContext } from "react";
 import "./TopBar.css";
 import logo from "../assets/logo-dark.svg";
 import iconVerticalEllipsis from "../assets/icon-vertical-ellipsis.svg";
-import { showModal, useGlobalState } from "../../store/store";
+import { useGlobalState } from "../../store/store";
 import DeleteBoard from "../../pages/DeleteBoard/DeleteBoard";
 import EditBoard from "../../pages/EditBoard/EditBoard";
 import AddTask from "../../pages/AddTask/AddTask";
 import { CountContext } from "../../App";
 import { useLocation } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 const TopBar = () => {
+  const { boardName } = useParams();
   const chars = { "/": "", "-": " " };
   const topBarMenu = useRef();
   const topmenuBtnRef = useRef();
@@ -19,27 +21,25 @@ const TopBar = () => {
   const [showDeleteBoardModal, setShowDeleteBoardModal] = useState(false);
   const [showEditBoardModal, setShowEditBoardModal] = useState(false);
   const { boardData } = useContext(CountContext);
-  const [currentBoard, setCurrentBoard] = useState("");
+  const [currentBoard, setCurrentBoard] = useState(
+    localStorage.getItem("currentBoard")
+  );
+  const [navTitle, setNavTitle] = useState("");
+  console.log(navTitle);
   const location = useLocation();
   const boardPosition = boardData.boards.findIndex((item) =>
     item.name
       .toLowerCase()
-      .includes(location.pathname.replace(/[/ -]/g, (m) => chars[m]))
+      .includes(location.pathname.slice(8).replace(/-/g, " ").toLowerCase())
   );
   const [boardColumns, setBoardColumns] = useState(
     boardData.boards[boardPosition]
   );
-  console.log(boardColumns);
 
-  // useEffect(() => {
-  //   const boardPosition = boardData.boards.findIndex((item) =>
-  //     item.name
-  //       .toLowerCase()
-  //       .includes(location.pathname.replace(/[/ -]/g, (m) => chars[m]))
-  //   );
-  //   setBoardColumns(boardData.boards[boardPosition]);
-  //   console.log(boardColumns);
-  // }, [location]);
+  useEffect(() => {
+    setCurrentBoard(localStorage.getItem("currentBoard"));
+    setNavTitle(location.pathname.slice(8).replace(/-/g, " ").toLowerCase());
+  }, [location.pathname]);
 
   useEffect(() => {
     const handler = (e) => {
@@ -60,10 +60,8 @@ const TopBar = () => {
     const boardPosition = boardData.boards.findIndex((item) =>
       item.name
         .toLowerCase()
-        .includes(location.pathname.replace(/[/ -]/g, (m) => chars[m]))
+        .includes(location.pathname.slice(8).replace(/-/g, " ").toLowerCase())
     );
-    setCurrentBoard(location.pathname.replace(/[/ -]/g, (m) => chars[m]));
-
     setBoardColumns(boardData.boards[boardPosition]);
   }, [location]);
 
@@ -78,6 +76,7 @@ const TopBar = () => {
 
   const closeAddTaskdModal = () => {
     setAddTaskModal(false);
+    resetForm();
   };
 
   const handleAddTaskModal = () => {
@@ -96,17 +95,17 @@ const TopBar = () => {
   return (
     <div className="TopBar">
       <div
-        style={{ display: isSideBarOpen[0].show ? "none" : "block" }}
+        style={{ display: isSideBarOpen[0].show ? "none" : "flex" }}
         className="rectangle-line"
       ></div>
       <div className="logo-title-region">
         <img
-          style={{ display: isSideBarOpen[0].show ? "none" : "block" }}
+          style={{ display: isSideBarOpen[0].show ? "none" : "flex" }}
           src={logo}
           alt=""
           className="logo inline"
         />
-        <h1 className="page-title inline">{currentBoard}</h1>
+        <h1 className="page-title inline">{navTitle}</h1>
       </div>
       <div className="add-newtask">
         <button onClick={handleAddTaskModal} className="add-task">

@@ -27,15 +27,15 @@
   }
 
   .add-new-col {
-    @apply flex mt-8 items-center justify-center cursor-pointer bg-[#E9EFFA] drop-shadow-none;
+    @apply flex mt-8 items-center justify-center cursor-pointer bg-[#E9EFFA] drop-shadow-none h-[80vh];
   }
 
   .empty-task-col {
-    @apply mt-8 bg-[#E9EFFA] drop-shadow-none w-[280px] rounded-lg;
+    @apply mt-8 bg-[#E9EFFA] drop-shadow-none w-[280px] rounded-lg min-h-[80vh] h-full shrink-0;
   }
 
   .add-col-btn {
-    @apply flex justify-center text-[#828FA3] text-[24px];
+    @apply flex w-[280px] justify-center text-[#828FA3] text-[24px] min-h-[80vh] h-full shrink-0 items-center;
   }
 
   div.title {

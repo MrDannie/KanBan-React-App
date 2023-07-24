@@ -61,7 +61,7 @@ const SideBar = ({ children }) => {
             </h1>
             {boardData.boards.map((item, index) => (
               <NavLink
-                to={item.name.replace(/ /, "-").toLowerCase()}
+                to={`/boards/${item.name.replace(/\s+/g, "-").toLowerCase()}`}
                 key={index}
                 style={{ display: isOpen ? "block" : "none" }}
                 className="nav-tabs"
@@ -70,7 +70,9 @@ const SideBar = ({ children }) => {
                 <span className="nav-tab__content">
                   {" "}
                   <img className="nav-icon" src={boardIcon} alt="boardIcon" />
-                  {item.name}
+                  {item.name.length > 20
+                    ? item.name.substring(0, 20) + "..."
+                    : item.name}
                 </span>
               </NavLink>
             ))}
@@ -84,59 +86,6 @@ const SideBar = ({ children }) => {
                 Create New Board
               </span>
             </Link>
-            {/* <ul className="navigation-tabs">
-              <Link
-                to="/platform-launch"
-                style={{ display: isOpen ? "block" : "none" }}
-                className="launch bg-[#635FC7] py-[20px]"
-              >
-                <span className="text-content text">
-                  {" "}
-                  <img className="inline" src={boardIcon} alt="boardIcon" />
-                  Platform Launch
-                </span>
-              </Link>
-              <Link
-                to="/marketing-plan"
-                style={{ display: isOpen ? "block" : "none" }}
-                className="launch py-[20px]"
-              >
-                {" "}
-                <span className="">
-                  {" "}
-                  <img className="inline" src={boardIcon} alt="boardIcon" />
-                  Marketing Plan
-                </span>
-              </Link>
-              <Link
-                to="/roadmap"
-                style={{ display: isOpen ? "block" : "none" }}
-                className="launch  py-[20px]"
-              >
-                {" "}
-                <span className="">
-                  {" "}
-                  <img className="inline" src={boardIcon} alt="boardIcon" />
-                  Roadmap
-                </span>
-              </Link>
-              <Link
-                to="/create-new-board"
-                style={{ display: isOpen ? "flex" : "none" }}
-                className="launch py-[20px]"
-              >
-                {" "}
-                <span className="">
-                  {" "}
-                  <img
-                    className="add-board-icon inline text-[#635FC7]"
-                    src={boardIcon}
-                    alt="boardIcon"
-                  />
-                  + Create New Board
-                </span>
-              </Link>{" "}
-            </ul> */}
           </div>
 
           {/* HIDE SIDE BAR SECTION */}

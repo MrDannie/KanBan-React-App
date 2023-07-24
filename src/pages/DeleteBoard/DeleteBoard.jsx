@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import PropTypes from "prop-types";
 import "./DeleteBoard.css";
 import { CountContext } from "../../App";
+import { useNavigate } from "react-router-dom";
 
 const DeleteBoard = ({
   visible,
@@ -11,18 +12,39 @@ const DeleteBoard = ({
 }) => {
   const { boardData, updateAppData } = useContext(CountContext);
   const chars = { "/": "", "-": " " };
+  let boardName = localStorage.getItem("currentBoard");
+  const navigate = useNavigate();
 
   const deleteBoard = () => {
     let formData = { ...boardData };
-    formData.boards.splice(selectedBoard, 1);
-    updateAppData(formData);
-    closeDeleteBoardModal();
-  };
+    if (formData) {
+      function1(formData.boards[0].name, function () {
+        formData.boards.splice(selectedBoard, 1);
+        updateAppData(formData);
+        closeDeleteBoardModal();
+      });
+    } else {
+      return;
+    }
 
-  console.log(boardColumns);
+    function function1(param, callback) {
+      if (param) {
+        const route = param.replace(/\s+/g, "-").toLowerCase();
+        navigate(`/boards/${route}`);
+      }
+
+      setTimeout(() => {
+        callback();
+      }, 250);
+    }
+  };
 
   const handleOnClose = (e) => {
     if (e.target.id === "modal-container") closeDeleteBoardModal();
+  };
+
+  const cancel = () => {
+    closeDeleteBoardModal();
   };
 
   if (!visible) return null;
@@ -39,8 +61,7 @@ const DeleteBoard = ({
             <h4 className="modal-title">Delete this board?</h4>
 
             <p className="short-note">
-              Are you sure you want to delete the{" "}
-              <strong>'{boardData.boards[selectedBoard]["name"]}'</strong>{" "}
+              Are you sure you want to delete the <strong>'{boardName}'</strong>{" "}
               board? This <br />
               action will remove all columns and tasks and cannot be reversed.
             </p>
@@ -49,10 +70,7 @@ const DeleteBoard = ({
               <button onClick={deleteBoard} className="btn delete-btn">
                 Delete
               </button>
-              <button
-                onClick={closeDeleteBoardModal()}
-                className="btn cancel-btn"
-              >
+              <button onClick={cancel} className="btn cancel-btn">
                 Cancel
               </button>
             </div>

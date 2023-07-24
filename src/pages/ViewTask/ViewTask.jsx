@@ -64,7 +64,7 @@ const ViewTask = ({
     const boardPosition = formData.boards.findIndex((item) =>
       item.name
         .toLowerCase()
-        .includes(location.pathname.replace(/[/ -]/g, (m) => chars[m]))
+        .includes(location.pathname.slice(8).replace(/-/g, " ").toLowerCase())
     );
     const taskColumn = formData.boards[boardPosition]["columns"].findIndex(
       (item) =>
@@ -96,7 +96,7 @@ const ViewTask = ({
     const boardPosition = formData.boards.findIndex((item) =>
       item.name
         .toLowerCase()
-        .includes(location.pathname.replace(/[/ -]/g, (m) => chars[m]))
+        .includes(location.pathname.slice(8).replace(/-/g, " ").toLowerCase())
     );
 
     const previousTaskColumn = formData.boards[boardPosition][

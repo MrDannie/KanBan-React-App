@@ -5,6 +5,7 @@ import "./AddTask.css";
 import removeSubtask from "../../components/assets/icon-cross.svg";
 import { CountContext } from "../../App";
 import { useLocation } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 const getDataFromLocalStorage = () => {
   const data = localStorage.getItem("BoardData");
@@ -15,17 +16,20 @@ const getDataFromLocalStorage = () => {
   }
 };
 
-const AddTask = ({ closeOnSubmit, closeAddTaskModal, visible }) => {
+const AddTask = ({ closeAddTaskModal, visible }) => {
+  const { boardName } = useParams();
   const { boardData, updateAppData } = useContext(CountContext);
   const location = useLocation();
   const [subtasks, setSubtasks] = useState([{ title: "", isCompleted: false }]);
   const [formErrors, setFormErrors] = useState({});
   const chars = { "/": "", "-": " " };
   let formData = { ...boardData };
+  // const currentBoard = localStorage.getItem("currentBoard");
+  // console.log(currentBoard);
   const boardPosition = formData.boards.findIndex((item) =>
     item.name
       .toLowerCase()
-      .includes(location.pathname.replace(/[/ -]/g, (m) => chars[m]))
+      .includes(location.pathname.slice(8).replace(/-/g, " ").toLowerCase())
   );
 
   const [formValues, setFormValues] = useState({
@@ -62,6 +66,20 @@ const AddTask = ({ closeOnSubmit, closeAddTaskModal, visible }) => {
     setSubtasks(deleteVal);
   };
 
+  const resetForm = () => {
+    setFormValues({
+      title: "",
+      description: "",
+      status: "Todo",
+      subtasks: [
+        {
+          title: "",
+          isCompleted: true,
+        },
+      ],
+    });
+    setSubtasks([{ title: "", isCompleted: false }]);
+  };
   const handleSubmit = (e) => {
     e.preventDefault();
     formValues.subtasks = subtasks;
@@ -76,6 +94,7 @@ const AddTask = ({ closeOnSubmit, closeAddTaskModal, visible }) => {
     );
     updateAppData(formData);
     closeAddTaskModal();
+    resetForm();
   };
 
   const handleSubtaskUpdate = (e, i) => {

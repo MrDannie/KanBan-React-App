@@ -6,18 +6,9 @@ import { showModal } from "../../store/store";
 import ViewTask from "../ViewTask/ViewTask";
 import EditTask from "../EditTask/EditTask";
 import DeleteTask from "../DeleteTask/DeleteTask";
-import AddNewColumn from "../AddNewColumn/AddNewColumn";
 import { CountContext } from "../../App";
 import EditBoard from "../EditBoard/EditBoard";
-
-const getDataFromLocalStorage = () => {
-  const data = localStorage.getItem("BoardData");
-  if (data) {
-    return JSON.parse(data);
-  } else {
-    return [];
-  }
-};
+import { useLocation, useParams } from "react-router-dom";
 
 const PlatformLaunch = (props) => {
   const { boardData } = useContext(CountContext);
@@ -27,11 +18,29 @@ const PlatformLaunch = (props) => {
   const [deleteTask, setDeleteTask] = useState(false);
   const [subtasks, setSubTasks] = useState([]);
   const chars = { "/": "", "-": " " };
+  const { boardName } = useParams();
+  const location = useLocation();
+
+  useEffect(() => {
+    localStorage.setItem(
+      "currentBoard",
+      boardName.replace(/-/, " ").toLowerCase()
+    );
+  }, [location]);
+
+  useEffect(() => {
+    const boardPosition = boardData.boards.findIndex((item) =>
+      item.name
+        .toLowerCase()
+        .includes(location.pathname.slice(8).replace(/-/g, " ").toLowerCase())
+    );
+    setBoardColumns(boardData.boards[boardPosition]);
+  }, [location]);
 
   const boardPosition = boardData.boards.findIndex((item) =>
     item.name
       .toLowerCase()
-      .includes(location.pathname.replace(/[/ -]/g, (m) => chars[m]))
+      .includes(location.pathname.slice(8).replace(/-/g, " ").toLowerCase())
   );
 
   // EDIT BOARD STATES
@@ -79,7 +88,13 @@ const PlatformLaunch = (props) => {
     <div className="PlatformLaunch">
       <div
         className="default-content"
-        style={{ display: boardData ? "none" : "flex" }}
+        style={{
+          display:
+            boardData.boards?.boardPosition?.columns?.length == 0 ||
+            boardData["boards"].length == 0
+              ? "flex"
+              : "none",
+        }}
       >
         <h3 className="empty-message">
           This board is empty. Create a new column to get started.
@@ -89,8 +104,11 @@ const PlatformLaunch = (props) => {
         </button>
       </div>
       {/* TASKS CONTAINER */}
-      <div className="tasks-container">
-        {boardData["boards"][0]["columns"].map((item, index) => {
+      <div
+        style={{ display: boardData.boards.length == 0 ? "none" : "flex" }}
+        className="tasks-container"
+      >
+        {boardData["boards"][boardPosition]["columns"].map((item, index) => {
           return (
             <section
               key={index}

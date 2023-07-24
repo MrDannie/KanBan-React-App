@@ -51,7 +51,7 @@ const EditTask = ({ selectedTask, visible, closeEditModal, subtasks }) => {
     const boardPosition = formData.boards.findIndex((item) =>
       item.name
         .toLowerCase()
-        .includes(location.pathname.replace(/[/ -]/g, (m) => chars[m]))
+        .includes(location.pathname.slice(8).replace(/-/g, " ").toLowerCase())
     );
 
     const previousTaskColumn = formData.boards[boardPosition][
@@ -123,7 +123,6 @@ const EditTask = ({ selectedTask, visible, closeEditModal, subtasks }) => {
                     name="description"
                     id=""
                     cols="30"
-                    required
                     rows="3"
                     value={formValues.description}
                     onChange={handleChange}
@@ -166,6 +165,7 @@ const EditTask = ({ selectedTask, visible, closeEditModal, subtasks }) => {
                       value={formValues.status}
                       onChange={handleChange}
                       name="status"
+                      required
                       id="status"
                     >
                       <option value="Todo">Todo</option>
@@ -179,12 +179,6 @@ const EditTask = ({ selectedTask, visible, closeEditModal, subtasks }) => {
                   onClick={(e) => handleOnClose(e)}
                   id="create-task-btn"
                   className="create-task"
-                  disabled={
-                    formValues.title.length === 0 ||
-                    formValues.description.length === 0 ||
-                    formValues.status.length === 0 ||
-                    formValues.status.length === 0
-                  }
                 >
                   Save Changes
                 </button>

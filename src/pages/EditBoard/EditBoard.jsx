@@ -7,17 +7,16 @@ import { CountContext } from "../../App";
 import { useState } from "react";
 
 const EditBoard = ({ visible, closeEditBoardModal, boardColumns }) => {
+  console.log(boardColumns);
   const { boardData, updateAppData } = useContext(CountContext);
   const [columns, setColumns] = useState(boardColumns["columns"]);
   const [name, setName] = useState(boardColumns.name);
-  console.log(columns);
+  console.log(boardColumns);
 
   useEffect(() => {
     setColumns(boardColumns["columns"]);
     setName(boardColumns.name);
   }, [boardColumns]);
-
-  console.log(boardColumns, name);
 
   const handleBoardName = (e) => {
     const { value } = e.target;
@@ -52,15 +51,15 @@ const EditBoard = ({ visible, closeEditBoardModal, boardColumns }) => {
     e.preventDefault();
     const formValues = { name: "", columns: [] };
     formValues.name = name;
+
     formValues.columns = [...columns];
-    console.log(formValues);
 
     let formData = { ...boardData };
 
     const boardPosition = formData.boards.findIndex((item) =>
       item.name
         .toLowerCase()
-        .includes(location.pathname.replace(/[/ -]/g, (m) => chars[m]))
+        .includes(location.pathname.slice(8).replace(/-/g, " ").toLowerCase())
     );
 
     formData["boards"][boardPosition] = formValues;

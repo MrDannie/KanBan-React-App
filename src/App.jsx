@@ -9,23 +9,21 @@ import RoadMap from "./pages/Roadmap/RoadMap";
 import appData from "./store/data.json";
 import SideBar from "./components/SideBar/SideBar";
 export const CountContext = createContext();
+import { useParams } from "react-router-dom";
 
 function App() {
-  // const getAppDataValues = () => {
-  //   let boardData = localStorage.getItem("BoardData");
-  //   if (boardData) {
-  //     return (boardData = JSON.parse(localStorage.getItem("BoardData")));
-  //   } else {
-  //     return {};
-  //   }
-  // };
-  // const [platformLaunchData, setPlatformLaunchData] = useState();
-  // useEffect(() => {
-  //   localStorage.setItem("BoardData", JSON.stringify(appData));
-  // }, [appData]);
+  // const { boardName } = useParams();
   const [boardData, setAppBoardData] = useState(
     JSON.parse(localStorage.getItem("BoardData"))
   );
+  // console.log(boardName);
+  // localStorage.setItem(
+  //   "currentBoard",
+  //   boardName.replace(/[/ -]/g, (m) => chars[m])
+  // );
+  // const [currentBoard, setCurrentBoard] = useState(
+  //   localStorage.setItem("currentBoard")
+  // );
   const updateAppData = (data) => {
     setAppBoardData(data);
   };
@@ -52,11 +50,13 @@ function App() {
             <Routes>
               <Route
                 path="/"
-                element={<Navigate to="/platform-launch" replace={true} />}
+                element={
+                  <Navigate to="/boards/platform-launch" replace={true} />
+                }
               ></Route>
-              <Route path="/platform-launch" element={<PlatformLaunch />} />
-              <Route path="/marketing-plan" element={<MarketingPlan />} />
-              <Route path="/roadmap" element={<RoadMap />} />
+              <Route path="/boards/:boardName" element={<PlatformLaunch />} />
+              {/* <Route path="/marketing-plan" element={<MarketingPlan />} />
+              <Route path="/roadmap" element={<RoadMap />} /> */}
             </Routes>
           </div>
         </div>
