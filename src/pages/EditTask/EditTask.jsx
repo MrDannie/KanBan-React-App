@@ -154,12 +154,15 @@ const EditTask = ({ selectedTask, visible, closeEditModal, subtasks }) => {
 
                   {/* <span className="formErrors">{formErrors.subtask}</span> */}
                 </div>
-                <div onClick={addSubtask} className="add-new-task-btn">
+                <div
+                  onClick={addSubtask}
+                  className="add-new-task-btn add-column-btn"
+                >
                   +Add New Subtask
                 </div>
 
                 <div className="current-status">
-                  <span>Status</span>
+                  <span className="inputName">Status</span>
                   <label htmlFor="">
                     <select
                       value={formValues.status}

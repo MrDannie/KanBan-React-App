@@ -12,7 +12,6 @@ import { useParams } from "react-router-dom";
 
 const TopBar = () => {
   const { boardName } = useParams();
-  const chars = { "/": "", "-": " " };
   const topBarMenu = useRef();
   const topmenuBtnRef = useRef();
   const [showAddTaskModal, setAddTaskModal] = useState(false);
@@ -76,7 +75,6 @@ const TopBar = () => {
 
   const closeAddTaskdModal = () => {
     setAddTaskModal(false);
-    resetForm();
   };
 
   const handleAddTaskModal = () => {
@@ -107,7 +105,10 @@ const TopBar = () => {
         />
         <h1 className="page-title inline">{navTitle}</h1>
       </div>
-      <div className="add-newtask">
+      <div
+        style={{ display: location.pathname === "/boards" ? "none" : "flex" }}
+        className="add-newtask"
+      >
         <button onClick={handleAddTaskModal} className="add-task">
           + Add New Task
         </button>
@@ -146,7 +147,7 @@ const TopBar = () => {
         visible={showDeleteBoardModal}
         closeDeleteBoardModal={closeDeleteBoardModal}
         selectedBoard={boardPosition}
-        boardName={boardColumns.name}
+        boardName={boardColumns?.name}
       />
 
       <EditBoard

@@ -9,30 +9,15 @@ import RoadMap from "./pages/Roadmap/RoadMap";
 import appData from "./store/data.json";
 import SideBar from "./components/SideBar/SideBar";
 export const CountContext = createContext();
-import { useParams } from "react-router-dom";
+import CreateNewBoardComp from "./pages/CreateNewBoardComp/CreateNewBoardComp";
 
 function App() {
-  // const { boardName } = useParams();
   const [boardData, setAppBoardData] = useState(
     JSON.parse(localStorage.getItem("BoardData"))
   );
-  // console.log(boardName);
-  // localStorage.setItem(
-  //   "currentBoard",
-  //   boardName.replace(/[/ -]/g, (m) => chars[m])
-  // );
-  // const [currentBoard, setCurrentBoard] = useState(
-  //   localStorage.setItem("currentBoard")
-  // );
+
   const updateAppData = (data) => {
     setAppBoardData(data);
-  };
-
-  const updateTask = () => {
-    setCount(count + 1);
-  };
-  const onDecrement = () => {
-    setCount(count - 1);
   };
 
   useEffect(() => {
@@ -48,13 +33,19 @@ function App() {
             <TopBar />
 
             <Routes>
+              <Route path="/boards" element={<CreateNewBoardComp />} />
               <Route
                 path="/"
                 element={
                   <Navigate to="/boards/platform-launch" replace={true} />
                 }
               ></Route>
+              <Route
+                path="/boards/create-new-board"
+                element={<CreateNewBoardComp />}
+              />
               <Route path="/boards/:boardName" element={<PlatformLaunch />} />
+
               {/* <Route path="/marketing-plan" element={<MarketingPlan />} />
               <Route path="/roadmap" element={<RoadMap />} /> */}
             </Routes>

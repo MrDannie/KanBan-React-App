@@ -7,7 +7,7 @@
   }
 
   .modal-container-modal {
-    @apply bg-white p-2 rounded;
+    @apply bg-semi-main-body-bg p-2 rounded;
   }
 
   .CreateNewBoard {
@@ -19,7 +19,7 @@
   }
 
   .CreateNewBoard .form-title {
-    @apply text-[19px] font-bold;
+    @apply text-[19px] font-bold text-text-color;
   }
 
   .CreateNewBoard label {
@@ -31,7 +31,7 @@
   }
 
   .CreateNewBoard input {
-    @apply accent-[#635FC7] w-full h-[40px] border border-solid border-[#828FA340] rounded p-4 text-[13px] font-medium text-[black];
+    @apply accent-[#635FC7] w-full h-[40px] border border-solid border-[#828FA340] rounded p-4 text-[13px] font-medium text-[black] bg-semi-main-body-bg;
   }
 
   .CreateNewBoard .inputName {
@@ -53,5 +53,10 @@
 
   .CreateNewBoard .add-column-btn:hover {
     @apply bg-[#635fc740];
+  }
+
+  /* Substasks Section  */
+  .CreateNewBoard .add-subtask-section label {
+    @apply flex justify-center items-center;
   }
 }

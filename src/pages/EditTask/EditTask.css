@@ -23,7 +23,7 @@
   }
 
   .EditTask .form-title {
-    @apply text-[19px] font-bold;
+    @apply text-[19px] font-bold text-text-color;
   }
 
   .EditTask input {

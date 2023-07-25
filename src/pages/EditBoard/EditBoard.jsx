@@ -9,13 +9,13 @@ import { useState } from "react";
 const EditBoard = ({ visible, closeEditBoardModal, boardColumns }) => {
   console.log(boardColumns);
   const { boardData, updateAppData } = useContext(CountContext);
-  const [columns, setColumns] = useState(boardColumns["columns"]);
-  const [name, setName] = useState(boardColumns.name);
+  const [columns, setColumns] = useState(boardColumns?.columns);
+  const [name, setName] = useState(boardColumns?.name);
   console.log(boardColumns);
 
   useEffect(() => {
-    setColumns(boardColumns["columns"]);
-    setName(boardColumns.name);
+    setColumns(boardColumns?.columns);
+    setName(boardColumns?.name);
   }, [boardColumns]);
 
   const handleBoardName = (e) => {

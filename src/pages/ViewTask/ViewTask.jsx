@@ -156,7 +156,7 @@ const ViewTask = ({
             <form action="">
               <fieldset>
                 <div className="view_task-title">
-                  <h4 className="">{formValues.title}</h4>
+                  <h4 className="form-title">{formValues.title}</h4>
 
                   <img
                     className="menu-ellipsis inline cursor-pointer"
@@ -193,7 +193,7 @@ const ViewTask = ({
                 <p className="task-description">{formValues.description}</p>
 
                 <div className="sub-tasks">
-                  <span className="number-of-tasks">
+                  <span className="number-of-tasks inputName">
                     {"Subtask " +
                       "( " +
                       count +
@@ -231,7 +231,7 @@ const ViewTask = ({
                 </div>
 
                 <div className="current-status">
-                  <span> Current Status</span>
+                  <span className="inputName"> Current Status</span>
                   <label htmlFor="">
                     <select
                       onChange={handleSelect}

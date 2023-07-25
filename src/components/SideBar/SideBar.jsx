@@ -11,7 +11,7 @@ import iconLightTheme from "../assets/icon-light-theme.svg";
 import iconDarkTheme from "../assets/icon-dark-theme.svg";
 import iconHideSideBar from "../assets/icon-hide-sidebar.svg";
 import iconShowSideBar from "../assets/icon-show-sidebar.svg";
-
+import DarkMode from "../DarkMode/darkMode";
 import { setSideBar } from "../../store/store";
 import CreateNewBoard from "../../pages/CreateNewBoard/CreateNewBoard";
 
@@ -95,9 +95,11 @@ const SideBar = ({ children }) => {
               className="switch"
             >
               <img src={iconLightTheme} alt="Light Theme" />
-              <div className="toggler">
+              {/* <div className="toggler">
                 <div className="toggler-btn"></div>
-              </div>
+              </div> */}
+              <DarkMode />
+
               <img src={iconDarkTheme} alt="Dark Theme" />
             </div>
 

@@ -23,11 +23,11 @@
   }
 
   .task {
-    @apply w-[280px] bg-[#fff] py-4 px-4 rounded-lg drop-shadow-md mb-4;
+    @apply w-[280px] bg-semi-main-body-bg py-4 px-4 rounded-lg drop-shadow-md mb-4;
   }
 
-  .add-new-col {
-    @apply flex mt-8 items-center justify-center cursor-pointer bg-[#E9EFFA] drop-shadow-none h-[80vh];
+  .PlatformLaunch .add-new-col {
+    @apply flex mt-8 items-center justify-center cursor-pointer bg-dark-gray-light drop-shadow-none h-[80vh];
   }
 
   .empty-task-col {
@@ -47,7 +47,7 @@
   }
 
   h3.task-title {
-    @apply text-[15px] text-[#000112] leading-[19px] cursor-pointer;
+    @apply text-[15px] text-text-color leading-[19px] cursor-pointer;
   }
 
   .task-title:hover {

@@ -4,10 +4,71 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  .inputName {
+    @apply !text-text-color;
+  }
+
+  /* input::placeholder {
+    @apply !text-text-color;
+  } */
+
+  .form-title {
+    @apply !text-text-color;
+  }
+
+  .modal-container-modal {
+    @apply !bg-semi-main-body-bg;
+  }
+
+  .add-column-btn {
+    @apply !bg-add-btn-bgcolor;
+  }
+
+  input,
+  textarea,
+  select {
+    @apply !bg-semi-main-body-bg !text-text-color;
+  }
+
+  .sub-tasks label {
+    @apply !bg-main-body-bg;
+  }
+
+  .dropdown-menu {
+    @apply !bg-main-body-bg;
+  }
+
+  .empty-task-col {
+    @apply !bg-dark-gray-light;
+  }
+}
+
 body {
-  background-color: #f4f7fd;
+  background-color: var(--main-body-bg);
   font-family: "Plus Jakarta Sans";
   font-weight: 700;
   overflow-y: hidden;
-  overflow-x: scroll;
+  overflow-x: hidden;
 }
+
+:root {
+  --dark-gray-light: #e9effa;
+  --main-body-bg: #f4f7fd;
+  --semi-main-body-bg: #fff;
+  --text-color: #000112;
+  --lines-dark: #e4ebfa;
+  --add-btn-bgcolor: #635fc740;
+  --subtask-main-bg: #f4f7fd;
+}
+
+[data-theme="dark"] {
+  --dark-gray-light: #2b2c3780;
+  --semi-main-body-bg: #2b2c37;
+  --main-body-bg: #20212c;
+  --text-color: #fff;
+  --lines-dark: #3e3f4e;
+  --add-btn-bgcolor: #fff;
+  --subtask-main-bg: #635fc7;
+}
+/* #2B2C37, #2B2C3780 */

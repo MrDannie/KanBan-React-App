@@ -17,25 +17,14 @@ const DeleteBoard = ({
 
   const deleteBoard = () => {
     let formData = { ...boardData };
-    if (formData) {
-      function1(formData.boards[0].name, function () {
-        formData.boards.splice(selectedBoard, 1);
-        updateAppData(formData);
-        closeDeleteBoardModal();
-      });
+    formData.boards.splice(selectedBoard, 1);
+    updateAppData(formData);
+    closeDeleteBoardModal();
+    if (formData.boards.length == 0) {
+      navigate(`/boards`);
     } else {
-      return;
-    }
-
-    function function1(param, callback) {
-      if (param) {
-        const route = param.replace(/\s+/g, "-").toLowerCase();
-        navigate(`/boards/${route}`);
-      }
-
-      setTimeout(() => {
-        callback();
-      }, 250);
+      const route = formData.boards[0].name.replace(/\s+/g, "-").toLowerCase();
+      navigate(`/boards/${route}`);
     }
   };
 

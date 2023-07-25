@@ -3,7 +3,7 @@
 
 @layer base {
   .sidebar {
-    @apply relative h-screen w-[300px] text-[#828FA3] bg-white border-r border-solid border-[#F2F2F2];
+    @apply relative h-screen w-[300px] text-[#828FA3] bg-semi-main-body-bg border-r border-solid border-lines-dark;
   }
 
   .main-container {
@@ -11,7 +11,7 @@
   }
 
   .logo-section {
-    @apply mt-[34px] ml-[45px] mb-[55px] cursor-pointer;
+    @apply mt-[34px] ml-[45px] mb-[55px] cursor-pointer text-text-color;
   }
 
   .navigation {
@@ -31,7 +31,7 @@
   }
 
   .switch {
-    @apply flex w-[251px] h-[48px] justify-center items-center mb-[25px] bg-[#F4F7FD] py-[15px] px-[50px] rounded-md;
+    @apply flex w-[251px] h-[48px] justify-center items-center mb-[25px] bg-main-body-bg py-[15px] px-[50px] rounded-md;
   }
 
   .toggler {
@@ -150,4 +150,5 @@ Learn the React Hook Form
 - React Formik and Hooks Form 
 - How to Prefeill React Hook Form
 - Path.split is not a function in React
+- Imperative Hook
  */

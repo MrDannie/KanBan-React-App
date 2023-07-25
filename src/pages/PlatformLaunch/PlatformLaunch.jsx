@@ -108,7 +108,7 @@ const PlatformLaunch = (props) => {
         style={{ display: boardData.boards.length == 0 ? "none" : "flex" }}
         className="tasks-container"
       >
-        {boardData["boards"][boardPosition]["columns"].map((item, index) => {
+        {boardData.boards?.[boardPosition]?.columns.map((item, index) => {
           return (
             <section
               key={index}

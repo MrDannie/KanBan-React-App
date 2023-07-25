@@ -7,15 +7,6 @@ import { CountContext } from "../../App";
 import { useLocation } from "react-router-dom";
 import { useParams } from "react-router-dom";
 
-const getDataFromLocalStorage = () => {
-  const data = localStorage.getItem("BoardData");
-  if (data) {
-    return JSON.parse(data);
-  } else {
-    return [];
-  }
-};
-
 const AddTask = ({ closeAddTaskModal, visible }) => {
   const { boardName } = useParams();
   const { boardData, updateAppData } = useContext(CountContext);
@@ -104,20 +95,6 @@ const AddTask = ({ closeAddTaskModal, visible }) => {
     setSubtasks(onChangeVal);
   };
 
-  const validate = (values) => {
-    const errors = {};
-    if (!values.title) {
-      errors.title = "Title is required!";
-    }
-    if (!values.description) {
-      errors.description = "Description is required!";
-    }
-    if (!subtasks.title) {
-      errors.subtask = "Subtask can't be empty!";
-    }
-    return errors;
-  };
-
   const handleOnClose = (e) => {
     if (e.target.id === "modal-container") closeAddTaskModal();
   };
@@ -140,7 +117,7 @@ const AddTask = ({ closeAddTaskModal, visible }) => {
       <section className="modal-container-modal">
         <div className="modal-body">
           <section className="AddTask">
-            <h4 className="AddTask-title">Add New Task</h4>
+            <h4 className="form-title">Add New Task</h4>
             <form onSubmit={handleSubmit}>
               <fieldset>
                 <label htmlFor="">
@@ -196,7 +173,10 @@ const AddTask = ({ closeAddTaskModal, visible }) => {
                   <span className="formErrors">{formErrors.subtask}</span>
                 </div>
 
-                <div onClick={addSubtask} className="add-new-task-btn">
+                <div
+                  onClick={addSubtask}
+                  className="add-new-task-btn add-column-btn"
+                >
                   +Add New Subtask
                 </div>
 

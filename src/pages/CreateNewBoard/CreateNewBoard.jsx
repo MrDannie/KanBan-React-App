@@ -83,7 +83,7 @@ const CreateNewBoard = ({ visible, closeNewBoardModal }) => {
     >
       <section className="modal-container-modal">
         <div className="modal-body">
-          <section className="EditBoard">
+          <section className="CreateNewBoard">
             <h4 className="form-title">Add New Board</h4>
             <form onSubmit={handleSubmit} action="">
               <fieldset>

@@ -14,18 +14,15 @@ const DeleteTask = ({ visible, closeDeleteModal, selectedTask }) => {
         .toLowerCase()
         .includes(location.pathname.slice(8).replace(/-/g, " ").toLowerCase())
     );
-
     const taskColumn = formData.boards[boardPosition]["columns"].findIndex(
       (item) =>
         item.name.toLowerCase().includes(selectedTask.status.toLowerCase())
     );
-
     const taskPosition = formData.boards[boardPosition]["columns"][taskColumn][
       "tasks"
     ].findIndex((item) =>
       item.title.toLowerCase().includes(selectedTask.title.toLowerCase())
     );
-
     formData.boards[boardPosition]["columns"][taskColumn]["tasks"].splice(
       taskPosition,
       1

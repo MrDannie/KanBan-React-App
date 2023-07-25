@@ -6,6 +6,15 @@ export default {
       fontFamily: {
         sans: ["Plus Jarkata Sans"],
       },
+      colors: {
+        "main-body-bg": "var(--main-body-bg)",
+        "semi-main-body-bg": "var(--semi-main-body-bg)",
+        "text-color": "var(--text-color)",
+        "dark-gray-light": "var(--dark-gray-light)",
+        "lines-dark": "var(--lines-dark)",
+        "add-btn-bgcolor": "var(--add-btn-bgcolor)",
+        "subtask-main-bg": "var(--subtask-main-bg)",
+      },
     },
   },
   plugins: [],
