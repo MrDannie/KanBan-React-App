@@ -71,4 +71,8 @@ body {
   --add-btn-bgcolor: #fff;
   --subtask-main-bg: #635fc7;
 }
+
+/* * {
+  transition: all 0.3s ease-in-out;
+} */
 /* #2B2C37, #2B2C3780 */

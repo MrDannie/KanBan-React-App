@@ -6,6 +6,8 @@ import PropTypes from "prop-types";
 import "./SideBar.css";
 
 import logo from "../assets/logo-dark.svg";
+import logoLight from "../assets/logo-light.svg";
+
 import boardIcon from "../assets/icon-board.svg";
 import iconLightTheme from "../assets/icon-light-theme.svg";
 import iconDarkTheme from "../assets/icon-dark-theme.svg";
@@ -23,10 +25,23 @@ const SideBar = ({ children }) => {
   const closeNewBoardModal = () => {
     setNewBoardModal(false);
   };
+  const [selectedTheme, setSelectedTheme] = useState(
+    localStorage.getItem("selectedTheme")
+  );
+  console.log(selectedTheme);
+
+  const updateThemeState = () => {
+    setSelectedTheme(localStorage.getItem("selectedTheme"));
+  };
 
   const toggle = () => {
     setIsOpen(!isOpen);
     setSideBar(!isOpen);
+  };
+
+  const handleThemeChange = () => {
+    setSelectedTheme(localStorage.getItem("selectedTheme"));
+    console.log("Clicked");
   };
 
   const handleModal = () => {
@@ -46,7 +61,7 @@ const SideBar = ({ children }) => {
           <img
             className="logo-section"
             style={{ display: isOpen ? "block" : "none" }}
-            src={logo}
+            src={selectedTheme === "light" ? logo : logoLight}
             alt="logo"
           />
         </span>
@@ -57,7 +72,7 @@ const SideBar = ({ children }) => {
               style={{ display: isOpen ? "block" : "none" }}
               className="title"
             >
-              ALL BOARD (3)
+              {`ALL BOARD (${boardData.boards.length} )`}
             </h1>
             {boardData.boards.map((item, index) => (
               <NavLink
@@ -98,7 +113,7 @@ const SideBar = ({ children }) => {
               {/* <div className="toggler">
                 <div className="toggler-btn"></div>
               </div> */}
-              <DarkMode />
+              <DarkMode updateThemeState={updateThemeState} />
 
               <img src={iconDarkTheme} alt="Dark Theme" />
             </div>

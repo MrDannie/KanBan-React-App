@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef, useContext } from "react";
 import "./TopBar.css";
 import logo from "../assets/logo-dark.svg";
+import logoLight from "../assets/logo-light.svg";
 import iconVerticalEllipsis from "../assets/icon-vertical-ellipsis.svg";
 import { useGlobalState } from "../../store/store";
 import DeleteBoard from "../../pages/DeleteBoard/DeleteBoard";
@@ -99,7 +100,9 @@ const TopBar = () => {
       <div className="logo-title-region">
         <img
           style={{ display: isSideBarOpen[0].show ? "none" : "flex" }}
-          src={logo}
+          src={
+            localStorage.getItem("selectedTheme") === "light" ? logo : logoLight
+          }
           alt=""
           className="logo inline"
         />
