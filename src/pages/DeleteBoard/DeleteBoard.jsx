@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import PropTypes from "prop-types";
 import "./DeleteBoard.css";
-import { CountContext } from "../../App";
+import CountContext from "../../Context";
 import { useNavigate } from "react-router-dom";
 
 const DeleteBoard = ({

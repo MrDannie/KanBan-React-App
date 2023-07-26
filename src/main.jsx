@@ -3,10 +3,7 @@ import ReactDOM from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 import App from "./App.jsx";
 import "./index.css";
-import SideBar from "./components/SideBar/SideBar.jsx";
-import TopBar from "./components/TopBar/TopBar.jsx";
-import { createContext } from "react";
-const appData = {
+const appDatas = {
   boards: [
     {
       name: "Platform Launch",
@@ -449,6 +446,13 @@ const appData = {
   ],
 };
 
+const appData = localStorage.getItem("BoardData");
+if (appData) {
+  null;
+} else {
+  localStorage.setItem("BoardData", JSON.stringify(appDatas));
+}
+console.log(appData);
 ReactDOM.createRoot(document.getElementById("root")).render(
   <BrowserRouter>
     <App />

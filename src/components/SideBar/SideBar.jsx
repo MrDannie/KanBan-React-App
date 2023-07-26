@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Link, NavLink } from "react-router-dom";
-import { CountContext } from "../../App";
+import CountContext from "../../Context";
 
 import PropTypes from "prop-types";
 import "./SideBar.css";

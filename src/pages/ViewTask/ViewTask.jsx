@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import "./ViewTask.css";
 import iconVerticalEllipsis from "../../components/assets/icon-vertical-ellipsis.svg";
 import EditTask from "../EditTask/EditTask";
-import { CountContext } from "../../App";
+import CountContext from "../../Context";
 
 const ViewTask = ({
   selectedTask,
@@ -207,6 +207,7 @@ const ViewTask = ({
                         onClick={() => handleCheck(index)}
                         key={index}
                         htmlFor=""
+                        className="subtask-name"
                       >
                         <input
                           checked={subtask.isCompleted}

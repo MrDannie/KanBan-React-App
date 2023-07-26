@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import PropTypes from "prop-types";
 import "./DeleteTask.css";
-import { CountContext } from "../../App";
+import CountContext from "../../Context";
 
 const DeleteTask = ({ visible, closeDeleteModal, selectedTask }) => {
   const { boardData, updateAppData } = useContext(CountContext);
@@ -30,6 +30,10 @@ const DeleteTask = ({ visible, closeDeleteModal, selectedTask }) => {
     updateAppData(formData);
     closeDeleteModal();
   };
+
+  const handleCancel = () => {
+    closeDeleteModal();
+  };
   const handleOnClose = (e) => {
     if (e.target.id === "modal-container") closeDeleteModal();
   };
@@ -49,16 +53,18 @@ const DeleteTask = ({ visible, closeDeleteModal, selectedTask }) => {
 
             <p className="short-note">
               Are you sure you want to delete the{" "}
-              <strong>'{selectedTask.title}'</strong> task and <br /> its
-              subtasks? This action will remove all columns and <br /> tasks and
-              cannot be reversed.
+              <strong>'{selectedTask.title}'</strong> task and its subtasks?
+              This action will remove all columns and tasks and cannot be
+              reversed.
             </p>
 
             <div className="action-buttons">
               <button onClick={deleteTask} className="btn delete-btn">
                 Delete
               </button>
-              <button className="btn cancel-btn">Cancel</button>
+              <button onClick={handleCancel} className="btn cancel-btn">
+                Cancel
+              </button>
             </div>
           </section>
         </div>

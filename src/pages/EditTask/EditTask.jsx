@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import PropTypes from "prop-types";
 import "./EditTask.css";
 import removeSubtask from "../../components/assets/icon-cross.svg";
-import { CountContext } from "../../App";
+import CountContext from "../../Context";
 import { useLocation } from "react-router-dom";
 
 const EditTask = ({ selectedTask, visible, closeEditModal, subtasks }) => {

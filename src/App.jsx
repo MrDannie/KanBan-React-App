@@ -4,11 +4,8 @@ import "./App.css";
 import { Navigate, Route, Routes } from "react-router-dom";
 import TopBar from "./components/TopBar/TopBar";
 import PlatformLaunch from "./pages/PlatformLaunch/PlatformLaunch";
-import MarketingPlan from "./pages/MarketingPlan/MarketingPlan";
-import RoadMap from "./pages/Roadmap/RoadMap";
-import appData from "./store/data.json";
 import SideBar from "./components/SideBar/SideBar";
-export const CountContext = createContext();
+import CountContext from "./Context";
 import CreateNewBoardComp from "./pages/CreateNewBoardComp/CreateNewBoardComp";
 
 function App() {
@@ -16,8 +13,15 @@ function App() {
     JSON.parse(localStorage.getItem("BoardData"))
   );
 
+  const [addTaskBtnState, setAddTaskBtnState] = useState(true);
+
   const updateAppData = (data) => {
     setAppBoardData(data);
+  };
+
+  const updateDateAddTaskBtn = (value) => {
+    setAddTaskBtnState(value);
+    console.log("HERE", value);
   };
 
   useEffect(() => {
@@ -25,7 +29,14 @@ function App() {
   }, [boardData]);
 
   return (
-    <CountContext.Provider value={{ boardData, updateAppData }}>
+    <CountContext.Provider
+      value={{
+        boardData,
+        updateAppData,
+        addTaskBtnState,
+        updateDateAddTaskBtn,
+      }}
+    >
       <SideBar>
         <div className="">
           <div className="gradient-bg-hero">

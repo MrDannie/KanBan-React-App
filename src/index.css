@@ -42,6 +42,28 @@
   .empty-task-col {
     @apply !bg-dark-gray-light;
   }
+
+  /* HOVER  */
+  .cancel-btn:hover {
+    @apply bg-[#635fc740];
+  }
+
+  .delete-btn:hover {
+    @apply bg-[#FF9898];
+  }
+
+  .add-new-column-btn:hover:enabled,
+  .add-task:hover:enabled,
+  .show-sidebar-btn:hover {
+    @apply !bg-[#A8A4FF];
+  }
+
+  .hideSidebar:hover {
+    @apply bg-hide-side-bar-hover;
+  }
+  .subtask-name:hover {
+    @apply !bg-[#635fc740];
+  }
 }
 
 body {
@@ -60,6 +82,7 @@ body {
   --lines-dark: #e4ebfa;
   --add-btn-bgcolor: #635fc740;
   --subtask-main-bg: #f4f7fd;
+  --hide-side-bar-hover: #635fc71a;
 }
 
 [data-theme="dark"] {
@@ -70,6 +93,7 @@ body {
   --lines-dark: #3e3f4e;
   --add-btn-bgcolor: #fff;
   --subtask-main-bg: #635fc7;
+  --hide-side-bar-hover: #fff;
 }
 
 /* * {

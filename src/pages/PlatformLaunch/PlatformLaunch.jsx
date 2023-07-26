@@ -6,12 +6,13 @@ import { showModal } from "../../store/store";
 import ViewTask from "../ViewTask/ViewTask";
 import EditTask from "../EditTask/EditTask";
 import DeleteTask from "../DeleteTask/DeleteTask";
-import { CountContext } from "../../App";
+import CountContext from "../../Context";
 import EditBoard from "../EditBoard/EditBoard";
 import { useLocation, useParams } from "react-router-dom";
 
 const PlatformLaunch = (props) => {
-  const { boardData } = useContext(CountContext);
+  const { boardData, addTaskBtnState, updateDateAddTaskBtn } =
+    useContext(CountContext);
   const [taskModalDetails, setModalData] = useState({});
   const [showTaskDetailModal, setTaskDetailsModal] = useState(false);
   const [editTask, setEditTask] = useState(false);
@@ -21,12 +22,27 @@ const PlatformLaunch = (props) => {
   const { boardName } = useParams();
   const location = useLocation();
 
+  const boardPosition = boardData.boards.findIndex((item) =>
+    item.name
+      .toLowerCase()
+      .includes(location.pathname.slice(8).replace(/-/g, " ").toLowerCase())
+  );
+  console.log(boardPosition);
+
   useEffect(() => {
     localStorage.setItem(
       "currentBoard",
       boardName.replace(/-/, " ").toLowerCase()
     );
-  }, [location]);
+
+    if (boardData.boards?.[boardPosition]?.columns?.length == 0) {
+      console.log(boardData.boards?.[boardPosition]);
+      updateDateAddTaskBtn(true);
+    } else {
+      console.log(boardData.boards?.[boardPosition]);
+      updateDateAddTaskBtn(false);
+    }
+  }, [location, boardData]);
 
   useEffect(() => {
     const boardPosition = boardData.boards.findIndex((item) =>
@@ -36,12 +52,6 @@ const PlatformLaunch = (props) => {
     );
     setBoardColumns(boardData.boards[boardPosition]);
   }, [location]);
-
-  const boardPosition = boardData.boards.findIndex((item) =>
-    item.name
-      .toLowerCase()
-      .includes(location.pathname.slice(8).replace(/-/g, " ").toLowerCase())
-  );
 
   // EDIT BOARD STATES
   const [showEditBoardModal, setShowEditBoardModal] = useState(false);
@@ -90,7 +100,7 @@ const PlatformLaunch = (props) => {
         className="default-content"
         style={{
           display:
-            boardData.boards?.boardPosition?.columns?.length == 0 ||
+            boardData.boards?.[boardPosition]?.columns?.length == 0 ||
             boardData["boards"].length == 0
               ? "flex"
               : "none",
@@ -99,7 +109,7 @@ const PlatformLaunch = (props) => {
         <h3 className="empty-message">
           This board is empty. Create a new column to get started.
         </h3>
-        <button onClick={openEditBoardModal} className="add-column-btn">
+        <button onClick={openEditBoardModal} className="add-new-column-btn">
           +Add New Column
         </button>
       </div>

@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import "./AddTask.css";
 
 import removeSubtask from "../../components/assets/icon-cross.svg";
-import { CountContext } from "../../App";
+import CountContext from "../../Context";
 import { useLocation } from "react-router-dom";
 import { useParams } from "react-router-dom";
 

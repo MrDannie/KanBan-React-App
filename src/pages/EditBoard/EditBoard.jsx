@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import "./EditBoard.css";
 import removeSubtask from "../../components/assets/icon-cross.svg";
 import { useLocation } from "react-router-dom";
-import { CountContext } from "../../App";
+import CountContext from "../../Context";
 import { useState } from "react";
 
 const EditBoard = ({ visible, closeEditBoardModal, boardColumns }) => {

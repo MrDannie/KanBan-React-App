@@ -7,7 +7,7 @@ import { useGlobalState } from "../../store/store";
 import DeleteBoard from "../../pages/DeleteBoard/DeleteBoard";
 import EditBoard from "../../pages/EditBoard/EditBoard";
 import AddTask from "../../pages/AddTask/AddTask";
-import { CountContext } from "../../App";
+import CountContext from "../../Context";
 import { useLocation } from "react-router-dom";
 import { useParams } from "react-router-dom";
 
@@ -20,7 +20,7 @@ const TopBar = () => {
   const [openMenu, setOpenMenu] = useState(false);
   const [showDeleteBoardModal, setShowDeleteBoardModal] = useState(false);
   const [showEditBoardModal, setShowEditBoardModal] = useState(false);
-  const { boardData } = useContext(CountContext);
+  const { boardData, addTaskBtnState } = useContext(CountContext);
   const [currentBoard, setCurrentBoard] = useState(
     localStorage.getItem("currentBoard")
   );
@@ -112,7 +112,14 @@ const TopBar = () => {
         style={{ display: location.pathname === "/boards" ? "none" : "flex" }}
         className="add-newtask"
       >
-        <button onClick={handleAddTaskModal} className="add-task">
+        <button
+          disabled={addTaskBtnState}
+          onClick={handleAddTaskModal}
+          className="add-task"
+          style={{
+            backgroundColor: addTaskBtnState ? "#635fc740" : "#635FC7",
+          }}
+        >
           + Add New Task
         </button>
         <img

@@ -14,6 +14,7 @@ export default {
         "lines-dark": "var(--lines-dark)",
         "add-btn-bgcolor": "var(--add-btn-bgcolor)",
         "subtask-main-bg": "var(--subtask-main-bg)",
+        "hide-side-bar-hover": "var(--hide-side-bar-hover)",
       },
     },
   },

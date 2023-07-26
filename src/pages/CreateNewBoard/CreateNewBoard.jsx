@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import PropTypes from "prop-types";
 import "./CreateNewBoard.css";
 import removeSubtask from "../../components/assets/icon-cross.svg";
-import { CountContext } from "../../App";
+import CountContext from "../../Context";
 import { Navigate, useNavigate } from "react-router-dom";
 
 const CreateNewBoard = ({ visible, closeNewBoardModal }) => {
