@@ -12,7 +12,6 @@ import { useLocation } from "react-router-dom";
 import { useParams } from "react-router-dom";
 
 const TopBar = () => {
-  const { boardName } = useParams();
   const topBarMenu = useRef();
   const topmenuBtnRef = useRef();
   const [showAddTaskModal, setAddTaskModal] = useState(false);
@@ -25,7 +24,6 @@ const TopBar = () => {
     localStorage.getItem("currentBoard")
   );
   const [navTitle, setNavTitle] = useState("");
-  console.log(navTitle);
   const location = useLocation();
   const boardPosition = boardData.boards.findIndex((item) =>
     item.name

@@ -27,7 +27,6 @@ const PlatformLaunch = (props) => {
       .toLowerCase()
       .includes(location.pathname.slice(8).replace(/-/g, " ").toLowerCase())
   );
-  console.log(boardPosition);
 
   useEffect(() => {
     localStorage.setItem(
@@ -36,10 +35,8 @@ const PlatformLaunch = (props) => {
     );
 
     if (boardData.boards?.[boardPosition]?.columns?.length == 0) {
-      console.log(boardData.boards?.[boardPosition]);
       updateDateAddTaskBtn(true);
     } else {
-      console.log(boardData.boards?.[boardPosition]);
       updateDateAddTaskBtn(false);
     }
   }, [location, boardData]);
@@ -130,13 +127,12 @@ const PlatformLaunch = (props) => {
               </div>
               {item["tasks"].map((item, id) => {
                 return (
-                  <div key={id} className="task">
-                    <h3
-                      className="task-title"
-                      onClick={() => showTaskDetails(item.subtasks, item)}
-                    >
-                      {item.title}
-                    </h3>
+                  <div
+                    onClick={() => showTaskDetails(item.subtasks, item)}
+                    key={id}
+                    className="task"
+                  >
+                    <h3 className="task-title">{item.title}</h3>
                     <span className="sub-task">
                       {item["subtasks"].reduce(
                         (counter, subtask) =>

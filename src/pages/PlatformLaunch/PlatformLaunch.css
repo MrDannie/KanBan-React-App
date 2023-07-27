@@ -23,7 +23,7 @@
   }
 
   .task {
-    @apply w-[280px] bg-semi-main-body-bg py-4 px-4 rounded-lg drop-shadow-md mb-4;
+    @apply w-[280px] bg-semi-main-body-bg py-4 px-4 rounded-lg drop-shadow-md mb-4 cursor-pointer;
   }
 
   .PlatformLaunch .add-new-col {
@@ -50,7 +50,7 @@
     @apply text-[15px] text-text-color leading-[19px] cursor-pointer;
   }
 
-  .task-title:hover {
+  .task:hover > h3 {
     @apply text-[#635fcf];
   }
 

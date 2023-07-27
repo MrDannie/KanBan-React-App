@@ -31,9 +31,9 @@
     @apply !bg-semi-main-body-bg !text-text-color;
   }
 
-  .sub-tasks label {
+  /* .sub-tasks label {
     @apply !bg-main-body-bg;
-  }
+  } */
 
   .dropdown-menu {
     @apply !bg-main-body-bg;

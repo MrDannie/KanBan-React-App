@@ -2,16 +2,15 @@ import React, { useContext, useEffect } from "react";
 import PropTypes from "prop-types";
 import "./EditBoard.css";
 import removeSubtask from "../../components/assets/icon-cross.svg";
-import { useLocation } from "react-router-dom";
 import CountContext from "../../Context";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const EditBoard = ({ visible, closeEditBoardModal, boardColumns }) => {
-  console.log(boardColumns);
   const { boardData, updateAppData } = useContext(CountContext);
   const [columns, setColumns] = useState(boardColumns?.columns);
   const [name, setName] = useState(boardColumns?.name);
-  console.log(boardColumns);
+  const navigate = useNavigate();
 
   useEffect(() => {
     setColumns(boardColumns?.columns);
@@ -26,7 +25,6 @@ const EditBoard = ({ visible, closeEditBoardModal, boardColumns }) => {
   const handleColumn = (e, i) => {
     const { name, value } = e.target;
     const onChangeVal = [...columns];
-    console.log(onChangeVal);
     onChangeVal[i][name] = value;
     setColumns(onChangeVal);
   };
@@ -63,7 +61,7 @@ const EditBoard = ({ visible, closeEditBoardModal, boardColumns }) => {
     );
 
     formData["boards"][boardPosition] = formValues;
-    console.log(formData);
+    navigate(`/boards/${name.replace(/\s+/g, "-").toLowerCase()}`);
     updateAppData(formData);
     closeEditBoardModal();
   };

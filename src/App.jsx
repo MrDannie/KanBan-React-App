@@ -21,7 +21,6 @@ function App() {
 
   const updateDateAddTaskBtn = (value) => {
     setAddTaskBtnState(value);
-    console.log("HERE", value);
   };
 
   useEffect(() => {

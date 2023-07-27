@@ -207,7 +207,11 @@ const ViewTask = ({
                         onClick={() => handleCheck(index)}
                         key={index}
                         htmlFor=""
-                        className="subtask-name"
+                        // className="subtask-name"
+                        className={`subtask-name ${
+                          subtask.isCompleted ? "completed" : "incomplete"
+                        }
+                        `}
                       >
                         <input
                           checked={subtask.isCompleted}

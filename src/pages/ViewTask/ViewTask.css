@@ -89,6 +89,14 @@
     @apply p-3;
   }
 
+  .incomplete {
+    @apply !bg-main-body-bg;
+  }
+
+  .completed {
+    @apply !bg-[#635fc740];
+  }
+
   /* label > * {
     @apply block;
   } */

@@ -452,7 +452,6 @@ if (appData) {
 } else {
   localStorage.setItem("BoardData", JSON.stringify(appDatas));
 }
-console.log(appData);
 ReactDOM.createRoot(document.getElementById("root")).render(
   <BrowserRouter>
     <App />

@@ -28,7 +28,6 @@ const SideBar = ({ children }) => {
   const [selectedTheme, setSelectedTheme] = useState(
     localStorage.getItem("selectedTheme")
   );
-  console.log(selectedTheme);
 
   const updateThemeState = () => {
     setSelectedTheme(localStorage.getItem("selectedTheme"));
@@ -37,11 +36,6 @@ const SideBar = ({ children }) => {
   const toggle = () => {
     setIsOpen(!isOpen);
     setSideBar(!isOpen);
-  };
-
-  const handleThemeChange = () => {
-    setSelectedTheme(localStorage.getItem("selectedTheme"));
-    console.log("Clicked");
   };
 
   const handleModal = () => {
@@ -61,7 +55,11 @@ const SideBar = ({ children }) => {
           <img
             className="logo-section"
             style={{ display: isOpen ? "block" : "none" }}
-            src={selectedTheme === "light" ? logo : logoLight}
+            src={
+              selectedTheme === "light" || selectedTheme === null
+                ? logo
+                : logoLight
+            }
             alt="logo"
           />
         </span>
