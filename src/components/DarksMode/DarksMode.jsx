@@ -1,8 +1,7 @@
 import React from "react";
-
-import "./DarkMode.css";
-
-const DarkMode = ({ updateThemeState }) => {
+import PropTypes from "prop-types";
+import "./DarksMode.css";
+const DarksMode = ({ updateThemeState }) => {
   const setDarkMode = () => {
     document.querySelector("body").setAttribute("data-theme", "dark");
     localStorage.setItem("selectedTheme", "dark");
@@ -39,4 +38,8 @@ const DarkMode = ({ updateThemeState }) => {
   );
 };
 
-export default DarkMode;
+DarksMode.propTypes = {};
+
+DarksMode.defaultProps = {};
+
+export default DarksMode;

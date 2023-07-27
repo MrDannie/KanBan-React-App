@@ -13,9 +13,9 @@ import iconLightTheme from "../assets/icon-light-theme.svg";
 import iconDarkTheme from "../assets/icon-dark-theme.svg";
 import iconHideSideBar from "../assets/icon-hide-sidebar.svg";
 import iconShowSideBar from "../assets/icon-show-sidebar.svg";
-import DarkMode from "../DarkMode/DarkMode";
 import { setSideBar } from "../../store/store";
 import CreateNewBoard from "../../pages/CreateNewBoard/CreateNewBoard";
+import DarksMode from "../DarksMode/DarksMode";
 
 const SideBar = ({ children }) => {
   const { boardData, updateAppData } = useContext(CountContext);
@@ -111,7 +111,7 @@ const SideBar = ({ children }) => {
               {/* <div className="toggler">
                 <div className="toggler-btn"></div>
               </div> */}
-              <DarkMode updateThemeState={updateThemeState} />
+              <DarksMode updateThemeState={updateThemeState} />
 
               <img src={iconDarkTheme} alt="Dark Theme" />
             </div>
