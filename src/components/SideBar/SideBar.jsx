@@ -13,7 +13,7 @@ import iconLightTheme from "../assets/icon-light-theme.svg";
 import iconDarkTheme from "../assets/icon-dark-theme.svg";
 import iconHideSideBar from "../assets/icon-hide-sidebar.svg";
 import iconShowSideBar from "../assets/icon-show-sidebar.svg";
-import DarkMode from "../DarkMode/darkMode";
+import DarkMode from "../DarkMode/DarkMode";
 import { setSideBar } from "../../store/store";
 import CreateNewBoard from "../../pages/CreateNewBoard/CreateNewBoard";
 
