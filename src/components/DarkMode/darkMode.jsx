@@ -1,6 +1,5 @@
 import React from "react";
-// import { ReactComponent as Sun } from "./Sun.svg";
-// import { ReactComponent as Moon } from "./Moon.svg";
+
 import "./DarkMode.css";
 
 const DarkMode = ({ updateThemeState }) => {
@@ -9,10 +8,6 @@ const DarkMode = ({ updateThemeState }) => {
     localStorage.setItem("selectedTheme", "dark");
     updateThemeState();
   };
-
-  // const [currentTheme, setCurrentTheme] = useState(
-  //   localStorage.getItem("selectedTheme")
-  // );
 
   const setLightMode = () => {
     document.querySelector("body").setAttribute("data-theme", "light");
@@ -39,10 +34,7 @@ const DarkMode = ({ updateThemeState }) => {
         onChange={toggleTheme}
         defaultChecked={selectedTheme === "dark"}
       />
-      <label className="dark_mode_label" htmlFor="darkmode-toggle">
-        {/* <Sun />
-        <Moon /> */}
-      </label>
+      <label className="dark_mode_label" htmlFor="darkmode-toggle"></label>
     </div>
   );
 };
