@@ -2,6 +2,10 @@ import React, { useState, useEffect, useRef, useContext } from "react";
 import "./TopBar.css";
 import logo from "../assets/logo-dark.svg";
 import logoLight from "../assets/logo-light.svg";
+import logoMobile from "../assets/logo-mobile.svg";
+import chevronDown from "../assets/icon-chevron-down.svg";
+import addTaskMobile from "../assets/icon-addtask-mobile.svg";
+
 import iconVerticalEllipsis from "../assets/icon-vertical-ellipsis.svg";
 import { useGlobalState } from "../../store/store";
 import DeleteBoard from "../../pages/DeleteBoard/DeleteBoard";
@@ -96,15 +100,22 @@ const TopBar = () => {
         className="rectangle-line"
       ></div>
       <div className="logo-title-region">
-        <img
-          style={{ display: isSideBarOpen[0].show ? "none" : "flex" }}
-          src={
-            localStorage.getItem("selectedTheme") === "light" ? logo : logoLight
-          }
-          alt=""
-          className="logo inline"
-        />
+        <picture>
+          <source media="(max-width: 640px )" srcSet={logoMobile} sizes="" />
+          <img
+            className="logo inline"
+            style={{ display: isSideBarOpen[0].show ? "flex" : "flex" }}
+            src={
+              localStorage.getItem("selectedTheme") === "light"
+                ? logo
+                : logoLight
+            }
+            alt=""
+            srcset=""
+          />
+        </picture>
         <h1 className="page-title inline">{navTitle}</h1>
+        <img className="chevron-icon" src={chevronDown} alt="" />
       </div>
       <div
         style={{ display: location.pathname === "/boards" ? "none" : "flex" }}
@@ -120,15 +131,26 @@ const TopBar = () => {
         >
           + Add New Task
         </button>
-        <img
-          className="menu-ellipsis inline cursor-pointer"
-          src={iconVerticalEllipsis}
-          alt=""
-          ref={topmenuBtnRef}
-          onClick={() => {
-            setOpenMenu(!openMenu);
-          }}
-        />
+
+        <span>
+          <button
+            style={{
+              backgroundColor: addTaskBtnState ? "#635fc740" : "#635FC7",
+            }}
+            className="add-task-mobile"
+          >
+            +
+          </button>
+          <img
+            className="menu-ellipsis inline cursor-pointer"
+            src={iconVerticalEllipsis}
+            alt=""
+            ref={topmenuBtnRef}
+            onClick={() => {
+              setOpenMenu(!openMenu);
+            }}
+          />
+        </span>
 
         <div
           ref={topBarMenu}

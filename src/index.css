@@ -9,10 +9,6 @@
     @apply !text-text-color;
   }
 
-  /* input::placeholder {
-    @apply !text-text-color;
-  } */
-
   .form-title {
     @apply !text-text-color;
   }
@@ -30,10 +26,6 @@
   select {
     @apply !bg-semi-main-body-bg !text-text-color;
   }
-
-  /* .sub-tasks label {
-    @apply !bg-main-body-bg;
-  } */
 
   .dropdown-menu {
     @apply !bg-main-body-bg;
@@ -71,7 +63,7 @@ body {
   font-family: "Plus Jakarta Sans";
   font-weight: 700;
   overflow-y: hidden;
-  overflow-x: hidden;
+  overflow-x: auto;
 }
 
 :root {
@@ -96,7 +88,13 @@ body {
   --hide-side-bar-hover: #fff;
 }
 
-/* * {
-  transition: all 0.3s ease-in-out;
-} */
-/* #2B2C37, #2B2C3780 */
+/* Hide scrollbar for Chrome, Safari and Opera */
+body::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+body {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}

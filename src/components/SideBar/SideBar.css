@@ -3,7 +3,11 @@
 
 @layer base {
   .sidebar {
-    @apply relative h-screen w-[300px] text-[#828FA3] bg-semi-main-body-bg border-r border-solid border-lines-dark;
+    @apply relative h-screen hidden w-0 min-w-0 text-[#828FA3] bg-semi-main-body-bg border-r border-solid border-lines-dark sm:min-w-[300px] sm:block sm:w-[300px];
+  }
+
+  .no-sidebar {
+    @apply w-0 min-w-0;
   }
 
   .main-container {
@@ -71,11 +75,15 @@
   }
 
   .show-sidebar-btn {
-    @apply flex items-center cursor-pointer justify-center bg-[#635fc7] w-[80px] h-[48px] rounded-r-full;
+    @apply hidden items-center cursor-pointer justify-center bg-[#635fc7] w-[80px] h-[48px] rounded-r-full sm:flex;
   }
 
   .show-sidebar-icon {
     @apply cursor-pointer;
+  }
+
+  .hideSidebar {
+    @apply flex items-center h-12 w-[276px] rounded-r-full;
   }
 }
 
@@ -97,14 +105,6 @@
 
 .hide-btn {
   transform: translateX(20px);
-}
-
-.hideSidebar {
-  display: flex;
-  align-items: center;
-  height: 48px;
-  width: 276px;
-  border-radius: 0px 100px 100px 0px;
 }
 
 .hideSidebar:hover {

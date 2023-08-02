@@ -19,7 +19,7 @@
   }
 
   .tasks-container {
-    @apply flex justify-start gap-8 text-left;
+    @apply flex justify-start gap-8 text-left mt-[66px] sm:mt-0;
   }
 
   .task {
@@ -72,5 +72,11 @@
 
   .Review {
     @apply block rounded-full p-[6px] mr-2 bg-[#67E2AE];
+  }
+}
+
+@media (max-width: 640px) {
+  .PlatformLaunch {
+    width: 100vw;
   }
 }

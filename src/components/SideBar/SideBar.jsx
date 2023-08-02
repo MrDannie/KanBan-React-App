@@ -7,6 +7,7 @@ import "./SideBar.css";
 
 import logo from "../assets/logo-dark.svg";
 import logoLight from "../assets/logo-light.svg";
+import logoMobile from "../assets/logo-mobile.svg";
 
 import boardIcon from "../assets/icon-board.svg";
 import iconLightTheme from "../assets/icon-light-theme.svg";
@@ -45,23 +46,27 @@ const SideBar = ({ children }) => {
   return (
     <div className="main-container ">
       <div
-        className="sidebar"
-        style={{
-          width: isOpen ? "300px" : "0px",
-          minWidth: isOpen ? "261px" : "0px",
-        }}
+        className={`${isOpen ? "sidebar" : "no-sidebar"}`}
+        // style={{
+        //   width: isOpen ? "300px" : "0px",
+        //   minWidth: isOpen ? "261px" : "0px",
+        // }}
       >
         <span>
-          <img
-            className="logo-section"
-            style={{ display: isOpen ? "block" : "none" }}
-            src={
-              selectedTheme === "light" || selectedTheme === null
-                ? logo
-                : logoLight
-            }
-            alt="logo"
-          />
+          <picture>
+            <source media="(max-width: 640px )" srcSet={logoMobile} sizes="" />
+            <img
+              className="logo-section"
+              style={{ display: isOpen ? "block" : "none" }}
+              src={
+                selectedTheme === "light" || selectedTheme === null
+                  ? logo
+                  : logoLight
+              }
+              alt=""
+              srcset=""
+            />
+          </picture>
         </span>
 
         <div className="navigation">
