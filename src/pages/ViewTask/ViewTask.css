@@ -9,8 +9,9 @@
   .modal-container-modal {
     @apply bg-white p-2 rounded;
   }
+
   .ViewTask-Modal {
-    @apply w-[480px] p-6;
+    @apply w-[343px] sm:w-[480px] p-6;
   }
 
   .ViewTask-Modal > * {

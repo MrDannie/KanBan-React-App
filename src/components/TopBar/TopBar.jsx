@@ -14,6 +14,7 @@ import AddTask from "../../pages/AddTask/AddTask";
 import CountContext from "../../Context";
 import { useLocation } from "react-router-dom";
 import { useParams } from "react-router-dom";
+import MobileSideBar from "../MobileSideBar/MobileSideBar";
 
 const TopBar = () => {
   const topBarMenu = useRef();
@@ -23,6 +24,7 @@ const TopBar = () => {
   const [openMenu, setOpenMenu] = useState(false);
   const [showDeleteBoardModal, setShowDeleteBoardModal] = useState(false);
   const [showEditBoardModal, setShowEditBoardModal] = useState(false);
+  const [showMobileSideBar, setShowMobileSideBar] = useState(false);
   const { boardData, addTaskBtnState } = useContext(CountContext);
   const [currentBoard, setCurrentBoard] = useState(
     localStorage.getItem("currentBoard")
@@ -84,8 +86,16 @@ const TopBar = () => {
     setAddTaskModal(true);
   };
 
+  const handleMobileSideBar = () => {
+    setShowMobileSideBar(true);
+  };
+
   const closeEditBoardModal = () => {
     setShowEditBoardModal(false);
+  };
+
+  const closeMobileSideBar = () => {
+    setShowMobileSideBar(false);
   };
 
   const handleEditModal = () => {
@@ -104,17 +114,19 @@ const TopBar = () => {
           <source media="(max-width: 640px )" srcSet={logoMobile} sizes="" />
           <img
             className="logo inline"
-            style={{ display: isSideBarOpen[0].show ? "flex" : "flex" }}
+            style={{ display: isSideBarOpen[0].show ? "none" : "flex" }}
             src={
               localStorage.getItem("selectedTheme") === "light"
                 ? logo
                 : logoLight
             }
             alt=""
-            srcset=""
           />
         </picture>
-        <h1 className="page-title inline">{navTitle}</h1>
+        <h1 className="page-title">{navTitle}</h1>
+        <h1 onClick={handleMobileSideBar} className="page-title_mobile">
+          {navTitle}
+        </h1>
         <img className="chevron-icon" src={chevronDown} alt="" />
       </div>
       <div
@@ -184,6 +196,11 @@ const TopBar = () => {
         visible={showEditBoardModal}
         closeEditBoardModal={closeEditBoardModal}
         boardColumns={boardColumns}
+      />
+
+      <MobileSideBar
+        visible={showMobileSideBar}
+        closeMobileSideBar={closeMobileSideBar}
       />
     </div>
   );

@@ -6,6 +6,7 @@ const { setGlobalState, useGlobalState, getGlobalState } = createGlobalState({
 });
 
 const setSideBar = (show) => {
+  console.log(show);
   const isSideBarOpen = getGlobalState("isSideBarOpen");
   setGlobalState("isSideBarOpen", { ...isSideBarOpen, show });
 };

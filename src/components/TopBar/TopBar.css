@@ -17,7 +17,6 @@
   .TopBar .dropdown-menu.inactive {
     @apply opacity-0 hidden translate-y-[-20px] ease-in-out;
   }
-
   .TopBar .menu-ellipsis {
     @apply p-6;
   }
@@ -35,7 +34,7 @@
   }
 
   .TopBar {
-    @apply fixed flex justify-between items-center w-screen h-16 flex-shrink-0 bg-semi-main-body-bg border-b-lines-dark border-solid pb-0 pt-0 sm:pr-6 sm:pl-11 sm:h-24 sm:relative;
+    @apply z-[1] fixed flex justify-between items-center w-[100%] h-16 flex-shrink bg-semi-main-body-bg border-b-lines-dark border-solid pb-0 pt-0 sm:pr-6 sm:pl-11 sm:h-24 sm:relative sm:z-[1];
   }
 
   .rectangle-line {
@@ -53,15 +52,16 @@
   .chevron-icon {
     @apply p-3 sm:hidden;
   }
+
+  .page-title {
+    @apply hidden cursor-pointer text-2xl capitalize text-text-color sm:cursor-auto sm:inline;
+  }
+
+  .page-title_mobile {
+    @apply cursor-pointer text-2xl capitalize text-text-color sm:hidden;
+  }
 }
 
 /* .logo {
   margin-right: 70px;
 } */
-
-.page-title {
-  color: var(--text-color);
-  font-family: "Plus Jakarta Sans";
-  font-size: 24px;
-  text-transform: capitalize;
-}

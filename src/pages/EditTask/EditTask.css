@@ -11,7 +11,7 @@
   }
 
   .EditTask {
-    @apply w-[480px] p-6;
+    @apply w-[343px] sm:w-[480px] p-6;
   }
 
   .EditTask > * {

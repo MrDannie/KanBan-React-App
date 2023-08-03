@@ -11,7 +11,7 @@
   }
 
   .DeleteTask {
-    @apply p-4 w-[480px] h-[229px];
+    @apply p-4 w-[343px] sm:w-[480px] h-[229px];
   }
 
   .DeleteTask .modal-title {

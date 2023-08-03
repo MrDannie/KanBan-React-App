@@ -83,7 +83,7 @@
   }
 
   .hideSidebar {
-    @apply flex items-center h-12 w-[276px] rounded-r-full;
+    @apply hidden sm:flex items-center h-12 w-[276px] rounded-r-full;
   }
 }
 
@@ -136,6 +136,7 @@ Learn the React Hook Form
 16. Learn react form with form Control
 17 Learn React form validation with yup
 18. Learn react hooks and spread 
+19. Learn the Diffence btw 100% and 100vh
 */
 
 /* Youtube Videos

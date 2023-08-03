@@ -19,7 +19,7 @@ import CreateNewBoard from "../../pages/CreateNewBoard/CreateNewBoard";
 import DarksMode from "../DarksMode/DarksMode";
 
 const SideBar = ({ children }) => {
-  const { boardData, updateAppData } = useContext(CountContext);
+  const { boardData } = useContext(CountContext);
 
   const [isOpen, setIsOpen] = useState(true);
   const [showNewBoardModal, setNewBoardModal] = useState(false);
@@ -64,7 +64,6 @@ const SideBar = ({ children }) => {
                   : logoLight
               }
               alt=""
-              srcset=""
             />
           </picture>
         </span>
@@ -135,7 +134,7 @@ const SideBar = ({ children }) => {
               >
                 {" "}
                 <img
-                  className="hide-sidebar-icon "
+                  className="hide-sidebar-icon"
                   src={iconHideSideBar}
                   alt="Hide Sidebar"
                 />

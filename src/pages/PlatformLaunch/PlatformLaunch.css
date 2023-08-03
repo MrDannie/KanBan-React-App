@@ -19,7 +19,7 @@
   }
 
   .tasks-container {
-    @apply flex justify-start gap-8 text-left mt-[66px] sm:mt-0;
+    @apply relative  flex justify-start gap-8 text-left mt-[66px] sm:mt-0;
   }
 
   .task {
