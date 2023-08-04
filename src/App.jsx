@@ -14,6 +14,7 @@ function App() {
   );
 
   const [addTaskBtnState, setAddTaskBtnState] = useState(true);
+  const [showSideBar, setShowSideBar] = useState(true);
 
   const updateAppData = (data) => {
     setAppBoardData(data);
@@ -21,6 +22,10 @@ function App() {
 
   const updateDateAddTaskBtn = (value) => {
     setAddTaskBtnState(value);
+  };
+
+  const updateShowSideBar = (value) => {
+    setShowSideBar(value);
   };
 
   useEffect(() => {
@@ -34,6 +39,8 @@ function App() {
         updateAppData,
         addTaskBtnState,
         updateDateAddTaskBtn,
+        showSideBar,
+        updateShowSideBar,
       }}
     >
       <SideBar>

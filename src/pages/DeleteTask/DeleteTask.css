@@ -11,7 +11,7 @@
   }
 
   .DeleteTask {
-    @apply p-4 w-[343px] sm:w-[480px] h-[229px];
+    @apply p-4 w-[343px] sm:w-[480px];
   }
 
   .DeleteTask .modal-title {
@@ -23,11 +23,15 @@
   }
 
   .DeleteTask .action-buttons {
-    @apply w-full flex text-center justify-evenly items-center;
+    @apply w-full flex flex-col text-center justify-evenly items-center;
+  }
+
+  .DeleteTask .action-buttons > * {
+    @apply m-2;
   }
 
   .DeleteTask .btn {
-    @apply py-2 px-14;
+    @apply py-2 px-14 w-[80%];
   }
 
   .DeleteTask .delete-btn {

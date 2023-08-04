@@ -83,7 +83,7 @@
   }
 
   .hideSidebar {
-    @apply hidden sm:flex items-center h-12 w-[276px] rounded-r-full;
+    @apply hidden z-[2] cursor-pointer sm:flex items-center h-12 w-[276px] rounded-r-full;
   }
 }
 
@@ -97,6 +97,7 @@
   left: 50%;
   transform: translateX(-50%);
   width: 100%;
+  z-index: 1;
 }
 
 .switch {

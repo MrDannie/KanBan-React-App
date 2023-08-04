@@ -60,6 +60,10 @@
   .page-title_mobile {
     @apply cursor-pointer text-2xl capitalize text-text-color sm:hidden;
   }
+
+  .logo-lg-screen {
+    @apply mr-20;
+  }
 }
 
 /* .logo {

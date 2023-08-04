@@ -7,7 +7,7 @@ import chevronDown from "../assets/icon-chevron-down.svg";
 import addTaskMobile from "../assets/icon-addtask-mobile.svg";
 
 import iconVerticalEllipsis from "../assets/icon-vertical-ellipsis.svg";
-import { useGlobalState } from "../../store/store";
+import { getGlobalState, setSideBar, useGlobalState } from "../../store/store";
 import DeleteBoard from "../../pages/DeleteBoard/DeleteBoard";
 import EditBoard from "../../pages/EditBoard/EditBoard";
 import AddTask from "../../pages/AddTask/AddTask";
@@ -18,17 +18,22 @@ import MobileSideBar from "../MobileSideBar/MobileSideBar";
 
 const TopBar = () => {
   const topBarMenu = useRef();
+  const largeScreenLogo = useRef();
   const topmenuBtnRef = useRef();
   const [showAddTaskModal, setAddTaskModal] = useState(false);
-  const isSideBarOpen = useGlobalState("isSideBarOpen");
+  let isSideBarOpen = getGlobalState("isSideBarOpen");
   const [openMenu, setOpenMenu] = useState(false);
   const [showDeleteBoardModal, setShowDeleteBoardModal] = useState(false);
   const [showEditBoardModal, setShowEditBoardModal] = useState(false);
   const [showMobileSideBar, setShowMobileSideBar] = useState(false);
-  const { boardData, addTaskBtnState } = useContext(CountContext);
+  const [showNavBar, setShowNavbar] = useState(false);
+
+  const { boardData, addTaskBtnState, showSideBar, updateShowSideBar } =
+    useContext(CountContext);
   const [currentBoard, setCurrentBoard] = useState(
     localStorage.getItem("currentBoard")
   );
+  console.log(isSideBarOpen);
   const [navTitle, setNavTitle] = useState("");
   const location = useLocation();
   const boardPosition = boardData.boards.findIndex((item) =>
@@ -39,6 +44,17 @@ const TopBar = () => {
   const [boardColumns, setBoardColumns] = useState(
     boardData.boards[boardPosition]
   );
+
+  // const checkScreenSize = () => {
+  //   window.addEventListener("resize", function () {
+  //     if (window.matchMedia("(min-width: 640px)").matches) {
+  //       console.log("TRUE");
+  //       return true;
+  //     } else {
+  //       return false;
+  //     }
+  //   });
+  // };
 
   useEffect(() => {
     setCurrentBoard(localStorage.getItem("currentBoard"));
@@ -56,6 +72,16 @@ const TopBar = () => {
     return () => {
       document.body.removeEventListener("mousedown", handler, true);
     };
+  }, []);
+
+  useEffect(() => {
+    window.addEventListener("resize", function () {
+      if (window.matchMedia("(max-width: 640px)").matches) {
+        setShowNavbar(true);
+      } else {
+        setShowNavbar(false);
+      }
+    });
   }, []);
 
   useEffect(() => {
@@ -106,23 +132,26 @@ const TopBar = () => {
   return (
     <div className="TopBar">
       <div
-        style={{ display: isSideBarOpen[0].show ? "none" : "flex" }}
+        style={{ display: showNavBar || showSideBar ? "none" : "flex" }}
         className="rectangle-line"
       ></div>
       <div className="logo-title-region">
-        <picture>
-          <source media="(max-width: 640px )" srcSet={logoMobile} sizes="" />
-          <img
-            className="logo inline"
-            style={{ display: isSideBarOpen[0].show ? "none" : "flex" }}
-            src={
-              localStorage.getItem("selectedTheme") === "light"
-                ? logo
-                : logoLight
-            }
-            alt=""
-          />
-        </picture>
+        <img
+          className="logo-lg-screen"
+          ref={largeScreenLogo}
+          style={{ display: showNavBar || showSideBar ? "none" : "flex" }}
+          src={
+            localStorage.getItem("selectedTheme") === "light" ? logo : logoLight
+          }
+          alt=""
+          srcSet=""
+        />
+        <img
+          className="flex sm:hidden mx-4"
+          src={logoMobile}
+          alt=""
+          srcSet=""
+        />
         <h1 className="page-title">{navTitle}</h1>
         <h1 onClick={handleMobileSideBar} className="page-title_mobile">
           {navTitle}
@@ -146,6 +175,8 @@ const TopBar = () => {
 
         <span>
           <button
+            disabled={addTaskBtnState}
+            onClick={handleAddTaskModal}
             style={{
               backgroundColor: addTaskBtnState ? "#635fc740" : "#635FC7",
             }}

@@ -19,9 +19,9 @@ import CreateNewBoard from "../../pages/CreateNewBoard/CreateNewBoard";
 import DarksMode from "../DarksMode/DarksMode";
 
 const SideBar = ({ children }) => {
-  const { boardData } = useContext(CountContext);
+  const { boardData, showSideBar, updateShowSideBar } =
+    useContext(CountContext);
 
-  const [isOpen, setIsOpen] = useState(true);
   const [showNewBoardModal, setNewBoardModal] = useState(false);
   const closeNewBoardModal = () => {
     setNewBoardModal(false);
@@ -30,13 +30,22 @@ const SideBar = ({ children }) => {
     localStorage.getItem("selectedTheme")
   );
 
+  useEffect(() => {
+    window.addEventListener("resize", function () {
+      if (window.matchMedia("(max-width: 640px)").matches) {
+        updateShowSideBar(false);
+      } else {
+        console.log("Screen less than 500px");
+      }
+    });
+  }, []);
+
   const updateThemeState = () => {
     setSelectedTheme(localStorage.getItem("selectedTheme"));
   };
 
   const toggle = () => {
-    setIsOpen(!isOpen);
-    setSideBar(!isOpen);
+    updateShowSideBar(!showSideBar);
   };
 
   const handleModal = () => {
@@ -46,7 +55,7 @@ const SideBar = ({ children }) => {
   return (
     <div className="main-container ">
       <div
-        className={`${isOpen ? "sidebar" : "no-sidebar"}`}
+        className={`${showSideBar ? "sidebar" : "no-sidebar"}`}
         // style={{
         //   width: isOpen ? "300px" : "0px",
         //   minWidth: isOpen ? "261px" : "0px",
@@ -57,7 +66,7 @@ const SideBar = ({ children }) => {
             <source media="(max-width: 640px )" srcSet={logoMobile} sizes="" />
             <img
               className="logo-section"
-              style={{ display: isOpen ? "block" : "none" }}
+              style={{ display: showSideBar ? "block" : "none" }}
               src={
                 selectedTheme === "light" || selectedTheme === null
                   ? logo
@@ -71,7 +80,7 @@ const SideBar = ({ children }) => {
         <div className="navigation">
           <div>
             <h1
-              style={{ display: isOpen ? "block" : "none" }}
+              style={{ display: showSideBar ? "block" : "none" }}
               className="title"
             >
               {`ALL BOARD (${boardData.boards.length} )`}
@@ -80,7 +89,7 @@ const SideBar = ({ children }) => {
               <NavLink
                 to={`/boards/${item.name.replace(/\s+/g, "-").toLowerCase()}`}
                 key={index}
-                style={{ display: isOpen ? "block" : "none" }}
+                style={{ display: showSideBar ? "block" : "none" }}
                 className="nav-tabs"
                 activeclassname="active"
               >
@@ -94,7 +103,7 @@ const SideBar = ({ children }) => {
               </NavLink>
             ))}
             <Link
-              style={{ display: isOpen ? "flex" : "none" }}
+              style={{ display: showSideBar ? "flex" : "none" }}
               className="nav-tabs"
               onClick={handleModal}
             >
@@ -108,7 +117,7 @@ const SideBar = ({ children }) => {
           {/* HIDE SIDE BAR SECTION */}
           <div className="theme_and_switch">
             <div
-              style={{ display: isOpen ? "flex" : "none" }}
+              style={{ display: showSideBar ? "flex" : "none" }}
               className="switch"
             >
               <img src={iconLightTheme} alt="Light Theme" />
@@ -122,13 +131,13 @@ const SideBar = ({ children }) => {
 
             {/* HIDE SIDEBAR */}
             <div
-              style={{ width: isOpen ? "276px" : "48px" }}
+              style={{ width: showSideBar ? "276px" : "48px" }}
               className="hideSidebar"
               onClick={toggle}
             >
               <span
                 style={{
-                  display: isOpen ? "block" : "none",
+                  display: showSideBar ? "block" : "none",
                 }}
                 className="hide-btn"
               >
@@ -141,7 +150,7 @@ const SideBar = ({ children }) => {
                 Hide Sidebar
               </span>
               <div
-                style={{ display: isOpen ? "none" : "flex" }}
+                style={{ display: showSideBar ? "none" : "flex" }}
                 className="show-sidebar-btn"
               >
                 <img
@@ -157,7 +166,7 @@ const SideBar = ({ children }) => {
 
       <main
         style={{
-          width: isOpen ? "calc(100% - 300px)" : "100%",
+          width: showSideBar ? "calc(100% - 300px)" : "100%",
         }}
       >
         {children}
