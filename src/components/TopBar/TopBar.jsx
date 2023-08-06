@@ -15,25 +15,24 @@ import CountContext from "../../Context";
 import { useLocation } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import MobileSideBar from "../MobileSideBar/MobileSideBar";
+import CreateNewBoard from "../../pages/CreateNewBoard/CreateNewBoard";
 
 const TopBar = () => {
   const topBarMenu = useRef();
-  const largeScreenLogo = useRef();
   const topmenuBtnRef = useRef();
   const [showAddTaskModal, setAddTaskModal] = useState(false);
-  let isSideBarOpen = getGlobalState("isSideBarOpen");
   const [openMenu, setOpenMenu] = useState(false);
   const [showDeleteBoardModal, setShowDeleteBoardModal] = useState(false);
   const [showEditBoardModal, setShowEditBoardModal] = useState(false);
   const [showMobileSideBar, setShowMobileSideBar] = useState(false);
   const [showNavBar, setShowNavbar] = useState(false);
+  const [createNewBoardModal, setCreateNewBoardModal] = useState(false);
 
   const { boardData, addTaskBtnState, showSideBar, updateShowSideBar } =
     useContext(CountContext);
   const [currentBoard, setCurrentBoard] = useState(
     localStorage.getItem("currentBoard")
   );
-  console.log(isSideBarOpen);
   const [navTitle, setNavTitle] = useState("");
   const location = useLocation();
   const boardPosition = boardData.boards.findIndex((item) =>
@@ -129,6 +128,14 @@ const TopBar = () => {
     setOpenMenu(!openMenu);
   };
 
+  const openCreateNewBoardModal = () => {
+    setCreateNewBoardModal(true);
+  };
+
+  const closeNewBoardModal = () => {
+    setCreateNewBoardModal(false);
+  };
+
   return (
     <div className="TopBar">
       <div
@@ -137,12 +144,11 @@ const TopBar = () => {
       ></div>
       <div className="logo-title-region">
         <img
-          className="logo-lg-screen"
-          ref={largeScreenLogo}
-          style={{ display: showNavBar || showSideBar ? "none" : "flex" }}
+          className="logo-lg-screen hidden sm:flex"
           src={
             localStorage.getItem("selectedTheme") === "light" ? logo : logoLight
           }
+          // style={{ display: showNavBar ? "sm:none" : "sm:flex" }}
           alt=""
           srcSet=""
         />
@@ -152,66 +158,72 @@ const TopBar = () => {
           alt=""
           srcSet=""
         />
-        <h1 className="page-title">{navTitle}</h1>
-        <h1 onClick={handleMobileSideBar} className="page-title_mobile">
-          {navTitle}
-        </h1>
-        <img className="chevron-icon" src={chevronDown} alt="" />
       </div>
-      <div
-        style={{ display: location.pathname === "/boards" ? "none" : "flex" }}
-        className="add-newtask"
-      >
-        <button
-          disabled={addTaskBtnState}
-          onClick={handleAddTaskModal}
-          className="add-task"
-          style={{
-            backgroundColor: addTaskBtnState ? "#635fc740" : "#635FC7",
-          }}
-        >
-          + Add New Task
-        </button>
 
-        <span>
-          <button
-            disabled={addTaskBtnState}
-            onClick={handleAddTaskModal}
-            style={{
-              backgroundColor: addTaskBtnState ? "#635fc740" : "#635FC7",
-            }}
-            className="add-task-mobile"
-          >
-            +
-          </button>
-          <img
-            className="menu-ellipsis inline cursor-pointer"
-            src={iconVerticalEllipsis}
-            alt=""
-            ref={topmenuBtnRef}
-            onClick={() => {
-              setOpenMenu(!openMenu);
-            }}
-          />
+      <div className="nav-content">
+        <span className="title-span">
+          <h1 className="page-title">{navTitle}</h1>
+          <h1 onClick={handleMobileSideBar} className="page-title_mobile">
+            {navTitle}
+          </h1>
+          <img className="chevron-icon" src={chevronDown} alt="" />
         </span>
 
         <div
-          ref={topBarMenu}
-          className={`dropdown-menu ${openMenu ? "active" : "inactive"}`}
+          style={{ display: location.pathname === "/boards" ? "none" : "flex" }}
+          className="add-newtask"
         >
-          <ul>
-            <li onClick={handleEditModal} className="mb-2 cursor-pointer">
-              Edit Board
-            </li>
-            <li
-              onClick={handleDeleteModal}
-              className="text-[red] cursor-pointer"
+          <span className="left-content-nav">
+            <button
+              disabled={addTaskBtnState}
+              onClick={handleAddTaskModal}
+              className="add-task"
+              style={{
+                backgroundColor: addTaskBtnState ? "#635fc740" : "#635FC7",
+              }}
             >
-              Delete Board
-            </li>
-          </ul>
+              + Add New Task
+            </button>
+            <button
+              disabled={addTaskBtnState}
+              onClick={handleAddTaskModal}
+              style={{
+                backgroundColor: addTaskBtnState ? "#635fc740" : "#635FC7",
+              }}
+              className="add-task-mobile"
+            >
+              +
+            </button>
+            <img
+              className="menu-ellipsis inline cursor-pointer"
+              src={iconVerticalEllipsis}
+              alt=""
+              ref={topmenuBtnRef}
+              onClick={() => {
+                setOpenMenu(!openMenu);
+              }}
+            />
+          </span>
+
+          <div
+            ref={topBarMenu}
+            className={`dropdown-menu ${openMenu ? "active" : "inactive"}`}
+          >
+            <ul>
+              <li onClick={handleEditModal} className="mb-2 cursor-pointer">
+                Edit Board
+              </li>
+              <li
+                onClick={handleDeleteModal}
+                className="text-[red] cursor-pointer"
+              >
+                Delete Board
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
+
       <AddTask
         visible={showAddTaskModal}
         closeAddTaskModal={closeAddTaskdModal}
@@ -232,6 +244,13 @@ const TopBar = () => {
       <MobileSideBar
         visible={showMobileSideBar}
         closeMobileSideBar={closeMobileSideBar}
+        openCreateNewBoardModal={openCreateNewBoardModal}
+      />
+
+      <CreateNewBoard
+        visible={createNewBoardModal}
+        closeMobileSideBar={closeMobileSideBar}
+        closeNewBoardModal={closeNewBoardModal}
       />
     </div>
   );

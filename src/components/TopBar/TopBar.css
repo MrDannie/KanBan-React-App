@@ -26,7 +26,7 @@
   }
 
   .TopBar .add-task {
-    @apply bg-[#635fc7] hidden py-[0px] px-[14.5px] rounded-full text-[15px] text-[#fff] mr-[30px] sm:block;
+    @apply bg-[#635fc7] hidden py-[11px] px-[16px] rounded-full text-[15px] text-[#fff] mr-[30px] sm:flex;
   }
 
   .TopBar .add-task-mobile {
@@ -34,14 +34,16 @@
   }
 
   .TopBar {
-    @apply z-[1] fixed flex justify-between items-center w-[100%] h-16 flex-shrink bg-semi-main-body-bg border-b-lines-dark border-solid pb-0 pt-0 sm:pr-6 sm:pl-11 sm:h-24 sm:relative sm:z-[1];
+    @apply z-[1] !fixed flex justify-between items-center w-[100%] h-16 flex-shrink bg-semi-main-body-bg border-b-lines-dark border-b border-solid sm:px-6 sm:h-24 sm:z-[1];
   }
 
   .rectangle-line {
-    @apply absolute hidden bg-lines-dark sm:top-0 sm:w-px sm:h-24 sm:bottom-[1.03%] sm:right-[85.42%] sm:left-[235px] sm:block;
+    @apply absolute hidden bg-lines-dark sm:top-0 sm:w-px sm:h-24 sm:bottom-[1.03%] sm:left-[200px] sm:block;
   }
 
-  .logo-title-region {
+  .logo-title-region,
+  .title-span,
+  .left-content-nav {
     @apply flex justify-center items-center;
   }
 
@@ -49,8 +51,12 @@
     @apply p-5 sm:mr-[70px];
   }
 
+  .nav-content {
+    @apply flex justify-between items-center w-full relative sm:pl-16 sm:ml-[7rem];
+  }
+
   .chevron-icon {
-    @apply p-3 sm:hidden;
+    @apply p-1 sm:hidden;
   }
 
   .page-title {
@@ -58,11 +64,7 @@
   }
 
   .page-title_mobile {
-    @apply cursor-pointer text-2xl capitalize text-text-color sm:hidden;
-  }
-
-  .logo-lg-screen {
-    @apply mr-20;
+    @apply cursor-pointer text-lg capitalize text-text-color sm:hidden;
   }
 }
 

@@ -26,6 +26,16 @@ function App() {
 
   const updateShowSideBar = (value) => {
     setShowSideBar(value);
+    const el = document.querySelector(".tasks-container");
+    const navEl = document.querySelector(".nav-content");
+
+    if (!value) {
+      el.style.marginLeft = "0px";
+      navEl.style.marginLeft = "0px";
+    } else if (value) {
+      el.style.marginLeft = "20rem";
+      navEl.style.marginLeft = "7rem";
+    }
   };
 
   useEffect(() => {

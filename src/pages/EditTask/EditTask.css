@@ -11,7 +11,7 @@
   }
 
   .EditTask {
-    @apply w-[343px] sm:w-[480px] p-6;
+    @apply max-h-[675px] sm:w-[480px] w-[343px] overflow-y-scroll p-6;
   }
 
   .EditTask > * {

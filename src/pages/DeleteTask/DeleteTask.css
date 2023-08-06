@@ -23,7 +23,7 @@
   }
 
   .DeleteTask .action-buttons {
-    @apply w-full flex flex-col text-center justify-evenly items-center;
+    @apply w-full flex flex-col sm:flex-row text-center justify-evenly items-center;
   }
 
   .DeleteTask .action-buttons > * {

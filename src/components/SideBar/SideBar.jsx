@@ -14,7 +14,6 @@ import iconLightTheme from "../assets/icon-light-theme.svg";
 import iconDarkTheme from "../assets/icon-dark-theme.svg";
 import iconHideSideBar from "../assets/icon-hide-sidebar.svg";
 import iconShowSideBar from "../assets/icon-show-sidebar.svg";
-import { setSideBar } from "../../store/store";
 import CreateNewBoard from "../../pages/CreateNewBoard/CreateNewBoard";
 import DarksMode from "../DarksMode/DarksMode";
 
@@ -165,9 +164,9 @@ const SideBar = ({ children }) => {
       </div>
 
       <main
-        style={{
-          width: showSideBar ? "calc(100% - 300px)" : "100%",
-        }}
+      // style={{
+      //   width: showSideBar ? "calc(100% - 300px)" : "100%",
+      // }}
       >
         {children}
       </main>

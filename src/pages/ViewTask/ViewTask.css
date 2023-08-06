@@ -11,7 +11,7 @@
   }
 
   .ViewTask-Modal {
-    @apply w-[343px] sm:w-[480px] p-6;
+    @apply max-h-[557px] overflow-y-scroll overflow-x-hidden w-[343px] sm:w-[480px] p-6;
   }
 
   .ViewTask-Modal > * {
@@ -71,7 +71,7 @@
   }
 
   .ViewTask-Modal .dropdown-menu {
-    @apply h-24 px-4 w-48 flex items-start justify-center flex-col gap-2 rounded-lg absolute -right-1/4 top-14 bg-white text-[#828FA3] drop-shadow-md text-[15px];
+    @apply h-24 px-4 w-48 flex items-start justify-center flex-col gap-2 rounded-lg absolute -right-5 top-14 bg-white text-[#828FA3] drop-shadow-md text-[15px];
   }
 
   /* .ViewTask-Modal .dropdown-menu::before {

@@ -9,7 +9,11 @@ import iconLightTheme from "../assets/icon-light-theme.svg";
 import iconDarkTheme from "../assets/icon-dark-theme.svg";
 import DarksModeMobile from "../DarksModeMobile/DarksModeMobile";
 
-const MobileSideBar = ({ visible, closeMobileSideBar }) => {
+const MobileSideBar = ({
+  visible,
+  closeMobileSideBar,
+  openCreateNewBoardModal,
+}) => {
   const location = useLocation();
   const { boardData } = useContext(CountContext);
   const [selectedTheme, setSelectedTheme] = useState(
@@ -24,9 +28,6 @@ const MobileSideBar = ({ visible, closeMobileSideBar }) => {
     if (e.target.id === "modal-container") closeMobileSideBar();
   };
 
-  const handleModal = () => {
-    setNewBoardModal(true);
-  };
   const updateThemeStateMob = () => {
     setSelectedTheme(localStorage.getItem("selectedTheme"));
   };
@@ -34,6 +35,11 @@ const MobileSideBar = ({ visible, closeMobileSideBar }) => {
   const toggle = () => {
     setIsOpen(!isOpen);
     setSideBar(!isOpen);
+  };
+
+  const handleCreateNewBoardModal = () => {
+    closeMobileSideBar();
+    openCreateNewBoardModal();
   };
 
   if (!visible) return null;
@@ -74,7 +80,7 @@ const MobileSideBar = ({ visible, closeMobileSideBar }) => {
                     </span>
                   </NavLink>
                 ))}
-                <Link className="nav-tabs" onClick={handleModal}>
+                <Link className="nav-tabs" onClick={handleCreateNewBoardModal}>
                   <span className="nav-tab__content_mobile add-board-btn">
                     <img className="nav-icon" src={boardIcon} alt="boardIcon" />
                     + Create New Board

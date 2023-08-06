@@ -3,7 +3,7 @@
 
 @layer base {
   .sidebar {
-    @apply relative h-screen hidden w-0 min-w-0 text-[#828FA3] bg-semi-main-body-bg border-r border-solid border-lines-dark sm:min-w-[300px] sm:block sm:w-[300px];
+    @apply fixed h-screen hidden w-0 min-w-0 text-[#828FA3] bg-semi-main-body-bg border-r border-solid border-lines-dark sm:min-w-[300px] sm:block sm:w-[300px] z-[20];
   }
 
   .no-sidebar {
@@ -54,9 +54,9 @@
     @apply mr-[20px] cursor-pointer inline;
   }
 
-  /* main {
-    @apply w-full;
-  } */
+  main {
+    @apply w-full overflow-x-scroll overflow-y-scroll;
+  }
 
   .nav-tab__content {
     @apply flex items-center text-left ml-[45px];
@@ -92,7 +92,7 @@
 }
 
 .theme_and_switch {
-  position: absolute;
+  position: fixed;
   bottom: 3%;
   left: 50%;
   transform: translateX(-50%);
@@ -113,9 +113,9 @@
   cursor: pointer;
 }
 
-main {
+/* main {
   width: calc(100% - 300px);
-}
+} */
 
 /* CRUCIAL THINGS I LEARNT I WANT TO INTERNALISE:
 1. Min Width of the Side

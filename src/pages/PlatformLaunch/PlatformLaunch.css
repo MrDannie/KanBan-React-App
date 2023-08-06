@@ -3,7 +3,7 @@
 
 @layer base {
   .PlatformLaunch {
-    @apply p-7;
+    @apply p-7 w-screen;
   }
 
   .add-new-column-btn {
@@ -19,7 +19,7 @@
   }
 
   .tasks-container {
-    @apply relative  flex justify-start gap-8 text-left mt-[66px] sm:mt-0;
+    @apply relative ml-0 sm:ml-80 flex justify-start gap-8 text-left mt-[90px];
   }
 
   .task {
@@ -75,8 +75,8 @@
   }
 }
 
-@media (max-width: 640px) {
+/* @media (max-width: 640px) {
   .PlatformLaunch {
     width: 100vw;
   }
-}
+} */
