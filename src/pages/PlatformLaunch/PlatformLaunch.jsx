@@ -2,13 +2,13 @@ import React, { useState, useEffect, useContext } from "react";
 import PropTypes from "prop-types";
 import "./PlatformLaunch.css";
 
-import { showModal } from "../../store/store";
 import ViewTask from "../ViewTask/ViewTask";
 import EditTask from "../EditTask/EditTask";
 import DeleteTask from "../DeleteTask/DeleteTask";
 import CountContext from "../../Context";
 import EditBoard from "../EditBoard/EditBoard";
 import { useLocation, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const PlatformLaunch = (props) => {
   const { boardData, addTaskBtnState, updateDateAddTaskBtn } =
@@ -21,6 +21,7 @@ const PlatformLaunch = (props) => {
   const chars = { "/": "", "-": " " };
   const { boardName } = useParams();
   const location = useLocation();
+  const navigate = useNavigate();
 
   const boardPosition = boardData.boards.findIndex((item) =>
     item.name
@@ -75,9 +76,8 @@ const PlatformLaunch = (props) => {
   };
 
   const showTaskDetails = (id, item) => {
-    setModalData(item);
-    setSubTasks(item.subtasks);
-    showModal(!showTaskDetailModal);
+    setModalData({ ...item });
+    setSubTasks([...item.subtasks]);
     setTaskDetailsModal(!showTaskDetailModal);
   };
 

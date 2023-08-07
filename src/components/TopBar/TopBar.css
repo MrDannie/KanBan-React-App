@@ -18,7 +18,7 @@
     @apply opacity-0 hidden translate-y-[-20px] ease-in-out;
   }
   .TopBar .menu-ellipsis {
-    @apply p-6;
+    @apply p-6 sm:p-0;
   }
 
   .TopBar .add-newtask {
@@ -26,7 +26,7 @@
   }
 
   .TopBar .add-task {
-    @apply bg-[#635fc7] hidden py-[11px] px-[16px] rounded-full text-[15px] text-[#fff] mr-[30px] sm:flex;
+    @apply bg-[#635fc7] m-4 hidden py-[11px] px-[16px] rounded-full sm:text-[15px] text-[#fff] sm:flex;
   }
 
   .TopBar .add-task-mobile {
@@ -38,7 +38,7 @@
   }
 
   .rectangle-line {
-    @apply absolute hidden bg-lines-dark sm:top-0 sm:w-px sm:h-24 sm:bottom-[1.03%] sm:left-[200px] sm:block;
+    @apply absolute hidden bg-lines-dark sm:top-0 sm:w-px sm:h-24 sm:bottom-[1.03%] sm:left-[165px] md:left-[180px] lg:left-[200px] sm:block;
   }
 
   .logo-title-region,
@@ -52,7 +52,7 @@
   }
 
   .nav-content {
-    @apply flex justify-between items-center w-full relative sm:pl-16 sm:ml-[7rem];
+    @apply flex justify-between items-center w-full relative sm:pl-10 md:pl-16 sm:ml-[7rem];
   }
 
   .chevron-icon {
@@ -60,7 +60,7 @@
   }
 
   .page-title {
-    @apply hidden cursor-pointer text-2xl capitalize text-text-color sm:cursor-auto sm:inline;
+    @apply hidden cursor-pointer sm:text-[20px] capitalize text-text-color sm:cursor-auto sm:inline;
   }
 
   .page-title_mobile {

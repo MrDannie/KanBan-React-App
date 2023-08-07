@@ -3,7 +3,7 @@
 
 @layer base {
   .sidebar {
-    @apply fixed h-screen hidden w-0 min-w-0 text-[#828FA3] bg-semi-main-body-bg border-r border-solid border-lines-dark sm:min-w-[300px] sm:block sm:w-[300px] z-[20];
+    @apply fixed h-screen hidden w-0 min-w-0 text-[#828FA3] bg-semi-main-body-bg border-r border-solid border-lines-dark  sm:block sm:w-[260px] md:w-[300px] z-[20];
   }
 
   .no-sidebar {
@@ -35,7 +35,7 @@
   }
 
   .switch {
-    @apply flex w-[251px] h-[48px] justify-center items-center mb-[25px] bg-main-body-bg py-[15px] px-[50px] rounded-md;
+    @apply flex md:w-[251px] sm:w-[220px] h-[48px] justify-center items-center mb-[25px] bg-main-body-bg py-[15px] px-[50px] rounded-md;
   }
 
   .toggler {
@@ -83,7 +83,7 @@
   }
 
   .hideSidebar {
-    @apply hidden z-[2] cursor-pointer sm:flex items-center h-12 w-[276px] rounded-r-full;
+    @apply hidden z-[2] cursor-pointer sm:flex items-center h-12 max-w-[245px] rounded-r-full;
   }
 }
 

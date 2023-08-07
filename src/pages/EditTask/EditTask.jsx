@@ -4,6 +4,7 @@ import "./EditTask.css";
 import removeSubtask from "../../components/assets/icon-cross.svg";
 import CountContext from "../../Context";
 import { useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const EditTask = ({ selectedTask, visible, closeEditModal, subtasks }) => {
   const [formValues, setFormValues] = useState(selectedTask);
@@ -11,6 +12,7 @@ const EditTask = ({ selectedTask, visible, closeEditModal, subtasks }) => {
   const { boardData, updateAppData } = useContext(CountContext);
   const location = useLocation();
   const chars = { "/": "", "-": " " };
+  const navigate = useNavigate();
 
   useEffect(() => {
     setFormValues(selectedTask);
@@ -87,6 +89,7 @@ const EditTask = ({ selectedTask, visible, closeEditModal, subtasks }) => {
 
     updateAppData(formData);
     closeEditModal();
+    navigate(`${location.pathname}`);
   };
 
   if (!visible) return null;

@@ -130,7 +130,7 @@ const SideBar = ({ children }) => {
 
             {/* HIDE SIDEBAR */}
             <div
-              style={{ width: showSideBar ? "276px" : "48px" }}
+              style={{ width: showSideBar ? "245px" : "48px" }}
               className="hideSidebar"
               onClick={toggle}
             >

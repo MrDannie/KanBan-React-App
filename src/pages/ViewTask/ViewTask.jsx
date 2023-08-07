@@ -13,12 +13,13 @@ const ViewTask = ({
   showDeleteTask,
   subtasks,
 }) => {
+  console.log(subtasks);
   const menuRef = useRef();
   const menuBtnRef = useRef();
   const [openMenu, setOpenMenu] = useState(false);
   const { boardData, updateAppData } = useContext(CountContext);
-  const [subtaskStatus, setSubtaskStatus] = useState(subtasks);
-  const [formValues, setFormValues] = useState(selectedTask);
+  const [subtaskStatus, setSubtaskStatus] = useState([...subtasks]);
+  const [formValues, setFormValues] = useState({ ...selectedTask });
   const [status, setStatus] = useState(selectedTask.status);
   const chars = { "/": "", "-": " " };
 
@@ -37,8 +38,8 @@ const ViewTask = ({
     return () => {
       document.body.removeEventListener("mousedown", handler, true);
     };
-  }, [selectedTask]);
-  1;
+  }, [selectedTask, subtaskStatus]);
+
   const openEditModal = () => {
     showEditTask();
   };
