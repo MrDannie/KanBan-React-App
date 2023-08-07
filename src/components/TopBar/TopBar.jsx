@@ -109,13 +109,13 @@ const TopBar = () => {
 
   const closeAddTaskdModal = () => {
     const el = document.querySelector(".sidebar");
-    el.style.zIndex = "21";
+    el ? (el.style.zIndex = "21") : null;
     setAddTaskModal(false);
   };
 
   const handleAddTaskModal = () => {
     const el = document.querySelector(".sidebar");
-    el.style.zIndex = "20";
+    el ? (el.style.zIndex = "20") : null;
     setAddTaskModal(true);
   };
 
