@@ -26,7 +26,7 @@
   }
 
   .TopBar .add-task {
-    @apply bg-[#635fc7] m-4 hidden py-[11px] px-[16px] rounded-full sm:text-[15px] text-[#fff] sm:flex;
+    @apply bg-[#635fc7] m-4 hidden py-[11px] px-[16px] rounded-full sm:text-[10px] text-[#fff] sm:flex md:text-[15px];
   }
 
   .TopBar .add-task-mobile {
