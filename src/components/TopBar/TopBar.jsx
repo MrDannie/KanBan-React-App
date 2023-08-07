@@ -96,13 +96,13 @@ const TopBar = () => {
 
   const closeDeleteBoardModal = () => {
     const el = document.querySelector(".sidebar");
-    el.style.zIndex = "21";
+    el ? (el.style.zIndex = "21") : null;
     setShowDeleteBoardModal(false);
   };
 
   const handleDeleteModal = () => {
     const el = document.querySelector(".sidebar");
-    el.style.zIndex = "20";
+    el ? (el.style.zIndex = "20") : null;
     setShowDeleteBoardModal(true);
     setOpenMenu(!openMenu);
   };
@@ -125,7 +125,7 @@ const TopBar = () => {
 
   const closeEditBoardModal = () => {
     const el = document.querySelector(".sidebar");
-    el.style.zIndex = "21";
+    el ? (el.style.zIndex = "21") : null;
     setShowEditBoardModal(false);
   };
 
@@ -135,7 +135,7 @@ const TopBar = () => {
 
   const handleEditModal = () => {
     const el = document.querySelector(".sidebar");
-    el.style.zIndex = "20";
+    el ? (el.style.zIndex = "20") : null;
     setShowEditBoardModal(true);
     setOpenMenu(!openMenu);
   };
