@@ -53,13 +53,7 @@ const SideBar = ({ children }) => {
 
   return (
     <div className="main-container ">
-      <div
-        className={`${showSideBar ? "sidebar" : "no-sidebar"}`}
-        // style={{
-        //   width: isOpen ? "300px" : "0px",
-        //   minWidth: isOpen ? "261px" : "0px",
-        // }}
-      >
+      <div className={`${showSideBar ? "sidebar" : "no-sidebar"}`}>
         <span>
           <picture>
             <source media="(max-width: 640px )" srcSet={logoMobile} sizes="" />
@@ -162,14 +156,7 @@ const SideBar = ({ children }) => {
           </div>
         </div>
       </div>
-
-      <main
-      // style={{
-      //   width: showSideBar ? "calc(100% - 300px)" : "100%",
-      // }}
-      >
-        {children}
-      </main>
+      <main>{children}</main>
       <CreateNewBoard
         closeNewBoardModal={closeNewBoardModal}
         visible={showNewBoardModal}

@@ -34,7 +34,7 @@
   }
 
   .TopBar {
-    @apply z-[1] !fixed flex justify-between items-center w-[100%] h-16 flex-shrink bg-semi-main-body-bg border-b-lines-dark border-b border-solid sm:px-6 sm:h-24 sm:z-[1];
+    @apply z-[1] !fixed flex justify-between items-center w-[100%] h-16 flex-shrink bg-semi-main-body-bg border-b-lines-dark border-b border-solid sm:px-6 sm:h-24 sm:z-[20];
   }
 
   .rectangle-line {

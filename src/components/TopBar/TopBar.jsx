@@ -95,19 +95,27 @@ const TopBar = () => {
   }, [location]);
 
   const closeDeleteBoardModal = () => {
+    const el = document.querySelector(".sidebar");
+    el.style.zIndex = "21";
     setShowDeleteBoardModal(false);
   };
 
   const handleDeleteModal = () => {
+    const el = document.querySelector(".sidebar");
+    el.style.zIndex = "20";
     setShowDeleteBoardModal(true);
     setOpenMenu(!openMenu);
   };
 
   const closeAddTaskdModal = () => {
+    const el = document.querySelector(".sidebar");
+    el.style.zIndex = "21";
     setAddTaskModal(false);
   };
 
   const handleAddTaskModal = () => {
+    const el = document.querySelector(".sidebar");
+    el.style.zIndex = "20";
     setAddTaskModal(true);
   };
 
@@ -116,6 +124,8 @@ const TopBar = () => {
   };
 
   const closeEditBoardModal = () => {
+    const el = document.querySelector(".sidebar");
+    el.style.zIndex = "21";
     setShowEditBoardModal(false);
   };
 
@@ -124,6 +134,8 @@ const TopBar = () => {
   };
 
   const handleEditModal = () => {
+    const el = document.querySelector(".sidebar");
+    el.style.zIndex = "20";
     setShowEditBoardModal(true);
     setOpenMenu(!openMenu);
   };

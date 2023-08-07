@@ -3,7 +3,7 @@
 
 @layer base {
   .sidebar {
-    @apply fixed h-screen hidden w-0 min-w-0 text-[#828FA3] bg-semi-main-body-bg border-r border-solid border-lines-dark  sm:block sm:w-[260px] md:w-[300px] z-[20];
+    @apply fixed h-screen hidden w-0 min-w-0 text-[#828FA3] bg-semi-main-body-bg border-r border-solid border-lines-dark  sm:block sm:w-[260px] md:w-[300px] z-[21];
   }
 
   .no-sidebar {
