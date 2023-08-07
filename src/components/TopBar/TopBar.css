@@ -60,11 +60,11 @@
   }
 
   .page-title {
-    @apply hidden cursor-pointer sm:text-[20px] capitalize text-text-color sm:cursor-auto sm:inline;
+    @apply hidden cursor-pointer md:text-[20px] capitalize text-text-color sm:cursor-auto md:inline;
   }
 
   .page-title_mobile {
-    @apply cursor-pointer text-lg capitalize text-text-color sm:hidden;
+    @apply cursor-pointer text-lg capitalize text-text-color md:hidden;
   }
 }
 
